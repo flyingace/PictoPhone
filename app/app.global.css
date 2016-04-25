@@ -1,12 +1,12 @@
 body {
-}
-
-#root {
-  width: 1200px;
-  height: 600px;
-  background-color: #232C39;
-  overflow: hidden;
   position: relative;
+  color: white;
+  height: 100vh;
+  background-color: #232C39;
+  background-image: linear-gradient(45deg, rgba(0, 216, 255, .5) 10%, rgba(0, 1, 127, .7));
+  font-family: Arial, Helvetica, Helvetica Neue;
+  overflow-y: hidden;
+  -webkit-app-region: drag;
 }
 
 h2 {

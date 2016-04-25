@@ -18,9 +18,11 @@ app.on('window-all-closed', () => {
 
 app.on('ready', () => {
   mainWindow = new BrowserWindow({
-    show: false,
-    width: 1024,
-    height: 728
+    frame: false,
+    resizable: false,
+    width: 1200,
+    height: 600,
+    kiosk: true
   });
 
   mainWindow.loadURL(`file://${__dirname}/app/app.html`);
