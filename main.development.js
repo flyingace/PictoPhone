@@ -22,7 +22,7 @@ app.on('ready', () => {
     resizable: false,
     width: 1024,
     height: 600,
-    kiosk: true
+    kiosk: false //perhaps eventually, but right now not so much!
   });
 
   mainWindow.loadURL(`file://${__dirname}/app/app.html`);
