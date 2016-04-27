@@ -1,8 +1,8 @@
 # PictoPhone (working name)
 
-An app being built for display on a touch screen attached to a Raspberry Pi.
+An app being built in [Electron](http://electron.atom.io/) for display on a touch screen attached to a Raspberry Pi.
 
-As a starting point we have used electron-react-boilerplate (https://github.com/chentsulin/electron-react-boilerplate).
+As a starting point we have used [electron-react-boilerplate](https://github.com/chentsulin/electron-react-boilerplate).
 
 ## Install
 
