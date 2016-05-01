@@ -9,9 +9,9 @@ import ThankYouPage from './containers/ThankYouPage';
 
 export default (
     <Route path="/" component={App}>
-        <IndexRoute component={WelcomePage}/>
-        <Route path="/describe" component={DescribePage}/>
-        <Route path="/draw" component={DrawPage}/>
-        <Route path="/thankYou" component={ThankYouPage}/>
+        <IndexRoute component={WelcomePage} />
+        <Route path="/describe" component={DescribePage} />
+        <Route path="/draw" component={DrawPage} />
+        <Route path="/thankYou" component={ThankYouPage} />
     </Route>
 );

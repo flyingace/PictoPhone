@@ -1,6 +1,5 @@
 import React from 'react';
-
-import './Describe.scss';
+import styles from './Describe.css';
 
 /**
  * Describe class.
@@ -28,7 +27,12 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
      */
     render() {
         return (
-            <div className="describe" />
+            <div className={styles.describe}>
+                <h1>Describe</h1>
+                <img alt="Write a description of this" src="http://lorempixel.com/800/450/"/>
+                <input className={styles.descriptionInput}/>
+                <button className={styles.okButton}>OK</button>
+            </div>
         );
     }
 });
