@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { IndexLink, Link } from 'react-router';
 
 export default class App extends Component {
   static propTypes = {
@@ -17,6 +18,12 @@ export default class App extends Component {
             }
           })()
         }
+          <ul className="temp-nav">
+              <li><IndexLink to="/">Welcome Page</IndexLink></li>
+              <li><Link to="describe">Describe Page</Link></li>
+              <li><Link to="draw">Draw Page</Link></li>
+              <li><Link to="thankYou">Thank You Page</Link></li>
+          </ul>
       </div>
     );
   }

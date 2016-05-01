@@ -1,6 +1,39 @@
 // Stylesheet for describe Component
-@import '../../../src/styles/tools';
 
 .describe {
-    display: block;
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+
+  h1 {
+	margin: 0;
+	padding: 0;
+  }
+
+  img {
+	width: 800px;
+	height: 450px;
+	margin: 0 112px 10px 112px;
+	display: block;
+
+	&:after {
+	  clear: both;
+	  content:'';
+	}
+  }
+
+  .descriptionInput {
+	width: 730px;
+	height: 20px;
+	margin: 0 10px 0 112px;
+	border: none;
+  }
+
+  .okButton {
+	width: 60px;
+	height: 20px;
+	border-radius: 0;
+  }
 }
+

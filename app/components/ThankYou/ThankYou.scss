@@ -1,6 +1,13 @@
 // Stylesheet for thank-you Component
-@import '../../../src/styles/tools';
 
-.thank-you {
-    display: block;
+.thankYou {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  h1 {
+	margin: 0;
+	padding: 0;
+  }
 }
