@@ -1,8 +1,6 @@
 import React from 'react';
 
 import './ThankYou.scss';
-import Key from '../Key/Key.jsx';
-import Keyboard from '../Keyboard/Keyboard.jsx';
 
 /**
  * ThankYou class.
@@ -33,8 +31,6 @@ const ThankYou = React.createClass(/** @lends ThankYou.prototype */{
             <div className="thankYou">
               <h1>Thank You</h1>
                 <p>You're done! Check your email later for a link to the completed game!</p>
-                <Key letterValue="A" />
-                <Keyboard />
             </div>
         );
     }
