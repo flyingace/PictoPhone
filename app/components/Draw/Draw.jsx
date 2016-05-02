@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Draw.css';
+import './Draw.scss';
 
 /**
  * Draw class.
@@ -27,7 +27,7 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
    */
   render() {
     return (
-      <div className={styles.draw}>
+      <div className="draw">
         <h1>Draw</h1>
       </div>
     );

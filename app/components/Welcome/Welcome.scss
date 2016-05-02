@@ -1,18 +1,33 @@
 // Stylesheet for welcome Component
 
 .welcome {
-  display: block;
-  width: 100%;
-  padding: 0;
-  margin: 0;
+    display: block;
+    width: 100%;
+    padding: 20px;
+    margin: 0;
 
-  h1 {
-	margin: 0;
-	padding: 0;
-  }
+    h1 {
+        margin: 0;
+        padding: 0;
+    }
 
-  .leftSide, .rightSide {
-	width: 50%;
-	float: left;
-  }
+    .leftSide, .rightSide {
+        width: 50%;
+        float: left;
+    }
+
+    .leftSide {
+        padding-right: 30px;
+    }
+
+    .employee-list {
+        border-top: 1px solid #333;
+        -webkit-padding-start: 0;
+
+        li {
+            border-bottom: 1px solid #333;
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+    }
 }
