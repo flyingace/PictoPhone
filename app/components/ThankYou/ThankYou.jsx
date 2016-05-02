@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './ThankYou.css';
+import './ThankYou.scss';
 
 /**
  * ThankYou class.
@@ -28,7 +28,7 @@ const ThankYou = React.createClass(/** @lends ThankYou.prototype */{
      */
     render() {
         return (
-            <div className={styles.thankYou}>
+            <div className="thankYou">
               <h1>Thank You</h1>
                 <p>You're done! Check your email later for a link to the completed game!</p>
             </div>

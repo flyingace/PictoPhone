@@ -1,56 +1,122 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+
+*{
+    font-family: 'Lato', Calibri, Arial, sans-serif;
+    font-weight: 300;
+    box-sizing: border-box;
+}
+
+/**
+ * http://nicolasgallagher.com/micro-clearfix-hack/
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    contenteditable attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that are clearfixed.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+    *zoom: 1;
+}
+
 body {
-  position: relative;
-  color: white;
-  height: 100vh;
-  background-color: #232C39;
-  background-image: linear-gradient(45deg, rgba(0, 216, 255, .5) 10%, rgba(0, 1, 127, .7));
-  font-family: Arial, Helvetica, Helvetica Neue, sans-serif;
-  overflow-y: hidden;
-  margin: 0;
-  padding: 0;
-  /*-webkit-app-region: drag;*/
+    position: relative;
+    color: #333;
+    height: 100vh;
+    font-size: 18px;
+    background-color: #fff;
+    font-family: 'Lato', Calibri, Arial, sans-serif;
+    overflow-y: hidden;
+    -webkit-app-region: drag;
+}
+
+
+
+h1, h2 {
+    margin: 0;
+    font-weight: 400;
+    letter-spacing: -.025em;
+    color: #333;
+}
+
+h1 {
+    font-size: 3.5rem;
 }
 
 h2 {
-  margin: 0;
-  font-size: 2.25rem;
-  font-weight: bold;
-  letter-spacing: -.025em;
-  color: #fff;
+    font-size: 2rem;
 }
 
 p {
-  font-size: 16px;
+    font-size: 18px;
 }
 
 li {
-  list-style: none;
+    list-style: none;
 }
 
 a {
-  color: white;
-  opacity: .75;
-  text-decoration: none;
+    color: #09c;
+    opacity: .75;
+    text-decoration: none;
 }
 
 a:hover {
-  opacity: 1;
-  text-decoration: none;
-  cursor: pointer;
+    opacity: 1;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.button {
+    background: #09c;
+    padding: 10px 15px;
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+    vertical-align: middle;
+    border: none;
+}
+
+.button:hover {
+    background: #28597a;
+}
+
+.button:active {
+    background: #1b435e;
 }
 
 .temp-nav {
-  position: absolute;
-  bottom: 1rem;
+    position: absolute;
+    bottom: 1rem;
 
-  li {
-	float: left;
+    li {
+        float: left;
 
-	&:after {
-	  content: '\00a0|\00a0';
-	}
-	&:last-of-type:after {
-	  content: '';
-	}
-  }
+    	&:after {
+    	  content: '\00a0|\00a0';
+    	}
+
+    	&:last-of-type:after {
+    	  content: '';
+    	}
+    }
 }
