@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './Key.css';
+import './Key.scss';
 
 /**
  * Key class.
@@ -17,8 +17,16 @@ const Key = React.createClass(/** @lends Key.prototype */{
      * @property {Object} propTypes - An object used to validate props being passed into the components
      */
     propTypes: {
-        letterValue: React.PropTypes.string
+        letterValue: React.PropTypes.string,
+        onKeyPressed: React.PropTypes.func
     },
+
+    onKeyPressed() {
+        if (this.props.onKeyPressed) {
+            this.props.onKeyPressed(this.props.letterValue);
+        }
+    },
+
 
     /**
      * Renders the component based on the properties passed in from a parent
@@ -28,7 +36,7 @@ const Key = React.createClass(/** @lends Key.prototype */{
      */
     render() {
         return (
-            <div className={styles.key}>{this.props.letterValue}</div>
+            <div className="key" onClick={this.onKeyPressed}>{this.props.letterValue}</div>
         );
     }
 });
