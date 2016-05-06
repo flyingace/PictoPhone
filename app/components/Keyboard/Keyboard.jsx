@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
+import {map} from 'lodash';
 
 import Key from '../Key/Key.jsx';
 
@@ -38,11 +38,11 @@ const Keyboard = React.createClass(/** @lends Keyboard.prototype */{
     },
 
     createKey(letter) {
-        return <Key letterValue={ { letter } } />;
+        return <Key letterValue={ letter }/>;
     },
 
     renderRow(keysInRow) {
-        _.map(keysInRow, createKey);
+        return map(keysInRow, this.createKey);
     },
 
     /**
@@ -54,7 +54,11 @@ const Keyboard = React.createClass(/** @lends Keyboard.prototype */{
     render() {
         return (
             <div className="keyboard">
-                {this.renderRow(this.props.rowOne)}
+                <div className="keyboard-row cf">{ this.renderRow(this.props.rowOne) }</div>
+                <div className="keyboard-row cf">{ this.renderRow(this.props.rowTwo) }</div>
+                <div className="keyboard-row cf">{ this.renderRow(this.props.rowThree) }</div>
+                <div className="keyboard-row cf">{ this.renderRow(this.props.rowFour) }</div>
+                <div className="keyboard-row cf">{ this.renderRow(this.props.rowFive) }</div>
             </div>
         );
     }
