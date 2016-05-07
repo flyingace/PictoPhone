@@ -2,13 +2,19 @@
 
 .nameList {
     ul {
-        border-top: 1px solid #333;
         -webkit-padding-start: 0;
+        height: 300px;
+        overflow-y: scroll;
 
         li {
-            border-bottom: 1px solid #333;
-            padding-top: 15px;
-            padding-bottom: 15px;
+        	border-left: 5px solid #333;
+            background-color: #f7f7f7;
+            padding: 15px;
+            margin-bottom: 5px;
+
+            &:hover {
+            	background-color: #eee;
+            }
         }
     }
 }

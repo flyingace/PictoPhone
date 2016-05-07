@@ -37,16 +37,15 @@ body {
 h1, h2 {
     margin: 0;
     font-weight: 400;
-    letter-spacing: -.025em;
     color: $gray;
 }
 
 h1 {
-    font-size: 3.5rem;
+    font-size: 56px;
 }
 
 h2 {
-    font-size: 2rem;
+    font-size: 40px;
 }
 
 p {
@@ -81,6 +80,10 @@ a:hover {
     text-decoration: none;
     vertical-align: middle;
     border: none;
+
+    &.full {
+        width: 100%;
+    }
 }
 
 .button:hover {

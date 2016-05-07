@@ -35,8 +35,10 @@ const NameList = React.createClass(/** @lends NameList.prototype */{
                     <li>Dennis Fung</li>
                     <li>Eran Bendheim</li>
                     <li>Lei Zhu</li>
+                    <li>Bobby A</li>
+                    <li>Bobby B</li>
                 </ul>
-                <button className="button">OK</button>
+                <button className="button full">OK</button>
             </div>
         );
     }
