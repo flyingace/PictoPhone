@@ -29,16 +29,24 @@ const Keyboard = React.createClass(/** @lends Keyboard.prototype */{
 
     getDefaultProps() {
         return {
-            rowOne: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
-            rowTwo: ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-            rowThree: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
-            rowFour: ['z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.'],
-            rowFive: ['spacebar', 'shift']
+            rowOne: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', 'delete'],
+            rowTwo: ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '!', '?'],
+            rowThree: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', "'", '"'],
+            rowFour: ['z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '&'],
+            rowFive: ['shift', 'spacebar', 'enter']
         };
     },
 
     createKey(letter) {
-        return <Key letterValue={ letter }/>;
+        let keyComponent;
+
+        if (letter.length > 1) {
+            keyComponent = <Key letterValue={ letter } addlClass={ letter } />;
+        } else {
+            keyComponent = <Key letterValue={ letter } />;
+        }
+
+        return keyComponent;
     },
 
     renderRow(keysInRow) {
@@ -54,11 +62,11 @@ const Keyboard = React.createClass(/** @lends Keyboard.prototype */{
     render() {
         return (
             <div className="keyboard">
-                <div className="keyboard-row cf">{ this.renderRow(this.props.rowOne) }</div>
-                <div className="keyboard-row cf">{ this.renderRow(this.props.rowTwo) }</div>
-                <div className="keyboard-row cf">{ this.renderRow(this.props.rowThree) }</div>
-                <div className="keyboard-row cf">{ this.renderRow(this.props.rowFour) }</div>
-                <div className="keyboard-row cf">{ this.renderRow(this.props.rowFive) }</div>
+                <div className="keyboard-row">{ this.renderRow(this.props.rowOne) }</div>
+                <div className="keyboard-row">{ this.renderRow(this.props.rowTwo) }</div>
+                <div className="keyboard-row">{ this.renderRow(this.props.rowThree) }</div>
+                <div className="keyboard-row">{ this.renderRow(this.props.rowFour) }</div>
+                <div className="keyboard-row">{ this.renderRow(this.props.rowFive) }</div>
             </div>
         );
     }

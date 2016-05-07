@@ -1,36 +1,48 @@
 // Stylesheet for key Component
 
-$keywidth: 70px;
+$key-width: 54px;
+$key-margin: 3px;
+$key-border-width: 2px;
 
 .key {
-  display: block;
-  float: left;
-  border: 2px solid black;
-  width: $keywidth;
-  height: 70px;
-  border-radius: 10px;
-  color: black;
-  font-size: 36px;
-  line-height: 70px;
-  text-align: center;
-  background-color: rgba(255,255,255,.8);
-  margin: 5px;
-  cursor: pointer;
-  -webkit-user-select: none;
-  user-select: none;
+	display: block;
+	float: left;
+	border: $key-border-width solid black;
+	width: $key-width;
+	height: $key-width;
+	border-radius: 10px;
+	color: black;
+	font-size: 36px;
+	line-height: $key-width - ($key-border-width * 2);
+	text-align: center;
+	background-color: rgba(255, 255, 255, .8);
+	margin: $key-margin;
+	cursor: pointer;
+	-webkit-user-select: none;
+	user-select: none;
 
-  &:active {
-	position: relative;
-	top: 3px;
-	left: 3px;
-	background-color: rgba(255,255,255,.4);
-  }
+	&:active {
+		position: relative;
+		top: 2px;
+		left: 2px;
+		background-color: rgba(255, 255, 255, .6);
+	}
 
-  &.shift {
-	width: $keywidth * 2;
-  }
+	&.delete {
+		width: $key-width * 2 + $key-margin * 2;
+		color: red;
+	}
 
-  &.spacebar {
-	width: $keywidth * 7;
-  }
+	&.enter {
+		width: $key-width * 2 + $key-margin * 2;
+		background-color: green;
+	}
+
+	&.shift {
+		width: $key-width * 2 + $key-margin * 2;
+	}
+
+	&.spacebar {
+		width: $key-width * 7 + $key-margin * 12;
+	}
 }
