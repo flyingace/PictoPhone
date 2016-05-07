@@ -18,7 +18,9 @@ const Key = React.createClass(/** @lends Key.prototype */{
      */
     propTypes: {
         letterValue: React.PropTypes.string,
-        onKeyPressed: React.PropTypes.func
+        onKeyPressed: React.PropTypes.func,
+        addlClass: React.PropTypes.string,
+        fuzz: React.PropTypes.string
     },
 
     onKeyPressed() {
@@ -35,8 +37,9 @@ const Key = React.createClass(/** @lends Key.prototype */{
      * @return {ReactElement}
      */
     render() {
+        let keyClass = (this.props.addlClass) ? 'key ' + this.props.addlClass : 'key';
         return (
-            <div className="key" onClick={this.onKeyPressed}>{this.props.letterValue}</div>
+            <div className={keyClass} onClick={this.onKeyPressed}>{this.props.letterValue}</div>
         );
     }
 });
