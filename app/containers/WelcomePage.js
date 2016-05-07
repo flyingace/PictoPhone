@@ -1,10 +1,16 @@
-import React, {Component} from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import Welcome from '../components/Welcome/Welcome';
+import * as WelcomeActions from '../actions/welcome';
 
-export default class WelcomePage extends Component {
-  render() {
-    return (
-      <Welcome />
-    );
-  }
+function mapStateToProps(state) {
+  return {
+    counter: state.welcome
+  };
 }
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(WelcomeActions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Welcome);

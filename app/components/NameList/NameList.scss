@@ -1,0 +1,14 @@
+// Stylesheet for welcome Component
+
+.nameList {
+    ul {
+        border-top: 1px solid #333;
+        -webkit-padding-start: 0;
+
+        li {
+            border-bottom: 1px solid #333;
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+    }
+}

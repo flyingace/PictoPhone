@@ -1,5 +1,6 @@
 import React from 'react';
 import './Welcome.scss';
+import NameList from '../NameList/NameList';
 
 /**
  * Welcome class.
@@ -40,15 +41,7 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
                     <p className="bold">How To Play</p>
                 </div>
                 <div className="rightSide">
-                    <h2>Select Your Name</h2>
-                    <ul className="employee-list">
-                        <li>Bobby Vasquez</li>
-                        <li>David Cameron</li>
-                        <li>Dennis Fung</li>
-                        <li>Eran Bendheim</li>
-                        <li>Lei Zhu</li>
-                    </ul>
-                    <button className="button">OK</button>
+                    <NameList />
                 </div>
             </div>
         );
