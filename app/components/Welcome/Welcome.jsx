@@ -46,7 +46,9 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
                     <p className="bold">How To Play</p>
                 </div>
                 <div className="rightSide">
-                    <NameList />
+                    <NameList
+                        nameList={this.props.welcome.nameList}
+                    />
                 </div>
             </div>
         );

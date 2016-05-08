@@ -1,3 +1,4 @@
+import { map } from 'lodash';
 import React from 'react';
 import './NameList.scss';
 
@@ -16,7 +17,7 @@ const NameList = React.createClass(/** @lends NameList.prototype */{
      * @property {Object} propTypes - An object used to validate props being passed into the components
      */
     propTypes: {
-        children: React.PropTypes.string
+        nameList: React.PropTypes.array
     },
 
     /**
@@ -26,17 +27,17 @@ const NameList = React.createClass(/** @lends NameList.prototype */{
      * @return {ReactElement}
      */
     render() {
+        const nameList = map(this.props.nameList, (listItem, index) => {
+            return (
+                <li key={ index }>{ listItem.name }</li>
+            );
+        });
+
         return (
             <div className="nameList">
                 <h2>Select Your Name</h2>
                 <ul>
-                    <li>Bobby Vasquez</li>
-                    <li>David Cameron</li>
-                    <li>Dennis Fung</li>
-                    <li>Eran Bendheim</li>
-                    <li>Lei Zhu</li>
-                    <li>Bobby A</li>
-                    <li>Bobby B</li>
+                    { nameList }
                 </ul>
                 <button className="button full">OK</button>
             </div>
