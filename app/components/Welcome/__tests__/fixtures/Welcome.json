@@ -1,1 +1,40 @@
-{}
+{
+	"nameList": [
+		{
+			"name": "Bobby Vasquez",
+			"played_today": false
+		},
+		{
+			"name": "David Cameron",
+			"played_today": false
+		},
+		{
+			"name": "Dennis Fung",
+			"played_today": false
+		},
+		{
+			"name": "Eran Bendheim",
+			"played_today": false
+		},
+		{
+			"name": "Lei Zhu",
+			"played_today": false
+		},
+		{
+			"name": "Bobby A",
+			"played_today": false
+		},
+		{
+			"name": "Bobby B",
+			"played_today": false
+		},
+		{
+			"name": "Bobby C",
+			"played_today": false
+		},
+		{
+			"name": "Bobby D",
+			"played_today": false
+		}
+	]
+}

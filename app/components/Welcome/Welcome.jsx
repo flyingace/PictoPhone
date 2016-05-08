@@ -1,5 +1,6 @@
 import React from 'react';
 import './Welcome.scss';
+import NameList from '../NameList/NameList';
 
 /**
  * Welcome class.
@@ -16,7 +17,12 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
      * @property {Object} propTypes - An object used to validate props being passed into the components
      */
     propTypes: {
-        children: React.PropTypes.string
+        fetchWelcomeData: React.PropTypes.func,
+        welcome: React.PropTypes.object
+    },
+
+    componentWillMount() {
+        this.props.fetchWelcomeData('get/welcome/api');
     },
 
     /**
@@ -40,15 +46,9 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
                     <p className="bold">How To Play</p>
                 </div>
                 <div className="rightSide">
-                    <h2>Select Your Name</h2>
-                    <ul className="employee-list">
-                        <li>Bobby Vasquez</li>
-                        <li>David Cameron</li>
-                        <li>Dennis Fung</li>
-                        <li>Eran Bendheim</li>
-                        <li>Lei Zhu</li>
-                    </ul>
-                    <button className="button">OK</button>
+                    <NameList
+                        nameList={this.props.welcome.nameList}
+                    />
                 </div>
             </div>
         );
