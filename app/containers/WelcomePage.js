@@ -5,7 +5,7 @@ import * as WelcomeActions from '../actions/welcome';
 
 function mapStateToProps(state) {
   return {
-    counter: state.welcome
+    welcome: state.welcome
   };
 }
 

@@ -17,7 +17,12 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
      * @property {Object} propTypes - An object used to validate props being passed into the components
      */
     propTypes: {
-        children: React.PropTypes.string
+        fetchWelcomeData: React.PropTypes.func,
+        welcome: React.PropTypes.object
+    },
+
+    componentWillMount() {
+        this.props.fetchWelcomeData('get/welcome/api');
     },
 
     /**

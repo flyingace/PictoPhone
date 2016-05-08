@@ -1,4 +1,5 @@
 // Stylesheet for welcome Component
+@import '../../styles/_variables';
 
 .nameList {
     ul {
@@ -7,13 +8,13 @@
         overflow-y: scroll;
 
         li {
-        	border-left: 5px solid #333;
-            background-color: #f7f7f7;
+        	border-left: 5px solid $gray;
+            background-color: $gray-lightest;
             padding: 15px;
             margin-bottom: 5px;
 
             &:hover {
-            	background-color: #eee;
+            	background-color: $gray-lighter;
             }
         }
     }
