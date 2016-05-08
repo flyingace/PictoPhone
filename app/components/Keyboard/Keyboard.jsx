@@ -1,5 +1,5 @@
 import React from 'react';
-import {map} from 'lodash';
+import { map } from 'lodash';
 
 import Key from '../Key/Key.jsx';
 
@@ -24,8 +24,14 @@ const Keyboard = React.createClass(/** @lends Keyboard.prototype */{
         rowTwo: React.PropTypes.array,
         rowThree: React.PropTypes.array,
         rowFour: React.PropTypes.array,
-        rowFive: React.PropTypes.array
+        rowFive: React.PropTypes.array,
+        keyPressHandler: React.PropTypes.func.isRequired
     },
+
+    //TODO: Consider adding more information per key, such as its value when "shift" is pressed, or whether display
+    //on the key should be handled separately from the value of the key, as with the spacebar. It's possible though
+    //that trying to create a one-size-fits-all solution here might not work and that just having arrays for shifted
+    //and unshifted values might be the most efficient solution.
 
     getDefaultProps() {
         return {
@@ -41,9 +47,9 @@ const Keyboard = React.createClass(/** @lends Keyboard.prototype */{
         let keyComponent;
 
         if (letter.length > 1) {
-            keyComponent = <Key letterValue={ letter } addlClass={ letter } />;
+            keyComponent = <Key letterValue={ letter } addlClass={ letter } onKeyPressed={this.props.keyPressHandler}/>;
         } else {
-            keyComponent = <Key letterValue={ letter } />;
+            keyComponent = <Key letterValue={ letter } onKeyPressed={this.props.keyPressHandler}/>;
         }
 
         return keyComponent;

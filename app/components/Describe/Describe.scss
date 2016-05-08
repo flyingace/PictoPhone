@@ -1,39 +1,41 @@
 // Stylesheet for describe Component
 
 .describe {
-  display: block;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-
-  h1 {
-	margin: 0;
-	padding: 0;
-  }
-
-  img {
-	width: 800px;
-	height: 450px;
-	margin: 0 112px 10px 112px;
 	display: block;
+	width: 100%;
+	padding: 0;
+	margin: 0;
 
-	&:after {
-	  clear: both;
-	  content:'';
+	h1 {
+		margin: 0;
+		padding: 0;
 	}
-  }
 
-  .descriptionInput {
-	width: 730px;
-	height: 20px;
-	margin: 0 10px 0 112px;
-	border: none;
-  }
+	img {
+		width: 800px;
+		height: 450px;
+		margin: 0 112px 10px 112px;
+		display: block;
 
-  .okButton {
-	width: 60px;
-	height: 20px;
-	border-radius: 0;
-  }
+		&:after {
+			clear: both;
+			content: '';
+		}
+	}
+
+	.descriptionInput {
+		position: absolute;
+		top: 50px;
+		width: 730px;
+		height: 20px;
+		margin: 0 10px 0 112px;
+		border: none;
+	}
+
+	.okButton {
+		width: 60px;
+		height: 20px;
+		border-radius: 0;
+	}
 }
 
