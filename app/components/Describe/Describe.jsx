@@ -18,7 +18,24 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
      * @property {Object} propTypes - An object used to validate props being passed into the components
      */
     propTypes: {
-        children: React.PropTypes.string
+        children: React.PropTypes.string,
+        mainImageURL: React.PropTypes.string
+    },
+
+    getDefaultProps() {
+        return {
+            mainImageURL: "http://lorempixel.com/900/520/"
+        }
+    },
+
+    getInitialState() {
+        return {
+            keyboardIsVisible: false
+        };
+    },
+
+    componentDidMount() {
+
     },
 
     checkKeyPressed(key) {
@@ -36,6 +53,10 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
     onKeyPressed(key) {
         const describeField = this.refs.describeInput;
         describeField.value += key;
+    },
+
+    toggleKeyboard() {
+        this.setState({keyboardIsVisible: !this.state.keyboardIsVisible})
     },
 
     /**
@@ -70,13 +91,35 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
      * @return {ReactElement}
      */
     render() {
+        let keyboardIconSrc;
+        let keyboardContainerClass;
+        let mainImageClass;
+
+        if (this.state.keyboardIsVisible) {
+            keyboardIconSrc = 'images/keyboard-hide.png';
+            keyboardContainerClass = "keyboard-container keyboard-container--visible";
+            mainImageClass = "scaled"
+        } else {
+            keyboardIconSrc = 'images/keyboard-show.png';
+            keyboardContainerClass = "keyboard-container";
+            mainImageClass = "";
+        }
+
         return (
             <div className="describe">
-                <h1>Describe</h1>
-                <img alt="Write a description of this" src="http://lorempixel.com/800/450/" />
-                <input className="descriptionInput" ref="describeInput" />
-                <button className="button okButton">OK</button>
-                <Keyboard fieldRef="describeInput" keyPressHandler={this.checkKeyPressed} />
+                <div className="keyboard-icon">
+                    <img src={keyboardIconSrc} onClick={this.toggleKeyboard}/>
+                </div>
+                <div className="image-container">
+                    <img className={mainImageClass} alt="Write a description of this" src={this.props.mainImageURL}/>
+                </div>
+                <div className="input-container">
+                    <input className="descriptionInput" ref="describeInput"/>
+                    <button className="button okButton">OK</button>
+                </div>
+                <div className={keyboardContainerClass}>
+                    <Keyboard fieldRef="describeInput" keyPressHandler={this.checkKeyPressed}/>
+                </div>
             </div>
         );
     }
