@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import Keyboard from '../Keyboard/Keyboard.jsx';
 
 import './Describe.scss';
@@ -91,19 +92,16 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
      * @return {ReactElement}
      */
     render() {
-        let keyboardIconSrc;
-        let keyboardContainerClass;
-        let mainImageClass;
+        const keyboardIsVisible = this.state.keyboardIsVisible;
+        let keyboardContainerClass = classNames({
+            'keyboard-container': true,
+            'keyboard-container--visible': keyboardIsVisible
+        });
+        let mainImageClass = classNames({
+            'scaled': keyboardIsVisible
+        });
 
-        if (this.state.keyboardIsVisible) {
-            keyboardIconSrc = 'images/keyboard-hide.png';
-            keyboardContainerClass = "keyboard-container keyboard-container--visible";
-            mainImageClass = "scaled"
-        } else {
-            keyboardIconSrc = 'images/keyboard-show.png';
-            keyboardContainerClass = "keyboard-container";
-            mainImageClass = "";
-        }
+        const keyboardIconSrc =  (keyboardIsVisible) ? 'images/keyboard-hide.png' : 'images/keyboard-show.png';
 
         return (
             <div className="describe">

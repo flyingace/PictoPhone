@@ -82,6 +82,7 @@
     "yeoman-generator": "^0.20.2"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "css-modules-require-hook": "^4.0.0",
     "electron-debug": "^0.6.0",
     "font-awesome": "^4.6.1",
