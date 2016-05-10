@@ -1,0 +1,48 @@
+// Stylesheet for key Component
+
+$key-width: 54px;
+$key-margin: 3px;
+$key-border-width: 2px;
+
+.key {
+	display: block;
+	float: left;
+	border: $key-border-width solid black;
+	width: $key-width;
+	height: $key-width;
+	border-radius: 10px;
+	color: black;
+	font-size: 36px;
+	line-height: $key-width - ($key-border-width * 2);
+	text-align: center;
+	background-color: rgba(255, 255, 255, .8);
+	margin: $key-margin;
+	cursor: pointer;
+	-webkit-user-select: none;
+	user-select: none;
+
+	&:active {
+		position: relative;
+		top: 2px;
+		left: 2px;
+		background-color: rgba(255, 255, 255, .6);
+	}
+
+	&.delete {
+		width: $key-width * 2 + $key-margin * 2;
+		color: red;
+	}
+
+	&.enter {
+		width: $key-width * 2 + $key-margin * 2;
+		background-color: green;
+	}
+
+	&.shift {
+		width: $key-width * 2 + $key-margin * 2;
+	}
+
+	&.spacebar {
+		width: $key-width * 7 + $key-margin * 12;
+	}
+}

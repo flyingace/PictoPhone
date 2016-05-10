@@ -1,0 +1,17 @@
+// Stylesheet for keyboard Component
+
+.keyboard {
+	display: flex;
+	flex-direction: column;
+	width: 1004px;
+    margin: 0;
+	padding: 5px 5px 15px 5px;
+	background-color: lightgray;
+	border-radius: 10px 10px 0 0;
+
+	.keyboard-row {
+		margin: 0 auto;
+		display: flex;
+		flex-direction: row;
+	}
+}

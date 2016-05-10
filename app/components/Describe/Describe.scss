@@ -1,39 +1,82 @@
 // Stylesheet for describe Component
 
 .describe {
-  display: block;
-  width: 100%;
-  padding: 0;
-  margin: 0;
+    position: relative;
+    width: 1024px;
+    height: 600px;
+    padding: 10px;
+    margin: 0;
 
-  h1 {
-	margin: 0;
-	padding: 0;
-  }
+    .keyboard-icon {
+        position: absolute;
+        z-index: 9999;
+        left: 30px;
+        bottom: 30px;
+    }
 
-  img {
-	width: 800px;
-	height: 450px;
-	margin: 0 112px 10px 112px;
-	display: block;
+    .image-container {
+        width: 1004px;
 
-	&:after {
-	  clear: both;
-	  content:'';
-	}
-  }
+        img {
+            display: block;
+            margin: 0 auto;
+            width: 900px;
+            height: 520px;
+            transition-property: width, height;
+            transition-duration: .4s;
+            transition-timing-function: ease-out;
+            -webkit-transition-property: width, height;
+            -webkit-transition-duration: .4s;
+            -webkit-transition-timing-function: ease-out;
+            animation-fill-mode: forwards;
 
-  .descriptionInput {
-	width: 730px;
-	height: 20px;
-	margin: 0 10px 0 112px;
-	border: none;
-  }
+            &.scaled {
+                margin: 0 auto;
+                width: 346px;
+                height: 200px;
+            }
+        }
+    }
 
-  .okButton {
-	width: 60px;
-	height: 20px;
-	border-radius: 0;
-  }
+    .input-container {
+        width: 800px;
+        height: 40px;
+        margin: 15px auto;
+
+        .descriptionInput {
+            width: 730px;
+            height: 40px;
+            margin-right: 10px;
+            float: left;
+            border: 1px solid black;
+            font-size: 24px;
+        }
+
+        .okButton {
+            width: 60px;
+            height: 40px;
+            border-radius: 0;
+        }
+    }
+
+    .keyboard-container {
+        position: absolute;
+        bottom: -320px;
+        transition-property: bottom;
+        transition-duration: .4s;
+        transition-timing-function: ease-out;
+        -webkit-transition-property: bottom;
+        -webkit-transition-duration: .4s;
+        -webkit-transition-timing-function: ease-out;
+        animation-fill-mode: forwards;
+
+        &--visible {
+            bottom: 0;
+        }
+    }
 }
 
+h1 {
+    margin: 0;
+    padding: 0;
+}
