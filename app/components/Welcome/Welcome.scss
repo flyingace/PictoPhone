@@ -1,4 +1,5 @@
 // Stylesheet for welcome Component
+@import '../../styles/_variables';
 
 .welcome {
     display: block;
@@ -18,5 +19,37 @@
 
     .leftSide {
         padding-right: 30px;
+    }
+}
+
+.nameList-col {
+    width: 380px;
+    float: left;
+}
+
+.alphabetical-tabs {
+    width: 100px;
+    margin-top: 53px;
+    margin-left: 5px;
+    float: left;
+
+    .alphabetical-tab {
+        display: block;
+        width: 35px;
+        height: 35px;
+        font-size: 28px;
+        line-height: 35px;
+        text-align: center;
+        border-radius:50%;
+
+        &:hover {
+            background-color: $blue-light;
+            color: $white;
+        }
+    }
+
+    .tabs-col-1,
+    .tabs-col-2 {
+        float: left;
     }
 }
