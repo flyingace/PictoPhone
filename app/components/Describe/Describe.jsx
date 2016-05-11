@@ -105,13 +105,11 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
 
         return (
             <div className="describe">
-                <div className="keyboard-icon">
-                    <img src={keyboardIconSrc} onClick={this.toggleKeyboard}/>
-                </div>
                 <div className="image-container">
                     <img className={mainImageClass} alt="Write a description of this" src={this.props.mainImageURL}/>
                 </div>
                 <div className="input-container">
+                    <img className="keyboard-icon" src={keyboardIconSrc} onClick={this.toggleKeyboard}/>
                     <input className="descriptionInput" ref="describeInput"/>
                     <button className="button okButton">OK</button>
                 </div>
