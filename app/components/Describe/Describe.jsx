@@ -109,10 +109,10 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
                     <img src={keyboardIconSrc} onClick={this.toggleKeyboard}/>
                 </div>
                 <div className="image-container">
-                    <img className={mainImageClass} alt="Write a description of this" src={this.props.mainImageURL}/>
+                    <img className={mainImageClass} alt="Write a description of this picture!" src={this.props.mainImageURL}/>
                 </div>
                 <div className="input-container">
-                    <input className="descriptionInput" ref="describeInput"/>
+                    <input className="descriptionInput" type="text" maxLength="65" placeholder="Write a description of this picture!" spellCheck="true" ref="describeInput"/>
                     <button className="button okButton">OK</button>
                 </div>
                 <div className={keyboardContainerClass}>
