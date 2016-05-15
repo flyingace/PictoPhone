@@ -29,9 +29,23 @@
 
 .alphabetical-tabs {
     width: 100px;
-    margin-top: 53px;
+    margin-top: 13px;
     margin-left: 5px;
     float: left;
+
+    .name-list__all {
+        padding: 5px;
+        display: inline-block;
+        margin-bottom: 5px;
+        border: 1px solid $clean-modern-gray;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover,
+        &:active {
+            background-color: $clean-modern-blue-light;
+        }
+    }
 
     .alphabetical-tab {
         display: block;

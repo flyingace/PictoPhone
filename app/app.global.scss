@@ -85,6 +85,8 @@ a:hover {
     text-decoration: none;
     vertical-align: middle;
     border: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
 
     &.full {
         width: 100%;
@@ -92,11 +94,11 @@ a:hover {
 }
 
 .button:hover {
-    background: $clean-modern-red-dark;
+    background: $clean-modern-red-darker;
 }
 
 .button:active {
-    background: $clean-modern-red-dark;
+    background: $clean-modern-red-darker;
 }
 
 .temp-nav {

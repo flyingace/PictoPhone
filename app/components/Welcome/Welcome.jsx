@@ -22,6 +22,7 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
      */
     propTypes: {
         fetchWelcomeData: React.PropTypes.func,
+        filterNameList: React.PropTypes.func,
         welcome: React.PropTypes.object
     },
 
@@ -29,9 +30,25 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
         this.props.fetchWelcomeData('get/welcome/api');
     },
 
+    filterNames(event) {
+        const letter = event.target.innerHTML;
+        this.props.filterNameList(letter);
+    },
+
+    showAllNames() {
+        this.props.filterNameList();
+    },
+
     renderAlphabeticalTabs(tabsArr) {
         return map(tabsArr, (tab, index) => {
-            return (<div key={index} className="alphabetical-tab">{tab}</div>);
+            return (
+                <div
+                    key={index}
+                    className="alphabetical-tab"
+                    onClick={this.filterNames}>
+                    {tab}
+                </div>
+            );
         });
     },
 
@@ -57,9 +74,10 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
                 </div>
                 <div className="rightSide">
                     <div className="nameList-col">
-                        <NameList nameList={this.props.welcome.nameList} />
+                        <NameList nameList={this.props.welcome.filteredNameList} />
                     </div>
                     <div className="alphabetical-tabs">
+                        <div className="name-list__all" onClick={this.showAllNames}>Show All</div>
                         <div className="tabs-col-1">
                             {this.renderAlphabeticalTabs(TABS_LIST_ONE)}
                         </div>
