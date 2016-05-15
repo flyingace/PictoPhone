@@ -27,7 +27,7 @@
 body {
     -webkit-app-region: drag;
     background-color: $white;
-    color: $gray;
+    color: $clean-modern-gray;
     position: relative;
     height: 100vh;
     font-size: 18px;
@@ -42,7 +42,7 @@ body {
 h1, h2 {
     margin: 0;
     font-weight: 400;
-    color: $gray;
+    color: $clean-modern-gray;
 }
 
 h1 {
@@ -62,7 +62,7 @@ li {
 }
 
 a {
-    color: $blue-light;
+    color: $clean-modern-red;
     opacity: .75;
     text-decoration: none;
 }
@@ -78,7 +78,7 @@ a:hover {
 }
 
 .button {
-    background: $blue-light;
+    background: $clean-modern-red;
     padding: 10px 15px;
     color: white;
     font-size: 18px;
@@ -92,11 +92,11 @@ a:hover {
 }
 
 .button:hover {
-    background: $blue;
+    background: $clean-modern-red-dark;
 }
 
 .button:active {
-    background: $blue;
+    background: $clean-modern-red-dark;
 }
 
 .temp-nav {

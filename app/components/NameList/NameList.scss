@@ -8,15 +8,16 @@
         overflow-y: scroll;
 
         li {
-        	border-left: 5px solid $gray;
+        	border-left: 5px solid $clean-modern-gray;
             background-color: $gray-lightest;
             padding: 15px;
             margin-bottom: 3px;
             transition: all 0.2s ease;
 
-            &:hover {
-                border-left: 20px solid $gray;
-            	background-color: $gray-lightest;
+            &:hover,
+            &:active {
+                border-left: 20px solid $clean-modern-red;
+            	background-color: $white;
             }
         }
     }
