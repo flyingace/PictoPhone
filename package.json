@@ -82,11 +82,13 @@
     "yeoman-generator": "^0.20.2"
   },
   "dependencies": {
+    "autoprefixer": "^6.3.6",
     "classnames": "^2.2.5",
     "css-modules-require-hook": "^4.0.0",
     "electron-debug": "^1.0.0",
     "font-awesome": "^4.6.1",
     "postcss": "^5.0.19",
+    "postcss-loader": "^0.9.1",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-redux": "^4.4.5",
