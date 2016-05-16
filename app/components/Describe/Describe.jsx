@@ -31,7 +31,8 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
 
     getInitialState() {
         return {
-            keyboardIsVisible: false
+            keyboardIsVisible: false,
+            shiftKeyIsPressed: false
         };
     },
 
@@ -39,42 +40,44 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
 
     },
 
-    checkKeyPressed(key) {
-        if (key.length === 1) {
-            this.onKeyPressed(key);
+    toggleKeyboard() {
+        this.setState({keyboardIsVisible: !this.state.keyboardIsVisible})
+    },
+
+    checkKeyPressed(keyArray) {
+        if (keyArray.length > 1) {
+            this.onKeyPressed(keyArray);
         } else {
-            this.onActionKeyPressed(key);
+            this.onActionKeyPressed(keyArray);
         }
     },
 
     /**
      * Handles updating of the input field for single-character keys, like 'a', '7' or '!'
-     * @param key
+     * @param keyArray
      */
-    onKeyPressed(key) {
+    onKeyPressed(keyArray) {
         const describeField = this.refs.describeInput;
-        describeField.value += key;
-    },
+        const key = (this.state.shiftKeyIsPressed) ? keyArray[1] : keyArray[0];
 
-    toggleKeyboard() {
-        this.setState({keyboardIsVisible: !this.state.keyboardIsVisible})
+        describeField.value += key;
     },
 
     /**
      * Handles actions triggered by action-keys, like 'delete' or 'enter'
-     * @param key
+     * @param keyArray
      */
-    onActionKeyPressed(key) {
+    onActionKeyPressed(keyArray) {
         const describeField = this.refs.describeInput;
 
-        switch (key) {
+        switch (keyArray[0]) {
             case 'shift':
-                //do shift action
+                this.setState({shiftKeyIsPressed: !this.state.shiftKeyIsPressed});
                 break;
-            case 'delete':
+            case 'del':
                 describeField.value = describeField.value.slice(0, -1);
                 break;
-            case 'spacebar':
+            case 'space':
                 describeField.value = describeField.value + ' ';
                 break;
             case 'enter':
@@ -101,20 +104,23 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
             'scaled': keyboardIsVisible
         });
 
-        const keyboardIconSrc =  (keyboardIsVisible) ? 'images/keyboard-hide.png' : 'images/keyboard-show.png';
+        const keyboardIconSrc = (keyboardIsVisible) ? 'images/keyboard-hide.png' : 'images/keyboard-show.png';
 
         return (
             <div className="describe">
                 <div className="image-container">
-                    <img className={mainImageClass} alt="Write a description of this picture!" src={this.props.mainImageURL}/>
+                    <img className={mainImageClass} alt="Write a description of this picture!"
+                         src={this.props.mainImageURL}/>
                 </div>
                 <div className="input-container">
                     <img className="keyboard-icon" src={keyboardIconSrc} onClick={this.toggleKeyboard}/>
-                    <input className="descriptionInput" type="text" maxLength="65" placeholder="Write a description of this picture!" spellCheck="true" ref="describeInput"/>
+                    <input className="descriptionInput" type="text" maxLength="65"
+                           placeholder="Write a description of this picture!" spellCheck="true" ref="describeInput"/>
                     <button className="button okButton">OK</button>
                 </div>
                 <div className={keyboardContainerClass}>
-                    <Keyboard fieldRef="describeInput" keyPressHandler={this.checkKeyPressed}/>
+                    <Keyboard fieldRef="describeInput" keyPressHandler={this.checkKeyPressed}
+                              isShifted={this.state.shiftKeyIsPressed}/>
                 </div>
             </div>
         );

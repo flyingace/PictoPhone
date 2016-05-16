@@ -1,5 +1,6 @@
 import React from 'react';
 import { map } from 'lodash';
+import classNames from 'classnames';
 
 import Key from '../Key/Key.jsx';
 
@@ -25,7 +26,8 @@ const Keyboard = React.createClass(/** @lends Keyboard.prototype */{
         rowThree: React.PropTypes.array,
         rowFour: React.PropTypes.array,
         rowFive: React.PropTypes.array,
-        keyPressHandler: React.PropTypes.func.isRequired
+        keyPressHandler: React.PropTypes.func.isRequired,
+        isShifted: React.PropTypes.bool
     },
 
     //TODO: Consider adding more information per key, such as its value when "shift" is pressed, or whether display
@@ -35,24 +37,20 @@ const Keyboard = React.createClass(/** @lends Keyboard.prototype */{
 
     getDefaultProps() {
         return {
-            rowOne: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', 'delete'],
-            rowTwo: ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '!', '?'],
-            rowThree: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', "'", '"'],
-            rowFour: ['z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '&'],
-            rowFive: ['shift', 'spacebar', 'enter']
+            rowOne: [['1', '!'], ['2', '@'], ['3', '#'], ['4', '$'], ['5', '%'], ['6', '^'], ['7', '&'], ['8', '*'],
+                ['9', '('], ['0', ')'], ['-', '_'], ['=', '+'], ['del']],
+            rowTwo: [['q', 'Q'], ['w', 'W'], ['e', 'E'], ['r', 'R'], ['t', 'T'], ['y', 'Y'], ['u', 'U'], ['i', 'I'],
+                ['o', 'O'], ['p', 'P'], ['[', '{'], [']', '}']],
+            rowThree: [['a', 'A'], ['s', 'S'], ['d', 'D'], ['f', 'F'], ['g', 'G'], ['h', 'H'], ['j', 'J'], ['k', 'K'],
+                ['l', 'L'], [';', ':'], ["'", '"']],
+            rowFour: [['z', 'Z'], ['x', 'X'], ['c', 'C'], ['v', 'V'], ['b', 'B'], ['n', 'N'], ['m', 'M'], [',', '<'],
+                ['.', '>'], ['/', '?']],
+            rowFive: [['shift'], ['space'], ['enter']]
         };
     },
 
-    createKey(letter) {
-        let keyComponent;
-
-        if (letter.length > 1) {
-            keyComponent = <Key letterValue={ letter } addlClass={ letter } onKeyPressed={this.props.keyPressHandler}/>;
-        } else {
-            keyComponent = <Key letterValue={ letter } onKeyPressed={this.props.keyPressHandler}/>;
-        }
-
-        return keyComponent;
+    createKey(keyValueArray) {
+        return <Key keyValue={ keyValueArray } onKeyPressed={this.props.keyPressHandler}/>;
     },
 
     renderRow(keysInRow) {
@@ -66,8 +64,13 @@ const Keyboard = React.createClass(/** @lends Keyboard.prototype */{
      * @return {ReactElement}
      */
     render() {
+        let keyboardClass = classNames({
+            'keyboard': true,
+            'shifted': this.props.isShifted
+        });
+
         return (
-            <div className="keyboard">
+            <div className={keyboardClass}>
                 <div className="keyboard-row">{ this.renderRow(this.props.rowOne) }</div>
                 <div className="keyboard-row">{ this.renderRow(this.props.rowTwo) }</div>
                 <div className="keyboard-row">{ this.renderRow(this.props.rowThree) }</div>
