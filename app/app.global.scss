@@ -29,7 +29,7 @@ body {
     background-color: $white;
     color: $clean-modern-gray;
     position: relative;
-    height: 100vh;
+    height: 600px;
     font-size: 18px;
     font-family: 'Lato', Calibri, Arial, sans-serif;
     overflow-y: hidden;
@@ -41,7 +41,6 @@ body {
 
 h1, h2 {
     margin: 0;
-    font-weight: 400;
     color: $clean-modern-gray;
 }
 
@@ -73,7 +72,7 @@ a:hover {
     cursor: pointer;
 }
 
-.bold {
+.bold-text {
     font-weight: 700;
 }
 

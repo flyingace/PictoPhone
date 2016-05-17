@@ -35,7 +35,7 @@ const NameList = React.createClass(/** @lends NameList.prototype */{
 
         return (
             <div className="nameList">
-                <p><span className="bold">SELECT YOUR NAME</span></p>
+                <p><span className="bold-text">SELECT YOUR NAME</span></p>
                 <ul>
                     { nameList }
                 </ul>

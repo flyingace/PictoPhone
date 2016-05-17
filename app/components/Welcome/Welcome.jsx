@@ -65,12 +65,12 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
                     <h1>PictoPhone</h1>
                     <p>This is some basic intro code to PictoPhone. It doesn't out line the rules because they're
                         outlined in "How To Play" at the bottom.</p>
-                    <p>The <span className="bold">How To Play</span> link below will open an overlay with a few pages of
+                    <p>The <span className="bold-text">How To Play</span> link below will open an overlay with a few pages of
                         instructions. How does the overlay work here? Does it also have its own route or is it just
                         acomponent that overlays the other content? It might be useful to make it so the How To Play
                         overlay could be loaded at any step (except maybe <em>Thank You</em> so that first-time users
                         would know what to do.</p>
-                    <p className="bold">How To Play</p>
+                    <p className="bold-text">How To Play</p>
                 </div>
                 <div className="rightSide">
                     <div className="nameList-col">
