@@ -5,10 +5,19 @@ $white: #ffffff;
 $gray: #333333;
 $gray-light: #686868;
 $gray-lighter: #eeeeee;
-$gray-lightest: #f7f7f7;
+$gray-lightest: #f9f9f9;
 
 // Blues
 $blue-dark: #151B54;
 $blue: #003399;
 $blue-light: #0099cc;
+
+// Theme - clean modern
+$clean-modern-red: #ff3d2e;
+$clean-modern-blue: #9dbdc6;
+$clean-modern-gray: #272f32;
+$clean-modern-blue-light: #daeaef;
+
+$clean-modern-red-darker: darken($clean-modern-red, 10%);
+$clean-modern-red-dark: darken($clean-modern-red, 30%);
 

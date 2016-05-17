@@ -1,4 +1,5 @@
 // Stylesheet for welcome Component
+@import '../../styles/_variables';
 
 .welcome {
     display: block;
@@ -18,5 +19,53 @@
 
     .leftSide {
         padding-right: 30px;
+    }
+}
+
+.nameList-col {
+    width: 380px;
+    float: left;
+}
+
+.alphabetical-tabs {
+    width: 100px;
+    margin-top: 13px;
+    margin-left: 5px;
+    float: left;
+
+    .name-list__all {
+        padding: 5px;
+        display: inline-block;
+        margin-bottom: 5px;
+        border: 1px solid $clean-modern-gray;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover,
+        &:active {
+            background-color: $clean-modern-blue-light;
+        }
+    }
+
+    .alphabetical-tab {
+        display: block;
+        width: 35px;
+        height: 35px;
+        font-size: 28px;
+        line-height: 35px;
+        text-align: center;
+        border-radius:50%;
+        transition: all 0.2s ease;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $clean-modern-red;
+            color: $white;
+        }
+    }
+
+    .tabs-col-1,
+    .tabs-col-2 {
+        float: left;
     }
 }
