@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import Keyboard from '../Keyboard/Keyboard.jsx';
+import DescribeInput from '../DescribeInput/DescribeInput.jsx'
 
 import './Describe.scss';
 
@@ -32,7 +33,8 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
     getInitialState() {
         return {
             keyboardIsVisible: false,
-            shiftKeyIsPressed: false
+            shiftKeyIsPressed: false,
+            characterCount: 0
         };
     },
 
@@ -114,9 +116,8 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
                 </div>
                 <div className="input-container">
                     <img className="keyboard-icon" src={keyboardIconSrc} onClick={this.toggleKeyboard}/>
-                    <input className="descriptionInput" type="text" maxLength="65"
-                           placeholder="Write a description of this picture!" spellCheck="true" ref="describeInput"/>
-                    <button className="button okButton">OK</button>
+                    <DescribeInput prompt={"Write a description of this picture!"} characterCount={this.state.characterCount} />
+                    <button className="button okButton" onClick={this.props.onSubmit}>OK</button>
                 </div>
                 <div className={keyboardContainerClass}>
                     <Keyboard fieldRef="describeInput" keyPressHandler={this.checkKeyPressed}
