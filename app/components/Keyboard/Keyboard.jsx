@@ -1,5 +1,5 @@
 import React from 'react';
-import { map } from 'lodash';
+import { map, uniqueId } from 'lodash';
 import classNames from 'classnames';
 
 import Key from '../Key/Key.jsx';
@@ -50,7 +50,8 @@ const Keyboard = React.createClass(/** @lends Keyboard.prototype */{
     },
 
     createKey(keyValueArray) {
-        return <Key keyValue={ keyValueArray } onKeyPressed={this.props.keyPressHandler}/>;
+        let keyKey = uniqueId(); //yes, this is the key (unique Id) for the keyboard key
+        return <Key keyValue={ keyValueArray } key={keyKey} onKeyPressed={this.props.keyPressHandler}/>;
     },
 
     renderRow(keysInRow) {
