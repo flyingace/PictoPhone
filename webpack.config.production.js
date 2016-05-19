@@ -22,12 +22,12 @@ const config = {
 
         loaders: [
             ...baseConfig.module.loaders,
-
+            // http://webpack.github.io/docs/stylesheets.html#separate-css-bundle
             {
                 test: /\.scss$/,
                 loader: ExtractTextPlugin.extract(
-                    "style",
-                    "css?sourceMap!postcss!sass?sourceMap"
+                    "style!",
+                    "css!postcss!sass"
                 )
             }
         ]
