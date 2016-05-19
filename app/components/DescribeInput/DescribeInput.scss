@@ -1,0 +1,25 @@
+// Stylesheet for describe-input Component
+.describe-input-wrapper {
+    display: block;
+    position: relative;
+    width: 750px;
+    height: 40px;
+    margin-right: 10px;
+    float: left;
+
+    .descriptionInput {
+        width: 750px;
+        height: 40px;
+        padding: 0 5px;
+        float: left;
+        border: 1px solid black;
+        font-size: 24px;
+    }
+
+    .character-count {
+        position: absolute;
+        bottom: 2px;
+        right: 4px;
+        font-size: 14px;
+    }
+}

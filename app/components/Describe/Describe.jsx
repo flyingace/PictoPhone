@@ -1,8 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
 import Keyboard from '../Keyboard/Keyboard.jsx';
+import DescribeInput from '../DescribeInput/DescribeInput.jsx'
 
 import './Describe.scss';
+
+const DELETE_KEY = 'delete';
 
 /**
  * Describe class.
@@ -32,7 +35,10 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
     getInitialState() {
         return {
             keyboardIsVisible: false,
-            shiftKeyIsPressed: false
+            shiftKeyIsPressed: false,
+            descriptionString: '',
+            characterCount: 0,
+            maxCharacterCount: 65
         };
     },
 
@@ -40,8 +46,16 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
 
     },
 
+    revealKeyboard() {
+        this.setState({keyboardIsVisible: true});
+    },
+
     toggleKeyboard() {
         this.setState({keyboardIsVisible: !this.state.keyboardIsVisible})
+    },
+
+    toggleShift() {
+        this.setState({shiftKeyIsPressed: !this.state.shiftKeyIsPressed});
     },
 
     checkKeyPressed(keyArray) {
@@ -57,10 +71,9 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
      * @param keyArray
      */
     onKeyPressed(keyArray) {
-        const describeField = this.refs.describeInput;
         const key = (this.state.shiftKeyIsPressed) ? keyArray[1] : keyArray[0];
 
-        describeField.value += key;
+        this.updateDescriptionString(key);
     },
 
     /**
@@ -72,13 +85,13 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
 
         switch (keyArray[0]) {
             case 'shift':
-                this.setState({shiftKeyIsPressed: !this.state.shiftKeyIsPressed});
+                this.toggleShift();
                 break;
             case 'del':
-                describeField.value = describeField.value.slice(0, -1);
+                this.updateDescriptionString(DELETE_KEY);
                 break;
             case 'space':
-                describeField.value = describeField.value + ' ';
+                this.updateDescriptionString(' ');
                 break;
             case 'enter':
                 //do enter action
@@ -86,6 +99,27 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
             default:
                 break;
         }
+    },
+
+    onInputSelected(evt) {
+        this.revealKeyboard();
+        evt.target.blur();
+    },
+
+    updateDescriptionString(char) {
+        const currentDescription = this.state.descriptionString;
+        let newDescription;
+
+        if (char !== DELETE_KEY && currentDescription.length < this.state.maxCharacterCount) {
+            newDescription = currentDescription + char;
+        } else if (char === DELETE_KEY) {
+            newDescription = currentDescription.slice(0, -1);
+        } else {
+            newDescription = currentDescription;
+        }
+
+        this.setState({descriptionString: newDescription});
+        this.setState({characterCount: newDescription.length});
     },
 
     /**
@@ -114,9 +148,10 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
                 </div>
                 <div className="input-container">
                     <img className="keyboard-icon" src={keyboardIconSrc} onClick={this.toggleKeyboard}/>
-                    <input className="descriptionInput" type="text" maxLength="65"
-                           placeholder="Write a description of this picture!" spellCheck="true" ref="describeInput"/>
-                    <button className="button okButton">OK</button>
+                    <DescribeInput prompt={"Write a description of this picture!"}
+                                   descriptionString={this.state.descriptionString}
+                                   characterCount={this.state.characterCount} onGainFocus={this.onInputSelected}/>
+                    <button className="button okButton" onClick={this.props.onSubmit}>OK</button>
                 </div>
                 <div className={keyboardContainerClass}>
                     <Keyboard fieldRef="describeInput" keyPressHandler={this.checkKeyPressed}
