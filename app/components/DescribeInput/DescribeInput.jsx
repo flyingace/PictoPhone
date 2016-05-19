@@ -19,9 +19,8 @@ const DescribeInput = React.createClass(/** @lends DescribeInput.prototype */{
     propTypes: {
         maxCharacterCount: React.PropTypes.number,
         prompt: React.PropTypes.string,
-        characterCount: React.PropTypes.string,
+        characterCount: React.PropTypes.number,
         onGainFocus: React.PropTypes.func,
-        onLoseFocus: React.PropTypes.func,
         onSubmit: React.PropTypes.func
     },
 
@@ -32,7 +31,7 @@ const DescribeInput = React.createClass(/** @lends DescribeInput.prototype */{
      */
     getDefaultProps() {
         return {
-            maxCharacterCount: 65
+            maxCharacterCount: 50
         };
     },
 
@@ -46,8 +45,10 @@ const DescribeInput = React.createClass(/** @lends DescribeInput.prototype */{
         return (
             <div className="describe-input-wrapper">
                 <input className="descriptionInput" type="text" maxLength={this.props.maxCharacterCount}
-                       placeholder={this.props.prompt} spellCheck="true" ref="describeInput"/>
-                <span className="character-count">{this.props.characterCount}</span>
+                       placeholder={this.props.prompt} value={this.props.descriptionString}
+                       onFocus={this.props.onGainFocus} spellCheck="true"
+                       readonly="true"/>
+                <span className="character-count">{this.props.characterCount}/{this.props.maxCharacterCount}</span>
             </div>
         );
     }
