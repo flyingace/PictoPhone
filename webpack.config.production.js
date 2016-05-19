@@ -2,6 +2,8 @@ import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import baseConfig from './webpack.config.base';
 
+const autoprefixer = require('autoprefixer');
+
 const config = {
     ...baseConfig,
 
@@ -24,13 +26,14 @@ const config = {
             {
                 test: /\.scss$/,
                 loader: ExtractTextPlugin.extract(
-                    'style-loader',
-                    'css-loader',
-                    'sass-loader'
+                    "style",
+                    "css?sourceMap!postcss!sass?sourceMap"
                 )
             }
         ]
     },
+
+    postcss: [autoprefixer({ browsers: ['> 5%', 'IE 10-11'] })],
 
     plugins: [
         ...baseConfig.plugins,

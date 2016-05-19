@@ -2,7 +2,7 @@
 import webpack from 'webpack';
 import baseConfig from './webpack.config.base';
 
-var autoprefixer = require('autoprefixer');
+const autoprefixer = require('autoprefixer');
 
 const config = {
     ...baseConfig,
