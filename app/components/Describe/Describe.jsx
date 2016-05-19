@@ -5,6 +5,8 @@ import DescribeInput from '../DescribeInput/DescribeInput.jsx'
 
 import './Describe.scss';
 
+const DELETE_KEY = 'delete';
+
 /**
  * Describe class.
  * @class Describe
@@ -86,7 +88,7 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
                 this.toggleShift();
                 break;
             case 'del':
-                this.updateDescriptionString('delete');
+                this.updateDescriptionString(DELETE_KEY);
                 break;
             case 'space':
                 this.updateDescriptionString(' ');
@@ -108,9 +110,9 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
         const currentDescription = this.state.descriptionString;
         let newDescription;
 
-        if (char !== 'delete' && currentDescription.length < this.state.maxCharacterCount) {
+        if (char !== DELETE_KEY && currentDescription.length < this.state.maxCharacterCount) {
             newDescription = currentDescription + char;
-        } else if (char === 'delete') {
+        } else if (char === DELETE_KEY) {
             newDescription = currentDescription.slice(0, -1);
         } else {
             newDescription = currentDescription;
