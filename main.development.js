@@ -4,7 +4,7 @@ let menu;
 let template;
 let mainWindow = null;
 
-crashReporter.start();
+// crashReporter.start();
 
 if (process.env.NODE_ENV === 'development') {
   require('electron-debug')();
