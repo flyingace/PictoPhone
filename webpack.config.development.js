@@ -2,6 +2,8 @@
 import webpack from 'webpack';
 import baseConfig from './webpack.config.base';
 
+const autoprefixer = require('autoprefixer');
+
 const config = {
     ...baseConfig,
 
@@ -26,10 +28,12 @@ const config = {
 
             {
                 test: /\.scss$/,
-                loaders: ['style', 'css', 'sass']
+                loaders: ['style', 'css', 'postcss', 'sass']
             }
         ]
     },
+
+    postcss: [autoprefixer({ browsers: ['> 5%', 'IE 10-11'] })],
 
     plugins: [
         ...baseConfig.plugins,
