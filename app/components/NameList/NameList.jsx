@@ -1,4 +1,4 @@
-import { map } from 'lodash';
+import { map, isEmpty } from 'lodash';
 import React from 'react';
 import './NameList.scss';
 
@@ -26,19 +26,34 @@ const NameList = React.createClass(/** @lends NameList.prototype */{
      * @method render
      * @return {ReactElement}
      */
-    render() {
-        const nameList = map(this.props.nameList, (listItem, index) => {
-            return (
-                <li key={ index }>{ listItem.name }</li>
-            );
-        });
 
+    renderNameList() {
+        let nameList;
+
+        if (isEmpty(this.props.nameList)) {
+            nameList = 'Name not found';
+        } else {
+            const names = map(this.props.nameList, (listItem, index) => {
+                return (
+                    <li key={ index }>{ listItem.name }</li>
+                );
+            });
+
+            nameList = (
+                <ul>{ names }</ul>
+            );
+        }
+
+        return nameList;
+    },
+
+    render() {
         return (
             <div className="nameList">
                 <p><span className="bold-text">SELECT YOUR NAME</span></p>
-                <ul>
-                    { nameList }
-                </ul>
+                <div className="nameListContainer">
+                    { this.renderNameList() }
+                </div>
                 <button className="button full">OK</button>
             </div>
         );

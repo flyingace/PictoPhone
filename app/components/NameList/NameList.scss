@@ -2,10 +2,15 @@
 @import '../../styles/_variables';
 
 .nameList {
+
+    .nameListContainer {
+        height: 440px;
+    }
+
     ul {
         -webkit-padding-start: 0;
-        height: 440px;
         overflow-y: scroll;
+        height: 100%;
 
         li {
         	border-left: 5px solid $clean-modern-gray;
