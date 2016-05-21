@@ -1,5 +1,5 @@
 import React from 'react';
-import { map, uniqueId } from 'lodash';
+import { map } from 'lodash';
 import classNames from 'classnames';
 
 import Key from '../Key/Key.jsx';
@@ -30,11 +30,6 @@ const Keyboard = React.createClass(/** @lends Keyboard.prototype */{
         isShifted: React.PropTypes.bool
     },
 
-    //TODO: Consider adding more information per key, such as its value when "shift" is pressed, or whether display
-    //on the key should be handled separately from the value of the key, as with the spacebar. It's possible though
-    //that trying to create a one-size-fits-all solution here might not work and that just having arrays for shifted
-    //and unshifted values might be the most efficient solution.
-
     getDefaultProps() {
         return {
             rowOne: [['1', '!'], ['2', '@'], ['3', '#'], ['4', '$'], ['5', '%'], ['6', '^'], ['7', '&'], ['8', '*'],
@@ -49,9 +44,8 @@ const Keyboard = React.createClass(/** @lends Keyboard.prototype */{
         };
     },
 
-    createKey(keyValueArray) {
-        let keyKey = uniqueId(); //yes, this is the key (unique Id) for the keyboard key
-        return <Key keyValue={ keyValueArray } key={keyKey} onKeyPressed={this.props.keyPressHandler}/>;
+    createKey(keyValueArray, index) {
+        return <Key keyValue={ keyValueArray } key={index} onKeyPressed={this.props.keyPressHandler}/>;
     },
 
     renderRow(keysInRow) {
