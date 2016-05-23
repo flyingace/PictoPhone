@@ -87,6 +87,7 @@
     "css-modules-require-hook": "^4.0.0",
     "electron-debug": "^1.0.0",
     "font-awesome": "^4.6.1",
+    "mongoose": "^4.4.17",
     "postcss": "^5.0.19",
     "postcss-loader": "^0.9.1",
     "react": "^15.0.1",
