@@ -31,8 +31,8 @@ export default function welcome(state = initialState, action) {
     switch (action.type) {
         case RECEIVE_WELCOME_DATA:
             state = assign({}, state, {
-                nameList: action.state.nameList,
-                filteredNameList: action.state.nameList
+                nameList: action.state,
+                filteredNameList: action.state
             });
             break;
 
