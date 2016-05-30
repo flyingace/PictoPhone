@@ -2,6 +2,15 @@
 // https://github.com/mzabriskie/axios
 // import axios from 'axios';
 
+import firebase from 'firebase';
+import { FIREBASE_API_KEY } from '../../keys';
+
+const NAMES_URL = 'https://pictophone.firebaseio.com';
+const firebaseRef = firebase.initializeApp({
+    apiKey: FIREBASE_API_KEY,
+    databaseURL: NAMES_URL
+});
+
 export const REQUEST_WELCOME_DATA = 'FETCH_WELCOME_DATA';
 export const RECEIVE_WELCOME_DATA = 'RECEIVE_WELCOME_DATA';
 export const FAILURE_WELCOME_DATA = 'FAILURE_WELCOME_DATA';
@@ -23,13 +32,10 @@ export function failureWelcomeData() {
 export function fetchWelcomeData(api) {
     return (dispatch) => {
         dispatch(requestWelcomeData());
-		// this is to temperally test mock response from backend
-        const data = require('../components/Welcome/__tests__/fixtures/Welcome.json');
-        dispatch(receiveWelcomeData(data));
 
-		// return axios.get(api)
-		// 	.then((json) => dispatch(receiveWelcomeData(json.data.response.results)))
-		// 	.catch(() => dispatch(failureWelcomeData()))
+        return firebaseRef.database().ref('/nameList/').on('value', (data) => {
+            dispatch(receiveWelcomeData(data.val()));
+        });
     }
 }
 
