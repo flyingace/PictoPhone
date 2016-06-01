@@ -1,4 +1,7 @@
 import React from 'react';
+import ColorPalette from '../ColorPalette/ColorPalette';
+import DrawingArea from '../DrawingArea/DrawingArea';
+import DrawingToolbar from '../DrawingToolbar/DrawingToolbar';
 import './Draw.scss';
 
 /**
@@ -28,7 +31,12 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
   render() {
     return (
       <div className="draw">
-        <h1>Draw</h1>
+          <DrawingToolbar />
+          <DrawingArea />
+          <ColorPalette />
+          <p>Phrase to come.</p>
+          <div className="button">Clear All</div>
+          <div className="button">OK</div>
       </div>
     );
   }
