@@ -18,6 +18,8 @@ const DrawingToolbar = React.createClass(/** @lends DrawingToolbar.prototype */{
      * @property {Object} propTypes - An object used to validate props being passed into the components
      */
     propTypes: {
+        thicknessSelectionHandler: React.PropTypes.func,
+        toolSelectionHandler: React.PropTypes.func
     },
 
     renderToolButtons () {
@@ -33,13 +35,13 @@ const DrawingToolbar = React.createClass(/** @lends DrawingToolbar.prototype */{
     render() {
         return (
             <div className="drawing-toolbar">
-                <ToolButton iconClass="thick" />
-                <ToolButton iconClass="medium" />
-                <ToolButton iconClass="thin" />
-                <ToolButton iconClass="brush" />
-                <ToolButton iconClass="bucket"/>
-                <ToolButton iconClass="eraser"/>
-                <ToolButton iconClass="undo"/>
+                <ToolButton iconClass="thick" handleToolSelection={this.props.thicknessSelectionHandler}/>
+                <ToolButton iconClass="medium" handleToolSelection={this.props.thicknessSelectionHandler} />
+                <ToolButton iconClass="thin" handleToolSelection={this.props.thicknessSelectionHandler} />
+                <ToolButton iconClass="brush" handleToolSelection={this.props.toolSelectionHandler} />
+                <ToolButton iconClass="bucket" handleToolSelection={this.props.toolSelectionHandler} />
+                <ToolButton iconClass="eraser" handleToolSelection={this.props.toolSelectionHandler} />
+                <ToolButton iconClass="undo" handleToolSelection={this.props.toolSelectionHandler} />
             </div>
         );
     }

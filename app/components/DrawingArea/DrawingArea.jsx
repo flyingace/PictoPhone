@@ -20,17 +20,19 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
      * @property {Object} propTypes - An object used to validate props being passed into the components
      */
     propTypes: {
-        canvasWidth: React.PropTypes.string,
+        brushThickness: React.PropTypes.number,
         canvasHeight: React.PropTypes.string,
-        brushThickness: React.PropTypes.string,
-        color: React.PropTypes.string
+        canvasWidth: React.PropTypes.string,
+        clearNow: React.PropTypes.bool,
+        color: React.PropTypes.string,
+        onCleared: React.PropTypes.func
     },
 
     getDefaultProps() {
         return {
             canvasWidth: '900',
             canvasHeight: '520',
-            brushThickness: 'medium',
+            brushThickness: 30,
             color: 'black'
         }
     },
@@ -43,6 +45,18 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
      */
 
     componentDidMount () {
+        this.configureCanvasAndStage();
+    },
+
+    componentDidUpdate() {
+        if (this.props.clearNow) {
+            this.clearStage();
+            this.props.onCleared();
+        }
+        
+    },
+
+    configureCanvasAndStage () {
         canvas = this.refs.drawingArea;
         index = 0;
 
@@ -66,8 +80,10 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
 
         stage.addChild(drawingCanvas);
         stage.update();
+    },
 
-        this.saveImageAsJPEG();
+    clearStage() {
+        stage.clear();
     },
 
     handleMouseDown(event) {
@@ -78,7 +94,7 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
             stage.clear();
             stage.removeChild(title);
         }
-        stroke = Math.random() * 30 + 10 | 0;
+        stroke = this.props.brushWidth;
         oldPt = new EaselJS.Point(stage.mouseX, stage.mouseY);
         oldMidPt = oldPt.clone();
         stage.addEventListener("stagemousemove", this.handleMouseMove);
@@ -92,10 +108,10 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
         let midPt = new EaselJS.Point(oldPt.x + stage.mouseX >> 1, oldPt.y + stage.mouseY >> 1);
 
         drawingCanvas.graphics.clear()
-            .setStrokeStyle(stroke, 'round', 'round')
-            .beginStroke(this.props.color)
-            .moveTo(midPt.x, midPt.y)
-            .curveTo(oldPt.x, oldPt.y, oldMidPt.x, oldMidPt.y);
+                     .setStrokeStyle(stroke, 'round', 'round')
+                     .beginStroke(this.props.color)
+                     .moveTo(midPt.x, midPt.y)
+                     .curveTo(oldPt.x, oldPt.y, oldMidPt.x, oldMidPt.y);
 
         oldPt.x = stage.mouseX;
         oldPt.y = stage.mouseY;
@@ -111,10 +127,6 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
             return;
         }
         stage.removeEventListener("stagemousemove", this.handleMouseMove);
-    },
-
-    clearCanvas () {
-
     },
 
     saveImageAsJPEG() {

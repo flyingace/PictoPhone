@@ -17,8 +17,9 @@ const ToolButton = React.createClass(/** @lends ToolButton.prototype */{
      * @property {Object} propTypes - An object used to validate props being passed into the components
      */
     propTypes: {
-        selected: React.PropTypes.bool,
-        iconClass: React.PropTypes.string
+        iconClass: React.PropTypes.string,
+        onToolSelected: React.PropTypes.func,
+        selected: React.PropTypes.bool
     },
 
     /**
@@ -32,6 +33,12 @@ const ToolButton = React.createClass(/** @lends ToolButton.prototype */{
         };
     },
 
+    onToolSelected() {
+        if (this.props.handleToolSelection) {
+            this.props.handleToolSelection(this.props.iconClass);
+        }
+    },
+
     /**
      * Renders the component based on the properties passed in from a parent
      * component and the component's state.
@@ -42,7 +49,7 @@ const ToolButton = React.createClass(/** @lends ToolButton.prototype */{
         const class_name = (this.props.iconClass) ? "tool-button icon-" + this.props.iconClass : "tool-button";
 
         return (
-            <div className={class_name} />
+            <div className={class_name} onClick={this.onToolSelected} />
         );
     }
 });
