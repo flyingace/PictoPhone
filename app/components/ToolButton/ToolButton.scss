@@ -1,5 +1,100 @@
 // Stylesheet for tool-button Component
+@import '../../styles/pictophone-icon-font';
+
+$buttonWidth: 40px;
+$buttonBottomMargin: 5px;
+$thickBrush: 30px;
+$mediumBrush: 20px;
+$thinBrush: 10px;
 
 .tool-button {
     display: block;
+    width: $buttonWidth;
+    height: $buttonWidth;
+    text-align: center;
+    line-height: $buttonWidth;
+    border: 1px solid black;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    margin-bottom: $buttonBottomMargin;
+    cursor: pointer;
 }
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+    font-family: "pictophone";
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    margin-right: .2em;
+    text-align: center;
+    /* opacity: .8; */
+
+    /* For safety - reset parent styles, that can break glyph codes*/
+    font-variant: normal;
+    text-transform: none;
+
+    /* fix buttons height, for twitter bootstrap */
+    line-height: 1em;
+
+    /* Animation center compensation - margins should be symmetric */
+    /* remove if not needed */
+    margin-left: .2em;
+
+    /* you can be more comfortable with increased icons size */
+    /* font-size: 120%; */
+
+    /* Uncomment for 3D effect */
+    /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+.icon-thick {
+    width: $thickBrush;
+    height: $thickBrush;
+    border-radius: $thickBrush / 2;
+    margin: ($buttonWidth - $thickBrush) / 2;
+    margin-bottom: (($buttonWidth - $thickBrush) / 2) + $buttonBottomMargin;
+    background-color: black;
+}
+
+.icon-medium {
+    width: $mediumBrush;
+    height: $mediumBrush;
+    border-radius: $mediumBrush / 2;
+    margin: ($buttonWidth - $mediumBrush) / 2;
+    margin-bottom: (($buttonWidth - $mediumBrush) / 2) + $buttonBottomMargin;
+    background-color: black;
+}
+
+.icon-thin {
+    width: $thinBrush;
+    height: $thinBrush;
+    border-radius: $thinBrush / 2;
+    margin: ($buttonWidth - $thinBrush) / 2;
+    margin-bottom: (($buttonWidth - $thinBrush) / 2) + $buttonBottomMargin;
+    background-color: black;
+}
+
+.icon-brush:before {
+    content: '\42';
+}
+/* 'B' */
+
+.icon-eraser:before {
+    content: '\45';
+}
+/* 'E' */
+
+.icon-bucket:before {
+    content: '\46';
+}
+/* 'F' */
+
+.icon-undo:before {
+    content: '\55';
+}
+/* 'U' */
+

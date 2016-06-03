@@ -19,8 +19,15 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
    * @property {Object} propTypes - An object used to validate props being passed into the components
    */
   propTypes: {
-    children: React.PropTypes.string
+    children: React.PropTypes.string,
+      description: React.PropTypes.string
   },
+    
+    getDefaultProps() {
+      return {
+          description: 'Three cows eating grass in France.'
+      }  
+    },
 
   /**
    * Renders the component based on the properties passed in from a parent
@@ -34,9 +41,9 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
           <DrawingToolbar />
           <DrawingArea />
           <ColorPalette />
-          <p>Phrase to come.</p>
-          <div className="button">Clear All</div>
-          <div className="button">OK</div>
+          <p className="description">{this.props.description}</p>
+          <div className="button clear-all">Clear All</div>
+          <div className="button submit-picture">OK</div>
       </div>
     );
   }

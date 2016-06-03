@@ -1,4 +1,5 @@
 import React from 'react';
+import ToolButton from '../ToolButton/ToolButton';
 
 import './DrawingToolbar.scss';
 
@@ -19,6 +20,10 @@ const DrawingToolbar = React.createClass(/** @lends DrawingToolbar.prototype */{
     propTypes: {
     },
 
+    renderToolButtons () {
+
+    },
+
     /**
      * Renders the component based on the properties passed in from a parent
      * component and the component's state.
@@ -27,7 +32,15 @@ const DrawingToolbar = React.createClass(/** @lends DrawingToolbar.prototype */{
      */
     render() {
         return (
-            <div className="drawing-toolbar" />
+            <div className="drawing-toolbar">
+                <ToolButton iconClass="thick" />
+                <ToolButton iconClass="medium" />
+                <ToolButton iconClass="thin" />
+                <ToolButton iconClass="brush" />
+                <ToolButton iconClass="bucket"/>
+                <ToolButton iconClass="eraser"/>
+                <ToolButton iconClass="undo"/>
+            </div>
         );
     }
 });

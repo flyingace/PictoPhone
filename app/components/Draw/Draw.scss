@@ -1,13 +1,27 @@
 // Stylesheet for draw Component
 
 .draw {
-  display: block;
-  width: 100%;
-  margin: 0;
-  padding: 0;
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 
-  h1 {
-	margin: 0;
-	padding: 0;
-  }
+    h1 {
+        margin: 0;
+        padding: 0;
+    }
+
+    .description {
+        width: 620px;
+        height: 40px;
+        padding: 0 5px;
+        float: left;
+        border: 1px solid black;
+        font-size: 24px;
+    }
+
+    .clear-all, .submit-picture {
+        width: 100px;
+        float: left;
+    }
 }
