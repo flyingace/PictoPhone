@@ -18,10 +18,13 @@ app.on('window-all-closed', () => {
 
 app.on('ready', () => {
   mainWindow = new BrowserWindow({
-    frame: false,
+    title: 'PictoPhone',
+    frame: true,
+    useContentSize: true,
     resizable: false,
     width: 1024,
     height: 600,
+    // movable: false,
     kiosk: false //perhaps eventually, but right now not so much!
   });
 
