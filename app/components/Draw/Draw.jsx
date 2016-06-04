@@ -75,7 +75,7 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
     clearCanvas() {
         this.setState({'needsToBeCleared': true});
     },
-    
+
     onCanvasCleared() {
         this.setState({'needsToBeCleared': false})
     },
@@ -95,11 +95,14 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
             <div className="draw">
                 <DrawingToolbar toolSelectionHandler={this.onToolSelected}
                                 thicknessSelectionHandler={this.onThicknessSelected}/>
-                <DrawingArea clearNow={this.state.needsToBeCleared} onCleared={this.onCanvasCleared} brushWidth={this.state.selectedThickness} />
+                <DrawingArea clearNow={this.state.needsToBeCleared} onCleared={this.onCanvasCleared}
+                             brushWidth={this.state.selectedThickness}/>
                 <ColorPalette colorSelectionHandler={this.onColorSelected}/>
-                <p className="description">{this.props.description}</p>
-                <div className="button clear-all" onClick={this.onClearCanvas}>Clear All</div>
-                <div className="button submit-picture" onClick={this.onCompleteDrawing}>OK</div>
+                <div className="description-container">
+                    <p className="description">{this.props.description}</p>
+                    <div className="button clear-all" onClick={this.onClearCanvas}>Clear All</div>
+                    <div className="button submit-picture" onClick={this.onCompleteDrawing}>OK</div>
+                </div>
             </div>
         );
     }
