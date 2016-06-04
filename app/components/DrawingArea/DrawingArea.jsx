@@ -3,7 +3,7 @@ import React from 'react';
 import './DrawingArea.scss';
 
 const EaselJS = window.createjs;
-let stage, canvas, drawingCanvas, stroke, title, oldPt, oldMidPt, index
+let stage, canvas, drawingCanvas, stroke, title, oldPt, oldMidPt
 
 /**
  * DrawingArea class.
@@ -53,12 +53,11 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
             this.clearStage();
             this.props.onCleared();
         }
-        
+
     },
 
     configureCanvasAndStage () {
         canvas = this.refs.drawingArea;
-        index = 0;
 
         //check to see if we are running in a browser with touch support
         stage = new EaselJS.Stage(canvas);
@@ -108,10 +107,10 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
         let midPt = new EaselJS.Point(oldPt.x + stage.mouseX >> 1, oldPt.y + stage.mouseY >> 1);
 
         drawingCanvas.graphics.clear()
-                     .setStrokeStyle(stroke, 'round', 'round')
-                     .beginStroke(this.props.color)
-                     .moveTo(midPt.x, midPt.y)
-                     .curveTo(oldPt.x, oldPt.y, oldMidPt.x, oldMidPt.y);
+            .setStrokeStyle(stroke, 'round', 'round')
+            .beginStroke(this.props.color)
+            .moveTo(midPt.x, midPt.y)
+            .curveTo(oldPt.x, oldPt.y, oldMidPt.x, oldMidPt.y);
 
         oldPt.x = stage.mouseX;
         oldPt.y = stage.mouseY;
@@ -137,9 +136,8 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
 
     render () {
         return (
-            <div>
-                <canvas id="drawing-area" ref="drawingArea" width={this.props.canvasWidth}
-                        height={this.props.canvasHeight}/>
+            <div className="drawing-area">
+                <canvas ref="drawingArea" width={this.props.canvasWidth} height={this.props.canvasHeight}/>
             </div>
         );
 

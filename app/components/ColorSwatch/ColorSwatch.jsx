@@ -17,7 +17,8 @@ const ColorSwatch = React.createClass(/** @lends ColorSwatch.prototype */{
      * @property {Object} propTypes - An object used to validate props being passed into the components
      */
     propTypes: {
-        selected: React.PropTypes.bool
+        selected: React.PropTypes.bool,
+        swatchColor: React.PropTypes.string
     },
 
     /**
@@ -38,8 +39,12 @@ const ColorSwatch = React.createClass(/** @lends ColorSwatch.prototype */{
      * @return {ReactElement}
      */
     render() {
+        let swatchStyle = {
+            backgroundColor: this.props.swatchColor
+        };
+
         return (
-            <div className="color-swatch" />
+            <div className="color-swatch" style={swatchStyle}></div>
         );
     }
 });
