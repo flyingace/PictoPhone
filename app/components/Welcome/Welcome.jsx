@@ -74,10 +74,11 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
                 transitionName="modal-anim"
                 onRequestClose={this.closeModal}>
                 <h1 className="leading">Are you ready for the game?</h1>
-                <h3>Step One: Draw something according to the given phrase</h3>
-                <h3>Step Two: Write something according to the given image</h3>
-                <h3>Submit and that's it!</h3>
-                <button className="button block leading">Start</button>
+                <h3><span className="bold-text">Step One:</span> Draw something with the given phrase &#9733;</h3>
+                <h3><span className="bold-text">Step Two:</span> Write something with the given image &#9835;</h3>
+                <h3>Submit and that's it! &#9834;&#9834;</h3>
+                <h3>Now click start and play the game! &#12485;</h3>
+                <button className="button block leading">START</button>
             </Modal>
         );
     },
