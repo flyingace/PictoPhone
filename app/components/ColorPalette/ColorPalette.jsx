@@ -29,6 +29,7 @@ const ColorPalette = React.createClass(/** @lends ColorPalette.prototype */{
                 '#135B58', '#359000', '#5FCA00']
         }
     },
+    
     renderSwatches(colorArray) {
         return map(colorArray, this.renderSwatch)
     },

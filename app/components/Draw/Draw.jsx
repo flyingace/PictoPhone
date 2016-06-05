@@ -1,8 +1,11 @@
 import React from 'react';
 import ColorPalette from '../ColorPalette/ColorPalette';
 import DrawingArea from '../DrawingArea/DrawingArea';
-import DrawingToolbar from '../DrawingToolbar/DrawingToolbar';
+import Toolbar from '../Toolbar/Toolbar';
 import './Draw.scss';
+
+const drawingTools = ["brush", "bucket", "eraser"];
+const brushThicknessTools = ["thick", "medium", "thin"];
 
 /**
  * Draw class.
@@ -20,7 +23,8 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
      */
     propTypes: {
         children: React.PropTypes.string,
-        description: React.PropTypes.string
+        description: React.PropTypes.string,
+
     },
 
     getDefaultProps() {
@@ -77,7 +81,7 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
     },
 
     onCanvasCleared() {
-        this.setState({'needsToBeCleared': false})
+        this.setState({'needsToBeCleared': false});
     },
 
     onCompleteDrawing() {
@@ -93,8 +97,8 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
     render() {
         return (
             <div className="draw">
-                <DrawingToolbar toolSelectionHandler={this.onToolSelected}
-                                thicknessSelectionHandler={this.onThicknessSelected}/>
+                <Toolbar toolType="drawing" toolSelectionHandler={this.onToolSelected} toolButtons={drawingTools}/>
+                <Toolbar toolType="brushThickness" toolSelectionHandler={this.onThicknessSelected} toolButtons={brushThicknessTools}/>
                 <DrawingArea clearNow={this.state.needsToBeCleared} onCleared={this.onCanvasCleared}
                              brushWidth={this.state.selectedThickness}/>
                 <ColorPalette colorSelectionHandler={this.onColorSelected}/>

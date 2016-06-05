@@ -1,14 +1,14 @@
 import React from 'react';
-import DrawingToolbar  from '../DrawingToolbar.jsx';
+import Toolbar  from '../Toolbar.jsx';
 import { renderIntoDocument } from 'react-addons-test-utils';
 
-describe('DrawingToolbar', () => {
+describe('Toolbar', () => {
 
     let component, sandbox;
 
     before(() => {
         sandbox = sinon.sandbox.create();
-        component = renderIntoDocument(<DrawingToolbar />);
+        component = renderIntoDocument(<Toolbar />);
     });
 
     after(() => {
