@@ -90,6 +90,10 @@ a:hover {
     &.full {
         width: 100%;
     }
+
+    &.block {
+        width: 250px;
+    }
 }
 
 .button:hover {

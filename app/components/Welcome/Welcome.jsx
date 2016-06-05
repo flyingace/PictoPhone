@@ -2,6 +2,7 @@ import React from 'react';
 import { map } from 'lodash';
 import './Welcome.scss';
 import NameList from '../NameList/NameList';
+import Modal from '../Modal/Modal';
 
 const TABS_LIST_ONE = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'];
 const TABS_LIST_TWO = ['N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
@@ -30,6 +31,20 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
         this.props.fetchWelcomeData('get/welcome/api');
     },
 
+    getInitialState() {
+        return {
+            isModalOpen: false
+        }
+    },
+
+    openModal() {
+        this.setState({ isModalOpen: true });
+    },
+
+    closeModal() {
+        this.setState({ isModalOpen: false });
+    },
+
     filterNames(event) {
         const letter = event.target.innerHTML;
         this.props.filterNameList(letter);
@@ -50,6 +65,21 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
                 </div>
             );
         });
+    },
+
+    maybeRenderGameReadyModal() {
+        return (
+            <Modal
+                isOpen={this.state.isModalOpen}
+                transitionName="modal-anim"
+                onRequestClose={this.closeModal}>
+                <h1 className="leading">Are you ready for the game?</h1>
+                <h3>Step One: Draw something according to the given phrase</h3>
+                <h3>Step Two: Write something according to the given image</h3>
+                <h3>Submit and that's it!</h3>
+                <button className="button block leading">Start</button>
+            </Modal>
+        );
     },
 
     /**
@@ -74,7 +104,9 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
                 </div>
                 <div className="rightSide">
                     <div className="nameList-col">
-                        <NameList nameList={this.props.welcome.filteredNameList} />
+                        <NameList
+                            nameList={this.props.welcome.filteredNameList}
+                            onNameSelected={this.openModal} />
                     </div>
                     <div className="alphabetical-tabs">
                         <div className="name-list__all" onClick={this.showAllNames}>Show All</div>
@@ -86,6 +118,7 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
                         </div>
                     </div>
                 </div>
+                {this.maybeRenderGameReadyModal()}
             </div>
         );
     }

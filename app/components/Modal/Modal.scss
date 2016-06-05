@@ -1,0 +1,69 @@
+// Stylesheet for modal Component
+@import '../../styles/_variables';
+
+.modal {
+	display: block;
+	text-align: center;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 50px;
+	position: absolute;
+	z-index: 1;
+	background: $white;
+
+	.close {
+		position: absolute;
+		top: 0;
+		right: 30px;
+		width: 50px;
+		height: 50px;
+		opacity: 0.5;
+
+		&:hover {
+			opacity: 1;
+			cursor: pointer;
+		}
+
+		&:before,
+		&:after {
+			position: absolute;
+			content: '';
+			height: 50px;
+			width: 1px;
+			background-color: $gray;
+		}
+
+		&:before {
+			transform: rotate(45deg);
+		}
+
+		&:after {
+			transform: rotate(-45deg);
+		}
+	}
+}
+
+/* Animation */
+
+.modal-anim-enter {
+    opacity: 0.00;
+    transform: scale(0.7);
+    transition: all 0.2s;
+
+    .modal-anim-enter-active {
+	    opacity: 0.9;
+	    transform: scale(1);
+	}
+}
+
+.modal-anim-leave {
+    opacity: 1;
+    transform: scale(1);
+    transition: all 0.2s;
+
+    .modal-anim-leave-active {
+	    opacity: 0.00;
+	    transform: scale(0.7);
+	}
+}
