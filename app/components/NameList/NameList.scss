@@ -13,7 +13,8 @@
         height: 100%;
 
         li {
-        	border-left: 5px solid $clean-modern-gray;
+        	position: relative;
+            border-left: 5px solid $clean-modern-gray;
             background-color: $gray-lightest;
             padding: 15px;
             margin-bottom: 3px;
@@ -21,10 +22,41 @@
             cursor: pointer;
 
             &:hover,
-            &:active {
+            &:active,
+            &.selected {
                 border-left: 20px solid $clean-modern-red;
             	background-color: $white;
             }
+
+            &.selected {
+                .check-wrapper {
+                    display: block;
+                }
+            }
+
+            .check-wrapper {
+                display: none;
+                position: absolute;
+                top: 6px;
+                right: 10px;
+                width: 40px;
+            }
+
+            .checkmark {
+                stroke: $clean-modern-red;
+                stroke-dashoffset: 745.74853515625;
+                stroke-dasharray: 745.74853515625;
+                animation: dash 2s ease-out forwards;
+            }
         }
+    }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dashoffset: 745.74853515625;
+    }
+    100% {
+        stroke-dashoffset: 0;
     }
 }
