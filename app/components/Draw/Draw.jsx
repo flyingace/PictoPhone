@@ -5,7 +5,9 @@ import Toolbar from '../Toolbar/Toolbar';
 import './Draw.scss';
 
 const drawingTools = ["brush", "bucket", "eraser"];
-const brushThicknessTools = ["thick", "medium", "thin"];
+const brushThickness = ["thick", "medium", "thin"];
+const colors = ['#FAFF00', '#F88E00', '#F75800', '#F62600', '#C00000', '#BC005B', '#54005A', '#0B005D', '#0A2496',
+    '#135B58', '#359000', '#5FCA00'];
 
 /**
  * Draw class.
@@ -97,11 +99,11 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
     render() {
         return (
             <div className="draw">
-                <Toolbar toolType="drawing" toolSelectionHandler={this.onToolSelected} toolButtons={drawingTools}/>
-                <Toolbar toolType="brushThickness" toolSelectionHandler={this.onThicknessSelected} toolButtons={brushThicknessTools}/>
+                <Toolbar toolType="drawing" toolbarName="drawing_tools" toolSelectionHandler={this.onToolSelected} toolButtons={drawingTools}/>
+                <Toolbar toolType="brushThickness" toolbarName="brush_thickness" toolSelectionHandler={this.onThicknessSelected} toolButtons={brushThickness}/>
                 <DrawingArea clearNow={this.state.needsToBeCleared} onCleared={this.onCanvasCleared}
                              brushWidth={this.state.selectedThickness}/>
-                <ColorPalette colorSelectionHandler={this.onColorSelected}/>
+                <Toolbar toolType="colorPalette" toolbarName="color_palette" toolSelectionHandler={this.onColorSelected} toolButtons={colors}/>
                 <div className="description-container">
                     <p className="description">{this.props.description}</p>
                     <div className="button clear-all" onClick={this.onClearCanvas}>Clear All</div>

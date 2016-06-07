@@ -1,8 +1,10 @@
 // Stylesheet for draw Component
+@import '../../styles/_variables';
 
 .draw {
     display: block;
-    width: 100%;
+    height: $window-height;
+    width: $window-width;
     margin: 0;
     padding: 0;
     background-color: lightblue;
