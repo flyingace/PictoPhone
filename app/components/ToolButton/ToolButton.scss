@@ -18,6 +18,12 @@ $thinBrush: 10px;
     -webkit-border-radius: 2px;
     margin-bottom: $buttonBottomMargin;
     cursor: pointer;
+    -webkit-appearance: none;
+        outline: none;
+
+    &:checked {
+        border: 2px solid red;
+    }
 }
 
 [class^="icon-"]:before, [class*=" icon-"]:before {

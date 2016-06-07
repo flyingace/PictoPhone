@@ -17,9 +17,10 @@ const ToolButton = React.createClass(/** @lends ToolButton.prototype */{
      * @property {Object} propTypes - An object used to validate props being passed into the components
      */
     propTypes: {
-        tool: React.PropTypes.string,
-        onToolSelected: React.PropTypes.func,
-        selected: React.PropTypes.bool
+        groupName: React.PropTypes.string,
+        handleToolSelection: React.PropTypes.func,
+        selected: React.PropTypes.bool,
+        toolName: React.PropTypes.string
     },
 
     /**
@@ -49,7 +50,7 @@ const ToolButton = React.createClass(/** @lends ToolButton.prototype */{
         const class_name = (this.props.toolName) ? "tool-button icon-" + this.props.toolName : "tool-button";
 
         return (
-            <div className={class_name} onClick={this.onToolSelected} />
+            <input type="radio" name={this.props.groupName} className={class_name} onClick={this.onToolSelected} />
         );
     }
 });

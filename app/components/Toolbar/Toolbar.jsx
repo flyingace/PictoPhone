@@ -19,8 +19,10 @@ const Toolbar = React.createClass(/** @lends Toolbar.prototype */{
      * @property {Object} propTypes - An object used to validate props being passed into the components
      */
     propTypes: {
+        toolButtons: React.PropTypes.array,
         toolSelectionHandler: React.PropTypes.func,
-        tools: React.PropTypes.array
+        toolType: React.PropTypes.string,
+        toolbarName: React.PropTypes.string
     },
 
     renderToolButtons(toolArray) {
@@ -28,7 +30,7 @@ const Toolbar = React.createClass(/** @lends Toolbar.prototype */{
     },
 
     renderToolButton(tool, index) {
-        return <ToolButton toolName={tool} key={index} handleToolSelection={this.props.toolSelectionHandler}/>
+        return <ToolButton toolName={tool} key={index} handleToolSelection={this.props.toolSelectionHandler} groupName={this.props.toolbarName} />
     },
 
     /**
