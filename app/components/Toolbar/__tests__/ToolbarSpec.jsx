@@ -1,14 +1,14 @@
 import React from 'react';
-import ColorPalette  from '../ColorPalette.jsx';
+import Toolbar  from '../Toolbar.jsx';
 import { renderIntoDocument } from 'react-addons-test-utils';
 
-describe('ColorPalette', () => {
+describe('Toolbar', () => {
 
     let component, sandbox;
 
     before(() => {
         sandbox = sinon.sandbox.create();
-        component = renderIntoDocument(<ColorPalette />);
+        component = renderIntoDocument(<Toolbar />);
     });
 
     after(() => {

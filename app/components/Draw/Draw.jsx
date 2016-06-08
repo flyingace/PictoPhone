@@ -1,8 +1,12 @@
 import React from 'react';
-import ColorPalette from '../ColorPalette/ColorPalette';
 import DrawingArea from '../DrawingArea/DrawingArea';
-import DrawingToolbar from '../DrawingToolbar/DrawingToolbar';
+import Toolbar from '../Toolbar/Toolbar';
 import './Draw.scss';
+
+const drawingTools = ["brush", "bucket", "eraser"];
+const brushThickness = ["thick", "medium", "thin"];
+const colors = ['FAFF00', 'F88E00', 'F75800', 'F62600', 'C00000', 'BC005B', '54005A', '0B005D', '0A2496',
+    '135B58', '359000', '5FCA00'];
 
 /**
  * Draw class.
@@ -75,9 +79,9 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
     clearCanvas() {
         this.setState({'needsToBeCleared': true});
     },
-    
+
     onCanvasCleared() {
-        this.setState({'needsToBeCleared': false})
+        this.setState({'needsToBeCleared': false});
     },
 
     onCompleteDrawing() {
@@ -93,13 +97,16 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
     render() {
         return (
             <div className="draw">
-                <DrawingToolbar toolSelectionHandler={this.onToolSelected}
-                                thicknessSelectionHandler={this.onThicknessSelected}/>
-                <DrawingArea clearNow={this.state.needsToBeCleared} onCleared={this.onCanvasCleared} brushWidth={this.state.selectedThickness} />
-                <ColorPalette colorSelectionHandler={this.onColorSelected}/>
-                <p className="description">{this.props.description}</p>
-                <div className="button clear-all" onClick={this.onClearCanvas}>Clear All</div>
-                <div className="button submit-picture" onClick={this.onCompleteDrawing}>OK</div>
+                <Toolbar toolType="drawing" toolbarName="drawing_tools" toolSelectionHandler={this.onToolSelected} toolButtons={drawingTools}/>
+                <Toolbar toolType="brushThickness" toolbarName="brush_thickness" toolSelectionHandler={this.onThicknessSelected} toolButtons={brushThickness}/>
+                <DrawingArea clearNow={this.state.needsToBeCleared} onCleared={this.onCanvasCleared}
+                             brushWidth={this.state.selectedThickness}/>
+                <Toolbar toolType="colorPalette" toolbarName="color_palette" toolSelectionHandler={this.onColorSelected} toolButtons={colors}/>
+                <div className="description-container">
+                    <p className="description">{this.props.description}</p>
+                    <div className="button clear-all" onClick={this.onClearCanvas}>Clear All</div>
+                    <div className="button submit-picture" onClick={this.onCompleteDrawing}>OK</div>
+                </div>
             </div>
         );
     }

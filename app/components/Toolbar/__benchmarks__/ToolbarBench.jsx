@@ -2,13 +2,13 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Suite } from 'benchmark';
 import benchmarks from 'beautify-benchmark';
-import ColorSwatch from '../ColorSwatch.jsx';
-import Fixture from '../__tests__/fixtures/ColorSwatch.json';
+import Toolbar from '../Toolbar.jsx';
+import Fixture from '../__tests__/fixtures/Toolbar.json';
 
 const suite = new Suite();
 
-suite.add('ColorSwatch component rendering', () => {
-    renderToString(<ColorSwatch {...Fixture} />);
+suite.add('Toolbar component rendering', () => {
+    renderToString(<Toolbar {...Fixture} />);
 }).on('start', () => {
     benchmarks.reset();
 }).on('cycle', (event) => {

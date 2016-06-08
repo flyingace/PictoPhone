@@ -16,8 +16,18 @@ $thinBrush: 10px;
     border: 1px solid black;
     border-radius: 2px;
     -webkit-border-radius: 2px;
-    margin-bottom: $buttonBottomMargin;
+    margin: 0 0 $buttonBottomMargin 0;
     cursor: pointer;
+    -webkit-appearance: none;
+    outline: none;
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+
+    &:checked {
+        border: 2px solid red;
+    }
 }
 
 [class^="icon-"]:before, [class*=" icon-"]:before {
@@ -28,8 +38,8 @@ $thinBrush: 10px;
 
     display: inline-block;
     text-decoration: inherit;
-    width: 1em;
-    margin-right: .2em;
+    //width: 1em;
+    //margin-right: .2em;
     text-align: center;
     /* opacity: .8; */
 
@@ -38,11 +48,11 @@ $thinBrush: 10px;
     text-transform: none;
 
     /* fix buttons height, for twitter bootstrap */
-    line-height: 1em;
+    //line-height: 1em;
 
     /* Animation center compensation - margins should be symmetric */
     /* remove if not needed */
-    margin-left: .2em;
+    //margin-left: .2em;
 
     /* you can be more comfortable with increased icons size */
     /* font-size: 120%; */
@@ -78,23 +88,62 @@ $thinBrush: 10px;
     background-color: black;
 }
 
+/* 'B' */
 .icon-brush:before {
     content: '\42';
 }
-/* 'B' */
 
+/* 'E' */
 .icon-eraser:before {
     content: '\45';
 }
-/* 'E' */
 
+/* 'F' */
 .icon-bucket:before {
     content: '\46';
 }
-/* 'F' */
 
+/* 'U' */
 .icon-undo:before {
     content: '\55';
 }
-/* 'U' */
+
+
+//colors
+.icon-FAFF00 {
+    background-color: #FAFF00;
+}
+.icon-F88E00 {
+    background-color: #F88E00;
+}
+.icon-F75800 {
+    background-color: #F75800;
+}
+.icon-F62600 {
+    background-color: #F62600;
+}
+.icon-C00000 {
+    background-color: #C00000;
+}
+.icon-BC005B {
+    background-color: #BC005B;
+}
+.icon-54005A {
+    background-color: #54005A;
+}
+.icon-0B005D {
+    background-color: #0B005D;
+}
+.icon-0A2496 {
+    background-color: #0A2496;
+}
+.icon-135B58 {
+    background-color: #135B58;
+}
+.icon-359000 {
+    background-color: #359000;
+}
+.icon-5FCA00 {
+    background-color: #5FCA00;
+}
 

@@ -1,27 +1,36 @@
 // Stylesheet for draw Component
+@import '../../styles/_variables';
 
 .draw {
     display: block;
-    width: 100%;
+    height: $window-height;
+    width: $window-width;
     margin: 0;
     padding: 0;
+    background-color: lightblue;
 
-    h1 {
-        margin: 0;
-        padding: 0;
-    }
+    .description-container {
+        position: absolute;
+        bottom: 10px;
+        left: 62px;
 
-    .description {
-        width: 620px;
-        height: 40px;
-        padding: 0 5px;
-        float: left;
-        border: 1px solid black;
-        font-size: 24px;
-    }
+        .description {
+            width: 680px;
+            height: 40px;
+            margin: 0 10px 0 0;
+            padding: 0;
+            float: left;
+            border-bottom: 1px solid black;
+            font-size: 30px;
+            line-height: 40px;
+        }
 
-    .clear-all, .submit-picture {
-        width: 100px;
-        float: left;
+        .clear-all, .submit-picture {
+            width: 100px;
+            height: 40px;
+            margin: 0;
+            margin-left: 5px;
+            float: left;
+        }
     }
 }
