@@ -1,13 +1,12 @@
 import React from 'react';
-import ColorPalette from '../ColorPalette/ColorPalette';
 import DrawingArea from '../DrawingArea/DrawingArea';
 import Toolbar from '../Toolbar/Toolbar';
 import './Draw.scss';
 
 const drawingTools = ["brush", "bucket", "eraser"];
 const brushThickness = ["thick", "medium", "thin"];
-const colors = ['#FAFF00', '#F88E00', '#F75800', '#F62600', '#C00000', '#BC005B', '#54005A', '#0B005D', '#0A2496',
-    '#135B58', '#359000', '#5FCA00'];
+const colors = ['FAFF00', 'F88E00', 'F75800', 'F62600', 'C00000', 'BC005B', '54005A', '0B005D', '0A2496',
+    '135B58', '359000', '5FCA00'];
 
 /**
  * Draw class.

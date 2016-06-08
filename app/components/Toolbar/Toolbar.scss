@@ -1,9 +1,9 @@
 // Stylesheet for drawing-toolbar Component
 
 [class$="-toolbar"] {
+    position: absolute;
     width: 50px;
     display: block;
-    margin-bottom: 10px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     background-color: #F0F0F0;
@@ -11,16 +11,23 @@
 }
 
 .drawing-toolbar {
+    top: 10px;
+    left: 0;
 }
 
 .brushThickness-toolbar {
+    top: 170px;
+    left: 0;
 }
 
 .colorPalette-toolbar {
-    position: absolute;
-    top: 5px;
+    top: 10px;
     right: 0;
     border-radius: 5px 0 0 5px;
     padding: 10px 0 10px 10px;
     border: none;
+
+    [class*=" icon-"] {
+        border: none;
+    }
 }
