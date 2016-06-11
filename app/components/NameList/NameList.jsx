@@ -35,8 +35,8 @@ const NameList = React.createClass(/** @lends NameList.prototype */{
         };
     },
 
-    selectName(index) {
-        this.setState({ selectedNameIndex: index });
+    selectName(indexKey) {
+        this.setState({ selectedIndexKey: indexKey });
     },
 
     // http://codepen.io/seansean11/pen/fBjIi
@@ -58,15 +58,15 @@ const NameList = React.createClass(/** @lends NameList.prototype */{
             nameList = 'Name not found';
         } else {
             const names = map(this.props.nameList, (listItem, index) => {
-
+                const indexKey = `${listItem.name.charAt(0)}-${index}`;
                 const nameSelectedClass = cx({
-                    'selected': index === this.state.selectedNameIndex
+                    'selected': indexKey === this.state.selectedIndexKey
                 });
 
                 return (
                     <li
                         key={ index }
-                        onClick={() => {this.selectName(index)}}
+                        onClick={() => {this.selectName(indexKey)}}
                         className={nameSelectedClass}>
                         { listItem.name }
                         { this.renderCheckSVG() }

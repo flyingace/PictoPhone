@@ -33,7 +33,7 @@ export function fetchWelcomeData(api) {
     return (dispatch) => {
         dispatch(requestWelcomeData());
 
-        return firebaseRef.database().ref('/nameList/').on('value', (data) => {
+        return firebaseRef.database().ref('/players/').on('value', (data) => {
             dispatch(receiveWelcomeData(data.val()));
         });
     }
