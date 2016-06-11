@@ -3,7 +3,7 @@ import React from 'react';
 import './DrawingArea.scss';
 
 const EaselJS = window.createjs;
-let stage, canvas, drawingCanvas, stroke, title, oldPt, oldMidPt
+let stage, canvas, drawingCanvas, stroke, title, oldPt, oldMidPt;
 
 /**
  * DrawingArea class.
@@ -24,7 +24,7 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
         canvasHeight: React.PropTypes.string,
         canvasWidth: React.PropTypes.string,
         clearNow: React.PropTypes.bool,
-        color: React.PropTypes.string,
+        selectedColor: React.PropTypes.string,
         onCleared: React.PropTypes.func
     },
 
@@ -33,7 +33,7 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
             canvasWidth: '900',
             canvasHeight: '520',
             brushThickness: 30,
-            color: 'black'
+            selectedColor: '#000000'
         }
     },
 
@@ -53,7 +53,6 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
             this.clearStage();
             this.props.onCleared();
         }
-
     },
 
     configureCanvasAndStage () {
@@ -108,7 +107,7 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
 
         drawingCanvas.graphics.clear()
             .setStrokeStyle(stroke, 'round', 'round')
-            .beginStroke(this.props.color)
+            .beginStroke(this.props.selectedColor)
             .moveTo(midPt.x, midPt.y)
             .curveTo(oldPt.x, oldPt.y, oldMidPt.x, oldMidPt.y);
 

@@ -43,12 +43,12 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
     },
 
     onToolSelected(toolName) {
-        console.log(toolName);
         this.setState({'selectedTool': toolName});
     },
 
     onColorSelected(colorName) {
-        this.setState({'selectedColor': colorName});
+        const colorCode = '#' + colorName;
+        this.setState({'selectedColor': colorCode});
     },
 
     onThicknessSelected(thickness) {
@@ -100,7 +100,7 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
                 <Toolbar toolType="drawing" toolbarName="drawing_tools" toolSelectionHandler={this.onToolSelected} toolButtons={drawingTools}/>
                 <Toolbar toolType="brushThickness" toolbarName="brush_thickness" toolSelectionHandler={this.onThicknessSelected} toolButtons={brushThickness}/>
                 <DrawingArea clearNow={this.state.needsToBeCleared} onCleared={this.onCanvasCleared}
-                             brushWidth={this.state.selectedThickness}/>
+                             brushWidth={this.state.selectedThickness} selectedColor={this.state.selectedColor}/>
                 <Toolbar toolType="colorPalette" toolbarName="color_palette" toolSelectionHandler={this.onColorSelected} toolButtons={colors}/>
                 <div className="description-container">
                     <p className="description">{this.props.description}</p>
