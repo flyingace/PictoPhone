@@ -4,6 +4,7 @@
 
 import firebase from 'firebase';
 import { FIREBASE_API_KEY } from '../../keys';
+import { push } from 'react-router-redux';
 
 const NAMES_URL = 'https://pictophone.firebaseio.com';
 const firebaseRef = firebase.initializeApp({
@@ -41,4 +42,11 @@ export function fetchWelcomeData(api) {
 
 export function filterNameList(letter) {
     return { type: FILTER_NAME_LIST, letter };
+}
+
+export function goToDrawingPage() {
+    console.log('here');
+    return (dispatch) => {
+        dispatch(push('/draw'));
+    }
 }
