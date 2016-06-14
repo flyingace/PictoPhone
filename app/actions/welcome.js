@@ -45,7 +45,6 @@ export function filterNameList(letter) {
 }
 
 export function goToDrawingPage() {
-    console.log('here');
     return (dispatch) => {
         dispatch(push('/draw'));
     }
