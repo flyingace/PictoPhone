@@ -24,6 +24,7 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
     propTypes: {
         fetchWelcomeData: React.PropTypes.func,
         filterNameList: React.PropTypes.func,
+        goToDrawingPage: React.PropTypes.func,
         welcome: React.PropTypes.object
     },
 
@@ -78,7 +79,9 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
                 <h3><span className="bold-text">Step Two:</span> Write something with the given image &#9835;</h3>
                 <h3>Submit and that's it! &#9834;&#9834;</h3>
                 <h3>Now click start and play the game! &#12485;</h3>
-                <button className="button block leading">START</button>
+                <button
+                    className="button block leading"
+                    onClick={this.props.goToDrawingPage}>START</button>
             </Modal>
         );
     },
