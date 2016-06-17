@@ -3,13 +3,12 @@
 // import axios from 'axios';
 
 import firebase from 'firebase';
-import { FIREBASE_API_KEY } from '../../keys';
+import { FIREBASE_API_KEY, DATABASE_URL } from '../../keys';
 import { push } from 'react-router-redux';
 
-const NAMES_URL = 'https://pictophone.firebaseio.com';
 const firebaseRef = firebase.initializeApp({
     apiKey: FIREBASE_API_KEY,
-    databaseURL: NAMES_URL
+    databaseURL: DATABASE_URL
 });
 
 export const REQUEST_WELCOME_DATA = 'FETCH_WELCOME_DATA';

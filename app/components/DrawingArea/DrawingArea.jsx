@@ -24,8 +24,10 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
         canvasHeight: React.PropTypes.string,
         canvasWidth: React.PropTypes.string,
         clearNow: React.PropTypes.bool,
+        saveNow: React.PropTypes.bool,
         selectedColor: React.PropTypes.string,
-        onCleared: React.PropTypes.func
+        onCleared: React.PropTypes.func,
+        onSaved: React.PropTypes.func
     },
 
     getDefaultProps() {
@@ -52,6 +54,11 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
         if (this.props.clearNow) {
             this.clearStage();
             this.props.onCleared();
+        }
+
+        if (this.props.saveNow) {
+            const drawing = this.saveImageAsJPEG();
+            this.props.onSaved(drawing);
         }
     },
 
@@ -126,11 +133,12 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
         }
         stage.removeEventListener("stagemousemove", this.handleMouseMove);
     },
-
+    
     saveImageAsJPEG() {
-        setTimeout(function () {
-            console.log(canvas.toDataURL());
-        }, 20000)
+        const img = new Image();
+        img.src = canvas.toDataURL("img/jpg");
+        img.name = Date.now() + '.jpg';
+        return img;
     },
 
     render () {
