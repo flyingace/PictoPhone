@@ -3,13 +3,9 @@
 // import axios from 'axios';
 
 import firebase from 'firebase';
-import { FIREBASE_API_KEY, DATABASE_URL } from '../../keys';
 import { push } from 'react-router-redux';
 
-const firebaseRef = firebase.initializeApp({
-    apiKey: FIREBASE_API_KEY,
-    databaseURL: DATABASE_URL
-});
+const database = firebase.database();
 
 export const REQUEST_WELCOME_DATA = 'FETCH_WELCOME_DATA';
 export const RECEIVE_WELCOME_DATA = 'RECEIVE_WELCOME_DATA';
@@ -33,7 +29,7 @@ export function fetchWelcomeData(api) {
     return (dispatch) => {
         dispatch(requestWelcomeData());
 
-        return firebaseRef.database().ref('/players/').on('value', (data) => {
+        return database.ref('/players/').on('value', (data) => {
             dispatch(receiveWelcomeData(data.val()));
         });
     }

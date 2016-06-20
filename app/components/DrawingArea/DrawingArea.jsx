@@ -133,10 +133,10 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
         }
         stage.removeEventListener("stagemousemove", this.handleMouseMove);
     },
-    
+
     saveImageAsJPEG() {
         const img = new Image();
-        img.src = canvas.toDataURL("img/jpg");
+        img.src = stage.toDataURL('#FFFFFF', "image/jpeg");
         img.name = Date.now() + '.jpg';
         return img;
     },

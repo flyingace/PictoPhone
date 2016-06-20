@@ -1,19 +1,43 @@
 import React from 'react';
 import DrawingArea from '../DrawingArea/DrawingArea';
 import Toolbar from '../Toolbar/Toolbar';
+import firebase from 'firebase';
 import './Draw.scss';
 
 const drawingTools = ["brush", "bucket", "eraser"];
 const brushThickness = ["thick", "medium", "thin"];
 const colors = ['FAFF00', 'F88E00', 'F75800', 'F62600', 'C00000', 'BC005B', '54005A', '0B005D', '0A2496',
     '135B58', '359000', '5FCA00'];
+const storage = firebase.storage();
+const storageRef = storage.ref();
 
 /**
  * Draw class.
  * @class Draw
  * @augments React.Component
  */
+const dataURItoBlob = function (data_uri) {
+
+    // convert base64 to raw binary data held in a string
+    // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+    var byteString = atob(data_uri.split(',')[1]);
+
+    // separate out the mime component
+    var mimeString = data_uri.split(',')[0].split(':')[1].split(';')[0];
+
+    // write the bytes of the string to an ArrayBuffer
+    var ab = new ArrayBuffer(byteString.length);
+    var ia = new Uint8Array(ab);
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+
+    // write the ArrayBuffer to a blob, and you're done
+    return new Blob([ab], {type: mimeString});
+};
+
 const Draw = React.createClass(/** @lends Draw.prototype */{
+
     /**
      * @property {String} displayName - A string used in debugging messages.
      */
@@ -51,7 +75,6 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
         const colorCode = '#' + colorName;
         this.setState({'selectedColor': colorCode});
     },
-
     onThicknessSelected(thickness) {
         let pixelThickness;
 
@@ -84,21 +107,37 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
     onCanvasCleared() {
         this.setState({'needsToBeCleared': false});
     },
-    
+
     onSaveDrawing() {
         this.saveDrawing();
     },
-    
+
     saveDrawing() {
         this.setState({'needsToBeSaved': true})
     },
 
     onDrawingSaved(drawing) {
+        this.setState({'needsToBeSaved': false});
+
         //save drawing to db
         console.log(drawing);
+        let drawingAsBlob = dataURItoBlob(drawing.src);
+        let uploadTask = storageRef.child(drawing.name).put(drawingAsBlob);
+
+        uploadTask.on('state_changed', function (snapshot) {
+            // Observe state change events such as progress, pause, and resume
+            // See below for more detail
+        }, function (error) {
+            console.log(error);
+            // Handle unsuccessful uploads
+        }, function () {
+            // Handle successful uploads on complete
+            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+            let downloadURL = uploadTask.snapshot.downloadURL;
+            console.log(downloadURL);
+        });
 
     },
-
     onDrawingCompleted() {
         this.setState()
     },
@@ -116,7 +155,7 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
                          toolButtons={drawingTools}/>
                 <Toolbar toolType="brushThickness" toolbarName="brush_thickness"
                          toolSelectionHandler={this.onThicknessSelected} toolButtons={brushThickness}/>
-                <DrawingArea clearNow={this.state.needsToBeCleared} onCleared={this.onCanvasCleared}
+                <DrawingArea clearNow={this.state.needsToBeClenared} onCleared={this.onCanvasCleared}
                              saveNow={this.state.needsToBeSaved} onSaved={this.onDrawingSaved}
                              brushWidth={this.state.selectedThickness} selectedColor={this.state.selectedColor}/>
                 <Toolbar toolType="colorPalette" toolbarName="color_palette" toolSelectionHandler={this.onColorSelected}
