@@ -16,26 +16,6 @@ const storageRef = storage.ref();
  * @class Draw
  * @augments React.Component
  */
-const dataURItoBlob = function (data_uri) {
-
-    // convert base64 to raw binary data held in a string
-    // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
-    var byteString = atob(data_uri.split(',')[1]);
-
-    // separate out the mime component
-    var mimeString = data_uri.split(',')[0].split(':')[1].split(';')[0];
-
-    // write the bytes of the string to an ArrayBuffer
-    var ab = new ArrayBuffer(byteString.length);
-    var ia = new Uint8Array(ab);
-    for (var i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-    }
-
-    // write the ArrayBuffer to a blob, and you're done
-    return new Blob([ab], {type: mimeString});
-};
-
 const Draw = React.createClass(/** @lends Draw.prototype */{
 
     /**
@@ -48,7 +28,8 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
      */
     propTypes: {
         children: React.PropTypes.string,
-        description: React.PropTypes.string
+        description: React.PropTypes.string,
+        goToThankYouPage: React.PropTypes.func
     },
 
     getDefaultProps() {
@@ -75,6 +56,9 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
         const colorCode = '#' + colorName;
         this.setState({'selectedColor': colorCode});
     },
+
+    //TODO: This switch is not needed. Instead of strings, pass thickness
+    //values and have those returned directly.
     onThicknessSelected(thickness) {
         let pixelThickness;
 
@@ -109,27 +93,35 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
     },
 
     onSaveDrawing() {
-        this.saveDrawing();
+        this.completeDrawing();
     },
 
-    saveDrawing() {
+    completeDrawing() {
         this.setState({'needsToBeSaved': true})
     },
 
-    onDrawingSaved(drawing) {
+    onDrawingCompleted(drawing) {
         this.setState({'needsToBeSaved': false});
+        this.saveDrawingToStorage(drawing);
+        //TODO: Should these steps be part of the success method
+        //of the saveDrawingToStorage method?
+        //There are big scope issues involved it would seem.
+        this.saveDrawingNameToDB(drawing.name);
+        this.props.goToThankYouPage();
+        //go to Thank You Step.
+    },
+
+    saveDrawingToStorage(drawing) {
 
         //save drawing to db
-        console.log(drawing);
-        let drawingAsBlob = dataURItoBlob(drawing.src);
+        let drawingAsBlob = this.dataURItoBlob(drawing.src);
         let uploadTask = storageRef.child(drawing.name).put(drawingAsBlob);
 
         uploadTask.on('state_changed', function (snapshot) {
             // Observe state change events such as progress, pause, and resume
-            // See below for more detail
         }, function (error) {
-            console.log(error);
             // Handle unsuccessful uploads
+            console.log(error);
         }, function () {
             // Handle successful uploads on complete
             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
@@ -138,8 +130,29 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
         });
 
     },
-    onDrawingCompleted() {
-        this.setState()
+
+
+    saveDrawingNameToDB(fileName) {
+        console.log('Figure this out already!');
+    },
+
+    dataURItoBlob(data_uri) {
+        // convert base64 to raw binary data held in a string
+        // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+        const byteString = atob(data_uri.split(',')[1]);
+
+        // separate out the mime component
+        const mimeString = data_uri.split(',')[0].split(':')[1].split(';')[0];
+
+        // write the bytes of the string to an ArrayBuffer
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+
+        // write the ArrayBuffer to a blob, and you're done
+        return new Blob([ab], {type: mimeString});
     },
 
     /**
@@ -155,8 +168,8 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
                          toolButtons={drawingTools}/>
                 <Toolbar toolType="brushThickness" toolbarName="brush_thickness"
                          toolSelectionHandler={this.onThicknessSelected} toolButtons={brushThickness}/>
-                <DrawingArea clearNow={this.state.needsToBeClenared} onCleared={this.onCanvasCleared}
-                             saveNow={this.state.needsToBeSaved} onSaved={this.onDrawingSaved}
+                <DrawingArea clearNow={this.state.needsToBeCleared} onCleared={this.onCanvasCleared}
+                             saveNow={this.state.needsToBeSaved} onSaved={this.onDrawingCompleted}
                              brushWidth={this.state.selectedThickness} selectedColor={this.state.selectedColor}/>
                 <Toolbar toolType="colorPalette" toolbarName="color_palette" toolSelectionHandler={this.onColorSelected}
                          toolButtons={colors}/>

@@ -34,8 +34,8 @@ export function saveDrawingData(api) {
     }
 }
 
-export function goToDescribePage() {
+export function goToThankYouPage() {
     return (dispatch) => {
-        dispatch(push('/describe'));
+        dispatch(push('/thankYou'));
     }
 }
