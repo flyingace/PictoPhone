@@ -1,12 +1,15 @@
 import React from 'react';
 import DrawingArea from '../DrawingArea/DrawingArea';
 import Toolbar from '../Toolbar/Toolbar';
+import firebase from 'firebase';
 import './Draw.scss';
 
 const drawingTools = ["brush", "bucket", "eraser"];
 const brushThickness = ["thick", "medium", "thin"];
 const colors = ['FAFF00', 'F88E00', 'F75800', 'F62600', 'C00000', 'BC005B', '54005A', '0B005D', '0A2496',
     '135B58', '359000', '5FCA00'];
+const storage = firebase.storage();
+const storageRef = storage.ref();
 
 /**
  * Draw class.
@@ -14,6 +17,7 @@ const colors = ['FAFF00', 'F88E00', 'F75800', 'F62600', 'C00000', 'BC005B', '540
  * @augments React.Component
  */
 const Draw = React.createClass(/** @lends Draw.prototype */{
+
     /**
      * @property {String} displayName - A string used in debugging messages.
      */
@@ -24,7 +28,8 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
      */
     propTypes: {
         children: React.PropTypes.string,
-        description: React.PropTypes.string
+        description: React.PropTypes.string,
+        goToThankYouPage: React.PropTypes.func
     },
 
     getDefaultProps() {
@@ -38,7 +43,8 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
             selectedTool: 'paintbrush',
             selectedThickness: 'medium',
             selectedColor: 'black',
-            needsToBeCleared: false
+            needsToBeCleared: false,
+            needsToBeSaved: false
         }
     },
 
@@ -51,6 +57,8 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
         this.setState({'selectedColor': colorCode});
     },
 
+    //TODO: This switch is not needed. Instead of strings, pass thickness
+    //values and have those returned directly.
     onThicknessSelected(thickness) {
         let pixelThickness;
 
@@ -84,8 +92,67 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
         this.setState({'needsToBeCleared': false});
     },
 
-    onCompleteDrawing() {
+    onSaveDrawing() {
+        this.completeDrawing();
+    },
 
+    completeDrawing() {
+        this.setState({'needsToBeSaved': true})
+    },
+
+    onDrawingCompleted(drawing) {
+        this.setState({'needsToBeSaved': false});
+        this.saveDrawingToStorage(drawing);
+        //TODO: Should these steps be part of the success method
+        //of the saveDrawingToStorage method?
+        //There are big scope issues involved it would seem.
+        this.saveDrawingNameToDB(drawing.name);
+        this.props.goToThankYouPage();
+        //go to Thank You Step.
+    },
+
+    saveDrawingToStorage(drawing) {
+
+        //save drawing to db
+        let drawingAsBlob = this.dataURItoBlob(drawing.src);
+        let uploadTask = storageRef.child(drawing.name).put(drawingAsBlob);
+
+        uploadTask.on('state_changed', function (snapshot) {
+            // Observe state change events such as progress, pause, and resume
+        }, function (error) {
+            // Handle unsuccessful uploads
+            console.log(error);
+        }, function () {
+            // Handle successful uploads on complete
+            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+            let downloadURL = uploadTask.snapshot.downloadURL;
+            console.log(downloadURL);
+        });
+
+    },
+
+
+    saveDrawingNameToDB(fileName) {
+        console.log('Figure this out already!');
+    },
+
+    dataURItoBlob(data_uri) {
+        // convert base64 to raw binary data held in a string
+        // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+        const byteString = atob(data_uri.split(',')[1]);
+
+        // separate out the mime component
+        const mimeString = data_uri.split(',')[0].split(':')[1].split(';')[0];
+
+        // write the bytes of the string to an ArrayBuffer
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+
+        // write the ArrayBuffer to a blob, and you're done
+        return new Blob([ab], {type: mimeString});
     },
 
     /**
@@ -97,15 +164,19 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
     render() {
         return (
             <div className="draw">
-                <Toolbar toolType="drawing" toolbarName="drawing_tools" toolSelectionHandler={this.onToolSelected} toolButtons={drawingTools}/>
-                <Toolbar toolType="brushThickness" toolbarName="brush_thickness" toolSelectionHandler={this.onThicknessSelected} toolButtons={brushThickness}/>
+                <Toolbar toolType="drawing" toolbarName="drawing_tools" toolSelectionHandler={this.onToolSelected}
+                         toolButtons={drawingTools}/>
+                <Toolbar toolType="brushThickness" toolbarName="brush_thickness"
+                         toolSelectionHandler={this.onThicknessSelected} toolButtons={brushThickness}/>
                 <DrawingArea clearNow={this.state.needsToBeCleared} onCleared={this.onCanvasCleared}
+                             saveNow={this.state.needsToBeSaved} onSaved={this.onDrawingCompleted}
                              brushWidth={this.state.selectedThickness} selectedColor={this.state.selectedColor}/>
-                <Toolbar toolType="colorPalette" toolbarName="color_palette" toolSelectionHandler={this.onColorSelected} toolButtons={colors}/>
+                <Toolbar toolType="colorPalette" toolbarName="color_palette" toolSelectionHandler={this.onColorSelected}
+                         toolButtons={colors}/>
                 <div className="description-container">
                     <p className="description">{this.props.description}</p>
                     <div className="button clear-all" onClick={this.onClearCanvas}>Clear All</div>
-                    <div className="button submit-picture" onClick={this.onCompleteDrawing}>OK</div>
+                    <div className="button submit-picture" onClick={this.onSaveDrawing}>OK</div>
                 </div>
             </div>
         );
