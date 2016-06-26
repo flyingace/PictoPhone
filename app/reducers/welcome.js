@@ -2,13 +2,18 @@ import {
     REQUEST_WELCOME_DATA,
     RECEIVE_WELCOME_DATA,
     FAILURE_WELCOME_DATA,
-    FILTER_NAME_LIST } from '../actions/welcome';
-import { assign, forEach, isUndefined } from 'lodash';
+    FILTER_NAME_LIST,
+    RECEIVE_ROUND_DATA,
+    UPDATE_CURRENT_PLAYER
+} from '../actions/welcome';
+import {assign, forEach, isUndefined} from 'lodash';
 
 const initialState = {
     nameList: [],
-    filteredNameList: []
-}
+    filteredNameList: [],
+    currentPlayer: '',
+    roundData: {}
+};
 
 function filterByLetter(state, letter) {
     const nameList = state.nameList;
@@ -44,8 +49,21 @@ export default function welcome(state = initialState, action) {
             });
             break;
 
+        case RECEIVE_ROUND_DATA:
+            state = assign({}, state, {
+                roundData: action.state
+            });
+            break;
+
+        case UPDATE_CURRENT_PLAYER:
+            state = assign({}, state, {
+                currentPlayer: action.state
+            });
+            break;
+
         default:
             return state;
     }
+
     return state;
 }

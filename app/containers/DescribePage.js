@@ -1,11 +1,12 @@
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import Describe from '../components/Describe/Describe';
 import * as DescribeActions from '../actions/describe';
 
 function mapStateToProps(state) {
     return {
-        describe: state.describe
+        describe: state.describe,
+        pathToDrawing: state.welcome.roundData.drawing
     };
 }
 

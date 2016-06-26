@@ -92,11 +92,7 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
         this.setState({'needsToBeCleared': false});
     },
 
-    onSaveDrawing() {
-        this.completeDrawing();
-    },
-
-    completeDrawing() {
+    onCompleteDrawing() {
         this.setState({'needsToBeSaved': true})
     },
 
@@ -125,8 +121,8 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
         }, function () {
             // Handle successful uploads on complete
             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+            //TODO: Pass the downloadURL to the db as part of this round's data
             let downloadURL = uploadTask.snapshot.downloadURL;
-            console.log(downloadURL);
         });
 
     },
@@ -176,7 +172,7 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
                 <div className="description-container">
                     <p className="description">{this.props.description}</p>
                     <div className="button clear-all" onClick={this.onClearCanvas}>Clear All</div>
-                    <div className="button submit-picture" onClick={this.onSaveDrawing}>OK</div>
+                    <div className="button submit-picture" onClick={this.onCompleteDrawing}>OK</div>
                 </div>
             </div>
         );

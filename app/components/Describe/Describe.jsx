@@ -23,7 +23,8 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
      */
     propTypes: {
         children: React.PropTypes.string,
-        mainImageURL: React.PropTypes.string
+        pathToDrawing: React.PropTypes.string,
+        goToDrawingPage: React.PropTypes.func
     },
 
     getDefaultProps() {
@@ -67,7 +68,6 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
     },
 
     /**
-     * Handles updating of the input field for single-character keys, like 'a', '7' or '!'
      * @param keyArray
      */
     onKeyPressed(keyArray) {
@@ -122,6 +122,13 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
         this.setState({characterCount: newDescription.length});
     },
 
+    onSubmit() {
+        //TODO: First, add validation if necessary
+        //Then add the description to this round's data object
+        this.props.goToDrawingPage();
+
+    },
+
     /**
      * Renders the component based on the properties passed in from a parent
      * component and the component's state.
@@ -144,14 +151,14 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
             <div className="describe">
                 <div className="image-container">
                     <img className={mainImageClass} alt="Write a description of this picture!"
-                         src={this.props.mainImageURL}/>
+                         src={this.props.pathToDrawing}/>
                 </div>
                 <div className="input-container">
                     <img className="keyboard-icon" src={keyboardIconSrc} onClick={this.toggleKeyboard}/>
                     <DescribeInput prompt={"Write a description of this picture!"}
                                    descriptionString={this.state.descriptionString}
                                    characterCount={this.state.characterCount} onGainFocus={this.onInputSelected}/>
-                    <button className="button okButton" onClick={this.props.onSubmit}>OK</button>
+                    <button className="button okButton" onClick={this.onSubmit}>OK</button>
                 </div>
                 <div className={keyboardContainerClass}>
                     <Keyboard fieldRef="describeInput" keyPressHandler={this.checkKeyPressed}
