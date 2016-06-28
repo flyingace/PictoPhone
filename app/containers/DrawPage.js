@@ -7,7 +7,7 @@ function mapStateToProps(state) {
     return {
         draw: state.draw,
         description: state.welcome.roundData.description,
-        currentPlayerID: state.welcome.currentPlayerID,
+        currentPlayerID: state.welcome.currentPlayerID
         // currentDescription: state.description.currentDescription
     };
 }
