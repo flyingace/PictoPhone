@@ -1,11 +1,14 @@
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import Draw from '../components/Draw/Draw';
 import * as DrawActions from '../actions/draw';
 
 function mapStateToProps(state) {
     return {
-        draw: state.draw
+        draw: state.draw,
+        description: state.welcome.roundData.description,
+        currentPlayerID: state.welcome.currentPlayerID
+        // currentDescription: state.description.currentDescription
     };
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { map } from 'lodash';
+import {map} from 'lodash';
 import './Welcome.scss';
 import NameList from '../NameList/NameList';
 import Modal from '../Modal/Modal';
@@ -22,14 +22,11 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
      * @property {Object} propTypes - An object used to validate props being passed into the components
      */
     propTypes: {
+        fetchRoundData: React.PropTypes.func,
         fetchWelcomeData: React.PropTypes.func,
         filterNameList: React.PropTypes.func,
-        goToDrawingPage: React.PropTypes.func,
+        goToDescribePage: React.PropTypes.func,
         welcome: React.PropTypes.object
-    },
-
-    componentWillMount() {
-        this.props.fetchWelcomeData('get/welcome/api');
     },
 
     getInitialState() {
@@ -38,12 +35,17 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
         }
     },
 
+    componentWillMount() {
+        this.props.fetchWelcomeData();
+        this.props.fetchRoundData();
+    },
+
     openModal() {
-        this.setState({ isModalOpen: true });
+        this.setState({isModalOpen: true});
     },
 
     closeModal() {
-        this.setState({ isModalOpen: false });
+        this.setState({isModalOpen: false});
     },
 
     filterNames(event) {
@@ -81,7 +83,8 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
                 <h3>Now click start and play the game! &#12485;</h3>
                 <button
                     className="button block leading"
-                    onClick={this.props.goToDrawingPage}>START</button>
+                    onClick={this.props.goToDescribePage}>START
+                </button>
             </Modal>
         );
     },
@@ -99,7 +102,8 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
                     <h1>PictoPhone</h1>
                     <p>This is some basic intro code to PictoPhone. It doesn't out line the rules because they're
                         outlined in "How To Play" at the bottom.</p>
-                    <p>The <span className="bold-text">How To Play</span> link below will open an overlay with a few pages of
+                    <p>The <span className="bold-text">How To Play</span> link below will open an overlay with a few
+                        pages of
                         instructions. How does the overlay work here? Does it also have its own route or is it just
                         acomponent that overlays the other content? It might be useful to make it so the How To Play
                         overlay could be loaded at any step (except maybe <em>Thank You</em> so that first-time users
@@ -110,7 +114,7 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
                     <div className="nameList-col">
                         <NameList
                             nameList={this.props.welcome.filteredNameList}
-                            onNameSelected={this.openModal} />
+                            onNameSelected={this.openModal}/>
                     </div>
                     <div className="alphabetical-tabs">
                         <div className="name-list__all" onClick={this.showAllNames}>Show All</div>
