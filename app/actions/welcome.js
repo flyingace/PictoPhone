@@ -37,7 +37,13 @@ export function failureRoundData() {
     return {type: FAILURE_ROUND_DATA}
 }
 
+
+export function updateCurrentPlayer(data) {
+    return {type: UPDATE_CURRENT_PLAYER, state: data}
+}
+
 export function fetchWelcomeData() {
+    // database.ref().child('players').push({email:'chickens@chickens.com', name:'chickens', played:false});
     return (dispatch) => {
         dispatch(requestWelcomeData());
 
@@ -63,6 +69,10 @@ export function fetchRoundData() {
 
 export function filterNameList(letter) {
     return {type: FILTER_NAME_LIST, letter};
+}
+
+export function updateCurrentPlayer(playerUID) {
+    return {type: UPDATE_CURRENT_PLAYER, playerUID}
 }
 
 export function goToDescribePage() {

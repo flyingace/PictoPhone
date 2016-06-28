@@ -18,7 +18,7 @@ const NameList = React.createClass(/** @lends NameList.prototype */{
      * @property {Object} propTypes - An object used to validate props being passed into the components
      */
     propTypes: {
-        nameList: PropTypes.array,
+        nameList: PropTypes.object,
         onNameSelected: PropTypes.func
     },
 
