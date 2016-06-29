@@ -14,6 +14,7 @@ const TABS_LIST_TWO = ['N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y
  */
 const Welcome = React.createClass(/** @lends Welcome.prototype */{
     /**
+     *
      * @property {String} displayName - A string used in debugging messages.
      */
     displayName: 'Welcome',
@@ -26,6 +27,7 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
         fetchWelcomeData: React.PropTypes.func,
         filterNameList: React.PropTypes.func,
         goToDescribePage: React.PropTypes.func,
+        updateCurrentPlayer: React.PropTypes.func,
         welcome: React.PropTypes.object
     },
 
@@ -70,6 +72,11 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
         });
     },
 
+    onNameSelected(current_player_id) {
+        this.props.updateCurrentPlayer(current_player_id);
+        this.props.goToDescribePage();
+    },
+
     maybeRenderGameReadyModal() {
         return (
             <Modal
@@ -83,7 +90,7 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
                 <h3>Now click start and play the game! &#12485;</h3>
                 <button
                     className="button block leading"
-                    onClick={this.props.goToDescribePage}>START
+                    onClick={this.onStartClicked}>START
                 </button>
             </Modal>
         );
@@ -114,7 +121,7 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
                     <div className="nameList-col">
                         <NameList
                             nameList={this.props.welcome.filteredNameList}
-                            onNameSelected={this.openModal}/>
+                            onNameSelected={this.onNameSelected}/>
                     </div>
                     <div className="alphabetical-tabs">
                         <div className="name-list__all" onClick={this.showAllNames}>Show All</div>

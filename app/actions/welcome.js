@@ -37,6 +37,11 @@ export function failureRoundData() {
     return {type: FAILURE_ROUND_DATA}
 }
 
+
+export function updateCurrentPlayer(data) {
+    return {type: UPDATE_CURRENT_PLAYER, state: data}
+}
+
 export function fetchWelcomeData() {
     return (dispatch) => {
         dispatch(requestWelcomeData());

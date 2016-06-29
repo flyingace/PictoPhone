@@ -18,7 +18,7 @@ const NameList = React.createClass(/** @lends NameList.prototype */{
      * @property {Object} propTypes - An object used to validate props being passed into the components
      */
     propTypes: {
-        nameList: PropTypes.array,
+        nameList: PropTypes.object,
         onNameSelected: PropTypes.func
     },
 
@@ -57,18 +57,18 @@ const NameList = React.createClass(/** @lends NameList.prototype */{
         if (isEmpty(this.props.nameList)) {
             nameList = 'Name not found';
         } else {
-            const names = map(this.props.nameList, (listItem, key) => {
+            const names = map(this.props.nameList, (playerData, playerID) => {
                 const nameSelectedClass = cx({
-                    'selected': key === this.state.selectedKey
+                    'selected': playerID === this.state.selectedKey
                 });
 
                 return (
                     <li
-                        key={key}
-                        data-uid={key}
-                        onClick={() => {this.selectName(key)}}
+                        key={playerID}
+                        data-uid={playerID}
+                        onClick={() => {this.selectName(playerID)}}
                         className={nameSelectedClass}>
-                        {listItem.name}
+                        {playerData.name}
                         {this.renderCheckSVG()}
                     </li>
                 );
@@ -82,6 +82,12 @@ const NameList = React.createClass(/** @lends NameList.prototype */{
         return nameList;
     },
 
+    nameSelectionHandler() {
+        if (this.props.onNameSelected) {
+            this.props.onNameSelected(this.state.selectedKey)
+        }
+    },
+
     render() {
         return (
             <div className="nameList">
@@ -89,7 +95,7 @@ const NameList = React.createClass(/** @lends NameList.prototype */{
                 <div className="nameListContainer">
                     { this.renderNameList() }
                 </div>
-                <button className="button full" onClick={this.props.onNameSelected}>OK</button>
+                <button className="button full" onClick={this.nameSelectionHandler}>OK</button>
             </div>
         );
     }
