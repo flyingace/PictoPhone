@@ -6,26 +6,26 @@ import {
     RECEIVE_ROUND_DATA,
     UPDATE_CURRENT_PLAYER
 } from '../actions/welcome';
-import {assign, forEach, isUndefined} from 'lodash';
+import {assign, forEach, isUndefined, toLower } from 'lodash';
 
 const initialState = {
-    nameList: [],
-    filteredNameList: [],
+    nameList: {},
+    filteredNameList: {},
     currentPlayer: '',
     roundData: {}
 };
 
 function filterByLetter(state, letter) {
     const nameList = state.nameList;
-    const filteredNames = [];
+    const filteredNames = {};
 
     if (isUndefined(letter)) {
         return nameList;
     }
 
-    nameList.forEach((listItem) => {
-        if (listItem.name.charAt(0) === letter) {
-            filteredNames.push(listItem);
+    forEach(nameList, (listItem, key) => {
+        if (toLower(listItem.name.charAt(0)) === toLower(letter)) {
+            filteredNames[key] = listItem;
         }
     });
 
