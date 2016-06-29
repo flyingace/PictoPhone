@@ -6,7 +6,6 @@ import Modal from '../Modal/Modal';
 
 const TABS_LIST_ONE = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'];
 const TABS_LIST_TWO = ['N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-let current_player_id;
 
 /**
  * Welcome class.

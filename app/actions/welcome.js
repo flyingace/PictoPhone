@@ -43,7 +43,6 @@ export function updateCurrentPlayer(data) {
 }
 
 export function fetchWelcomeData() {
-    // database.ref().child('players').push({email:'chickens@chickens.com', name:'chickens', played:false});
     return (dispatch) => {
         dispatch(requestWelcomeData());
 
@@ -69,10 +68,6 @@ export function fetchRoundData() {
 
 export function filterNameList(letter) {
     return {type: FILTER_NAME_LIST, letter};
-}
-
-export function updateCurrentPlayer(playerUID) {
-    return {type: UPDATE_CURRENT_PLAYER, playerUID}
 }
 
 export function goToDescribePage() {
