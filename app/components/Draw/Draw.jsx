@@ -29,7 +29,8 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
     propTypes: {
         children: React.PropTypes.string,
         description: React.PropTypes.string,
-        goToThankYouPage: React.PropTypes.func
+        goToThankYouPage: React.PropTypes.func,
+        saveRoundData: React.PropTypes.func
     },
 
     getDefaultProps() {
@@ -102,16 +103,15 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
         //TODO: Should these steps be part of the success method
         //of the saveDrawingToStorage method?
         //There are big scope issues involved it would seem.
-        this.saveDrawingNameToDB(drawing.name);
         this.props.goToThankYouPage();
         //go to Thank You Step.
     },
 
     saveDrawingToStorage(drawing) {
-
         //save drawing to db
         let drawingAsBlob = this.dataURItoBlob(drawing.src);
         let uploadTask = storageRef.child(drawing.name).put(drawingAsBlob);
+        const that = this;
 
         uploadTask.on('state_changed', function (snapshot) {
             // Observe state change events such as progress, pause, and resume
@@ -121,15 +121,19 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
         }, function () {
             // Handle successful uploads on complete
             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-            //TODO: Pass the downloadURL to the db as part of this round's data
-            let downloadURL = uploadTask.snapshot.downloadURL;
+            that.saveDrawingURLToDB(uploadTask.snapshot.downloadURL);
         });
-
     },
 
 
-    saveDrawingNameToDB(fileName) {
-        console.log('Figure this out already!');
+    saveDrawingURLToDB(pathToDrawing) {
+        let newRoundData = {
+            playerID: this.props.currentPlayerID,
+            description: this.props.currentDescription,
+            drawing: pathToDrawing
+        };
+
+        this.props.saveRoundData(newRoundData);
     },
 
     dataURItoBlob(data_uri) {

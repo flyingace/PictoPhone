@@ -58,7 +58,7 @@ export function fetchRoundData() {
     return (dispatch) => {
         dispatch(requestRoundData());
 
-        return recordsRef.orderByKey().on('child_added', (data) => {
+        return recordsRef.orderByKey().on('value', (data) => {
             //this takes only the most recent addition
             let mostRecentRound = [...data.val()].pop();
             dispatch(receiveRoundData(mostRecentRound));
