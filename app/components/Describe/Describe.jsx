@@ -122,9 +122,10 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
         this.setState({characterCount: newDescription.length});
     },
 
-    onSubmit() {
+    onSubmitDescription() {
         //TODO: First, add validation if necessary
         //Then add the description to this round's data object
+        this.props.updateCurrentDescription(this.state.descriptionString);
         this.props.goToDrawingPage();
 
     },
@@ -158,7 +159,7 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
                     <DescribeInput prompt={"Write a description of this picture!"}
                                    descriptionString={this.state.descriptionString}
                                    characterCount={this.state.characterCount} onGainFocus={this.onInputSelected}/>
-                    <button className="button okButton" onClick={this.onSubmit}>OK</button>
+                    <button className="button okButton" onClick={this.onSubmitDescription}>OK</button>
                 </div>
                 <div className={keyboardContainerClass}>
                     <Keyboard fieldRef="describeInput" keyPressHandler={this.checkKeyPressed}

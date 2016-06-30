@@ -11,7 +11,7 @@ import {assign, forEach, isUndefined, toLower } from 'lodash';
 const initialState = {
     nameList: {},
     filteredNameList: {},
-    currentPlayer: '',
+    currentPlayerID: '',
     roundData: {}
 };
 
@@ -57,7 +57,7 @@ export default function welcome(state = initialState, action) {
 
         case UPDATE_CURRENT_PLAYER:
             state = assign({}, state, {
-                currentPlayer: action.state
+                currentPlayerID: action.state
             });
             break;
 
