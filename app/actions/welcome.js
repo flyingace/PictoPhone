@@ -60,7 +60,7 @@ export function fetchRoundData() {
 
         //TODO: How can this be refactored?
         //this takes only the previous round's data
-        return recordsRef.orderByKey().limitToLast(1).on('child_added', (data) => {
+        return recordsRef.orderByKey().limitToLast(1).on('value', (data) => {
             let previousRoundKey = Object.keys(data.val())[0];
             let mostRecentRound = data.val()[previousRoundKey];
             dispatch(receiveRoundData(mostRecentRound));
