@@ -37,7 +37,6 @@ export function failureRoundData() {
     return {type: FAILURE_ROUND_DATA}
 }
 
-
 export function updateCurrentPlayer(data) {
     return {type: UPDATE_CURRENT_PLAYER, state: data}
 }
@@ -53,14 +52,17 @@ export function fetchWelcomeData() {
 }
 
 export function fetchRoundData() {
-    const recordsRef = database.ref('records');
+    //TODO: Need to find a way to determine the date folder's name
+    const recordsRef = database.ref('records/06242016');
 
     return (dispatch) => {
         dispatch(requestRoundData());
 
-        return recordsRef.orderByKey().on('value', (data) => {
-            //this takes only the most recent addition
-            let mostRecentRound = [...data.val()].pop();
+        //TODO: How can this be refactored?
+        //this takes only the previous round's data
+        return recordsRef.orderByKey().limitToLast(1).on('child_added', (data) => {
+            let previousRoundKey = Object.keys(data.val())[0];
+            let mostRecentRound = data.val()[previousRoundKey];
             dispatch(receiveRoundData(mostRecentRound));
         })
     }

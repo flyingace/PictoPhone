@@ -81,7 +81,7 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
     },
 
     onClearCanvas() {
-        //don't forget to prompt the user about this choice
+        //TODO: don't forget to prompt the user about this choice
         this.clearCanvas();
     },
 
@@ -97,22 +97,24 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
         this.setState({'needsToBeSaved': true})
     },
 
+    //TODO: Sort out the ordering of methods so the user isn't taken to the Thank You page
+    // before the image data has been successfully sent to storage and the round data to the db
     onDrawingCompleted(drawing) {
         this.setState({'needsToBeSaved': false});
         this.saveDrawingToStorage(drawing);
-        //TODO: Should these steps be part of the success method
-        //of the saveDrawingToStorage method?
-        //There are big scope issues involved it would seem.
-        this.props.goToThankYouPage();
         //go to Thank You Step.
+        this.props.goToThankYouPage();
     },
 
+    //TODO: Move this to actions/draw.js
     saveDrawingToStorage(drawing) {
         //save drawing to db
         let drawingAsBlob = this.dataURItoBlob(drawing.src);
         let uploadTask = storageRef.child(drawing.name).put(drawingAsBlob);
         const that = this;
 
+        //TODO: Is there a way to use arrow functions here so we don't have
+        //to resort to using that = this?
         uploadTask.on('state_changed', function (snapshot) {
             // Observe state change events such as progress, pause, and resume
         }, function (error) {
@@ -120,12 +122,11 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
             console.log(error);
         }, function () {
             // Handle successful uploads on complete
-            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
             that.saveDrawingURLToDB(uploadTask.snapshot.downloadURL);
         });
     },
 
-
+    //TODO: Move this to actions/draw.js
     saveDrawingURLToDB(pathToDrawing) {
         let newRoundData = {
             playerID: this.props.currentPlayerID,
