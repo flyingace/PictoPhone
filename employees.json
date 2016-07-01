@@ -1,0 +1,974 @@
+{
+  "players": [
+    {
+      "email": "Adrian_Sanoguel@s5a.com",
+      "name": "Adrian Sanoguel",
+      "played": false
+    },
+    {
+      "email": "Ajay_Indana@s5a.com",
+      "name": "Ajay Indana",
+      "played": false
+    },
+    {
+      "email": "Aksana_Kuzmichova@s5a.com",
+      "name": "Aksana Kuzmichova",
+      "played": false
+    },
+    {
+      "email": "Alex_Kinney@s5a.com",
+      "name": "Alex Kinney",
+      "played": false
+    },
+    {
+      "email": "Alex_Shoyket@s5a.com",
+      "name": "Alex Shoyket",
+      "played": false
+    },
+    {
+      "email": "Alex_Ulis@s5a.com",
+      "name": "Alex Ulis",
+      "played": false
+    },
+    {
+      "email": "Ali_Beck@s5a.com",
+      "name": "Ali Beck",
+      "played": false
+    },
+    {
+      "email": "Alice_Yang@s5a.com",
+      "name": "Alice Yang",
+      "played": false
+    },
+    {
+      "email": "alyssa_Mirigliano@s5a.com",
+      "name": "Alyssa Mirigliano",
+      "played": false
+    },
+    {
+      "email": "Alyssa_Tavangaran@s5a.com",
+      "name": "Alyssa Tavangaran",
+      "played": false
+    },
+    {
+      "email": "Amanda_Sholl@s5a.com",
+      "name": "Amanda Sholl",
+      "played": false
+    },
+    {
+      "email": "Amy_Lyman@s5a.com",
+      "name": "Amy Lyman",
+      "played": false
+    },
+    {
+      "email": "Anand_Nair@s5a.com",
+      "name": "Anand Nair",
+      "played": false
+    },
+    {
+      "email": "Andre_Balazs@s5a.com",
+      "name": "Andre Balazs",
+      "played": false
+    },
+    {
+      "email": "Anne_Bacay@s5a.com",
+      "name": "Anne Bacay",
+      "played": false
+    },
+    {
+      "email": "AnooNarayanaswamy_Muthuswaami@s5a.com",
+      "name": "Anoo Narayanaswamy Muthuswaami",
+      "played": false
+    },
+    {
+      "email": "Anthony_Filardo@s5a.com",
+      "name": "Anthony Filardo",
+      "played": false
+    },
+    {
+      "email": "Anthony_Garo@s5a.com",
+      "name": "; Anthony Garo",
+      "played": false
+    },
+    {
+      "email": "Anthony_Millan@s5a.com",
+      "name": "Anthony Millan",
+      "played": false
+    },
+    {
+      "email": "Anusha_Shetty@s5a.com",
+      "name": "Anusha Shetty",
+      "played": false
+    },
+    {
+      "email": "Ashesh_Patel@s5a.com",
+      "name": "Ashesh Patel",
+      "played": false
+    },
+    {
+      "email": "Ben_Poon@s5a.com",
+      "name": "Ben Poon",
+      "played": false
+    },
+    {
+      "email": "Binal_Patel@s5a.com",
+      "name": "Binal Patel",
+      "played": false
+    },
+    {
+      "email": "Blaine_North@s5a.com",
+      "name": "Blaine North",
+      "played": false
+    },
+    {
+      "email": "Bobby_Vasquez@s5a.com",
+      "name": "Bobby Vasquez",
+      "played": false
+    },
+    {
+      "email": "Bora_Shehu@s5a.com",
+      "name": "Bora Shehu",
+      "played": false
+    },
+    {
+      "email": "Brendan_Wells@s5a.com",
+      "name": "Brendan Wells",
+      "played": false
+    },
+    {
+      "email": "Brielle_Kriegstein@s5a.com",
+      "name": "Brielle Kriegstein",
+      "played": false
+    },
+    {
+      "email": "Bronya_Goldenberg@s5a.com",
+      "name": "Bronya Goldenberg",
+      "played": false
+    },
+    {
+      "email": "Camille_Better@s5a.com",
+      "name": "Camille Better",
+      "played": false
+    },
+    {
+      "email": "Carolyn_Lewis@s5a.com",
+      "name": "Carolyn Lewis",
+      "played": false
+    },
+    {
+      "email": "Chinmay_Bhatawdekar@s5a.com",
+      "name": "Chinmay Bhatawdekar",
+      "played": false
+    },
+    {
+      "email": "Christina_Kim@s5a.com",
+      "name": "Christina Kim",
+      "played": false
+    },
+    {
+      "email": "Christine_Hogan@s5a.com",
+      "name": "Christine Hogan",
+      "played": false
+    },
+    {
+      "email": "Cindy_Ng@saksinc.com",
+      "name": "Cindy Ng",
+      "played": false
+    },
+    {
+      "email": "Colleen_Waters@s5a.com",
+      "name": "Colleen Waters",
+      "played": false
+    },
+    {
+      "email": "Connie_Szeto@s5a.com",
+      "name": "Connie Szeto",
+      "played": false
+    },
+    {
+      "email": "David_Alexander@s5a.com",
+      "name": "David Alexander",
+      "played": false
+    },
+    {
+      "email": "David_Cameron@s5a.com",
+      "name": "David Cameron",
+      "played": false
+    },
+    {
+      "email": "David_Oyler@s5a.com",
+      "name": "David Oyler",
+      "played": false
+    },
+    {
+      "email": "Dennis_Fung@s5a.com",
+      "name": "Dennis Fung",
+      "played": false
+    },
+    {
+      "email": "Dhaval_Doshi@s5a.com",
+      "name": "Dhaval Doshi",
+      "played": false
+    },
+    {
+      "email": "Divya_Kafle@s5a.com",
+      "name": "Divya Kafle",
+      "played": false
+    },
+    {
+      "email": "Dolly_Dsa@s5a.com",
+      "name": "Dolly Dsa",
+      "played": false
+    },
+    {
+      "email": "Dominick_Bakhtiar@s5a.com",
+      "name": "Dominick Bakhtiar",
+      "played": false
+    },
+    {
+      "email": "Dwine_Knott@s5a.com",
+      "name": "Dwine Knott",
+      "played": false
+    },
+    {
+      "email": "Ed_Perry@s5a.com",
+      "name": "Ed Perry",
+      "played": false
+    },
+    {
+      "email": "Emdad_Hoque@s5a.com",
+      "name": "Emdad Hoque",
+      "played": false
+    },
+    {
+      "email": "EMILY_GOODWIN@s5a.com",
+      "name": "Emily Goodwin",
+      "played": false
+    },
+    {
+      "email": "Emma_MacArthur@saksinc.com",
+      "name": "Emma MacArthur",
+      "played": false
+    },
+    {
+      "email": "Eric_Phung@s5a.com",
+      "name": "Eric Phung",
+      "played": false
+    },
+    {
+      "email": "Eric_Taylor@s5a.com",
+      "name": "Eric Taylor",
+      "played": false
+    },
+    {
+      "email": "Evan_Ubiera@s5a.com",
+      "name": "Evan Ubiera",
+      "played": false
+    },
+    {
+      "email": "Fred_Eines@s5a.com",
+      "name": "Fred Eines",
+      "played": false
+    },
+    {
+      "email": "Gabriel_Goodman@s5a.com",
+      "name": "Gabriel Goodman",
+      "played": false
+    },
+    {
+      "email": "Ginny_Cernera@s5a.com",
+      "name": "Ginny Cernera",
+      "played": false
+    },
+    {
+      "email": "Grace_Park@s5a.com",
+      "name": "Grace Park",
+      "played": false
+    },
+    {
+      "email": "Grace_Yang2@s5a.com",
+      "name": "Grace Yang",
+      "played": false
+    },
+    {
+      "email": "Greg_Dempsey@s5a.com",
+      "name": "Greg Dempsey",
+      "played": false
+    },
+    {
+      "email": "stefanie.bertolacci@hbc.com",
+      "name": "Stefanie Bertolacci",
+      "played": false
+    },
+    {
+      "email": "Hari_Panamanna@s5a.com",
+      "name": "Hari Panamanna",
+      "played": false
+    },
+    {
+      "email": "Heather_Nagel@s5a.com",
+      "name": "Heather Nagel",
+      "played": false
+    },
+    {
+      "email": "Heather_VanderZwaag@s5a.com",
+      "name": "Heather Vander Zwaag",
+      "played": false
+    },
+    {
+      "email": "Hepzi_LeonSoon@s5a.com",
+      "name": "Hepzi Leon Soon",
+      "played": false
+    },
+    {
+      "email": "Himanshu_Yadav@s5a.com",
+      "name": "Himanshu Yadav",
+      "played": false
+    },
+    {
+      "email": "Jackie_Walsh@s5a.com",
+      "name": "Jackie Walsh",
+      "played": false
+    },
+    {
+      "email": "Jaclyn_Klaffka@s5a.com",
+      "name": "Jaclyn Klaffka",
+      "played": false
+    },
+    {
+      "email": "James_Roundell@s5a.com",
+      "name": "James Roundell",
+      "played": false
+    },
+    {
+      "email": "Janelle_Commerford@s5a.com",
+      "name": "Janelle Commerford",
+      "played": false
+    },
+    {
+      "email": "Jaret_Stezelberger@s5a.com",
+      "name": "Jaret Stezelberger",
+      "played": false
+    },
+    {
+      "email": "Javier_Marimon@s5a.com",
+      "name": "Javier Marimon",
+      "played": false
+    },
+    {
+      "email": "Jayanth_Kalluri@s5a.com",
+      "name": "Jayanth Kalluri",
+      "played": false
+    },
+    {
+      "email": "Jayanthi_Dudala@s5a.com",
+      "name": "Jayanthi Dudala",
+      "played": false
+    },
+    {
+      "email": "Jean_Santana@s5a.com",
+      "name": "Jean Santana",
+      "played": false
+    },
+    {
+      "email": "Jeff_Finkel@s5a.com",
+      "name": "Jeff Finkel",
+      "played": false
+    },
+    {
+      "email": "Jen_Fox@s5a.com",
+      "name": "Jen Fox",
+      "played": false
+    },
+    {
+      "email": "Jen_Salim@s5a.com",
+      "name": "Jen Salim",
+      "played": false
+    },
+    {
+      "email": "Jennifer_Houde@s5a.com",
+      "name": "Jennifer Houde",
+      "played": false
+    },
+    {
+      "email": "Jessica_Agudelo@s5a.com",
+      "name": "Jessica Agudelo",
+      "played": false
+    },
+    {
+      "email": "Jessica_Scarpa@s5a.com",
+      "name": "Jessica Scarpa",
+      "played": false
+    },
+    {
+      "email": "Jessica_Tenenbaum@s5a.com",
+      "name": "Jessica Tenenbaum",
+      "played": false
+    },
+    {
+      "email": "joanna_bellamy@s5a.com",
+      "name": "Joanna Bellamy",
+      "played": false
+    },
+    {
+      "email": "John_Coghlan@s5a.com",
+      "name": "John Coghlan",
+      "played": false
+    },
+    {
+      "email": "Jomarie_Sanfilippo@s5a.com",
+      "name": "Jomarie Sanfilippo",
+      "played": false
+    },
+    {
+      "email": "Jordan_Lustig@s5a.com",
+      "name": "Jordan Lustig",
+      "played": false
+    },
+    {
+      "email": "Jose_Martinez2@s5a.com",
+      "name": "Jose Martinez",
+      "played": false
+    },
+    {
+      "email": "Joyce_Witcher@s5a.com",
+      "name": "Joyce Witcher",
+      "played": false
+    },
+    {
+      "email": "Karla_Williams@s5a.com",
+      "name": "Karla Williams",
+      "played": false
+    },
+    {
+      "email": "Kelly_Mehalco@s5a.com",
+      "name": "Kelly Mehalco",
+      "played": false
+    },
+    {
+      "email": "KELSEY_PENNOCK@s5a.com",
+      "name": "Kelsey Pennock",
+      "played": false
+    },
+    {
+      "email": "Ken_Luberts@s5a.com",
+      "name": "Ken Luberts",
+      "played": false
+    },
+    {
+      "email": "Kerry_Young@s5a.com",
+      "name": "Kerry Young",
+      "played": false
+    },
+    {
+      "email": "Kevin_Flood@s5a.com",
+      "name": "Kevin Flood",
+      "played": false
+    },
+    {
+      "email": "Kevin_Ruiz@s5a.com",
+      "name": "Kevin Ruiz",
+      "played": false
+    },
+    {
+      "email": "Kyla_Robinson@s5a.com",
+      "name": "Kyla Robinson",
+      "played": false
+    },
+    {
+      "email": "Larisa_Aronov@s5a.com",
+      "name": "Larisa Aronov",
+      "played": false
+    },
+    {
+      "email": "Larry_Glenn@s5a.com",
+      "name": "Larry Glenn",
+      "played": false
+    },
+    {
+      "email": "Larry_Richard@S5A.com",
+      "name": "Larry Richard",
+      "played": false
+    },
+    {
+      "email": "Lauren_Farucci@s5a.com",
+      "name": "Lauren Farucci",
+      "played": false
+    },
+    {
+      "email": "Lauren_Snyder@s5a.com",
+      "name": "Lauren Snyder",
+      "played": false
+    },
+    {
+      "email": "Lisa_Crair@s5a.com",
+      "name": "Lisa Crair",
+      "played": false
+    },
+    {
+      "email": "Liya_Aizenberg@s5a.com",
+      "name": "Liya Aizenberg",
+      "played": false
+    },
+    {
+      "email": "Maggie_Assael@saksinc.com",
+      "name": "Maggie Assael",
+      "played": false
+    },
+    {
+      "email": "Mary_Shinya@s5a.com",
+      "name": "Mary Shinya",
+      "played": false
+    },
+    {
+      "email": "Matt_Pick@s5a.com",
+      "name": "Matt Pick",
+      "played": false
+    },
+    {
+      "email": "Max_Nilov@s5a.com",
+      "name": "Max Nilov",
+      "played": false
+    },
+    {
+      "email": "Megan_Murphy@s5a.com",
+      "name": "Megan Murphy",
+      "played": false
+    },
+    {
+      "email": "Mel_Pavels@s5a.com",
+      "name": "Mel Pavels",
+      "played": false
+    },
+    {
+      "email": "Michele_Anjos@s5a.com",
+      "name": "Michele Anjos",
+      "played": false
+    },
+    {
+      "email": "Michelle_Ling@s5a.com",
+      "name": "Michelle Ling",
+      "played": false
+    },
+    {
+      "email": "Michelle_Myer2@s5a.com",
+      "name": "Michelle Myer",
+      "played": false
+    },
+    {
+      "email": "Miguel_Julio@s5a.com",
+      "name": "Miguel Julio",
+      "played": false
+    },
+    {
+      "email": "Mike_Szczesniak@s5a.com",
+      "name": "Mike Szczesniak",
+      "played": false
+    },
+    {
+      "email": "Missy_Holland@s5a.com",
+      "name": "Missy Holland",
+      "played": false
+    },
+    {
+      "email": "Nadia_Hassanein@s5a.com",
+      "name": "Nadia Hassanein",
+      "played": false
+    },
+    {
+      "email": "Natalie_Yelin@s5a.com",
+      "name": "Natalie Yelin",
+      "played": false
+    },
+    {
+      "email": "Naveed_Iqbal@s5a.com",
+      "name": "Naveed Iqbal",
+      "played": false
+    },
+    {
+      "email": "Naveen_Korandla@s5a.com",
+      "name": "Naveen Korandla",
+      "played": false
+    },
+    {
+      "email": "Nick_Rule@s5a.com",
+      "name": "Nick Rule",
+      "played": false
+    },
+    {
+      "email": "Nicole_VanSciver@s5a.com",
+      "name": "Nicole VanSciver",
+      "played": false
+    },
+    {
+      "email": "Nicole_Wu@s5a.com",
+      "name": "Nicole Wu",
+      "played": false
+    },
+    {
+      "email": "Nicolette_Nelson@s5a.com",
+      "name": "Nicolette Nelson",
+      "played": false
+    },
+    {
+      "email": "Nidhi_Desai@s5a.com",
+      "name": "Nidhi Desai",
+      "played": false
+    },
+    {
+      "email": "Niger_Ullah@s5a.com",
+      "name": "Niger Ullah",
+      "played": false
+    },
+    {
+      "email": "Nikunj_Patel@s5a.com",
+      "name": "Nikunj Patel",
+      "played": false
+    },
+    {
+      "email": "Nitha_Jomy@s5a.com",
+      "name": "Nitha Jomy",
+      "played": false
+    },
+    {
+      "email": "Norman_Chou@s5a.com",
+      "name": "Norman Chou",
+      "played": false
+    },
+    {
+      "email": "Pete_Bohan@S5A.COM",
+      "name": "Pete Bohan",
+      "played": false
+    },
+    {
+      "email": "Phillip_Gray@s5a.com",
+      "name": "Phillip Gray",
+      "played": false
+    },
+    {
+      "email": "Puneet_Arya@s5a.com",
+      "name": "Puneet Arya",
+      "played": false
+    },
+    {
+      "email": "robyn_cioffari@lordandtaylor.com",
+      "name": "Robyn Cioffari",
+      "played": false
+    },
+    {
+      "email": "Larry_Mann@lordandtaylor.com",
+      "name": "Q131989",
+      "played": false
+    },
+    {
+      "email": "tina.lamonaca@hbc.com",
+      "name": "Q173658",
+      "played": false
+    },
+    {
+      "email": "amy_yobbi@lordandtaylor.com",
+      "name": "Q181896",
+      "played": false
+    },
+    {
+      "email": "krysten_driscoll@lordandtaylor.com",
+      "name": "Q185537",
+      "played": false
+    },
+    {
+      "email": "teresa.moser@hbc.com",
+      "name": "Q226300",
+      "played": false
+    },
+    {
+      "email": "hyacintha_obrien@lordandtaylor.com",
+      "name": "Q234261",
+      "played": false
+    },
+    {
+      "email": "tracy_costigan@lordandtaylor.com",
+      "name": "Q250032",
+      "played": false
+    },
+    {
+      "email": "Rachel_Wagner@s5a.com",
+      "name": "Rachel Wagner",
+      "played": false
+    },
+    {
+      "email": "Rafael_Velez@s5a.com",
+      "name": "Rafael Velez",
+      "played": false
+    },
+    {
+      "email": "Rahul_Lodha@s5a.com",
+      "name": "Rahul Lodha",
+      "played": false
+    },
+    {
+      "email": "Rajesh_Mathew@s5a.com",
+      "name": "Rajesh Mathew",
+      "played": false
+    },
+    {
+      "email": "Ranjitha_Urs@s5a.com",
+      "name": "Ranjitha Urs",
+      "played": false
+    },
+    {
+      "email": "Rey_Mendaros@s5a.com",
+      "name": "Rey Mendaros",
+      "played": false
+    },
+    {
+      "email": "Richard_Jap@s5a.com",
+      "name": "Richard Jap",
+      "played": false
+    },
+    {
+      "email": "Rinat_Ussenov@s5a.com",
+      "name": "Rinat Ussenov",
+      "played": false
+    },
+    {
+      "email": "Roger_Scholl@s5a.com",
+      "name": "Roger Scholl",
+      "played": false
+    },
+    {
+      "email": "Ron_Cavallo@s5a.com",
+      "name": "Ron Cavallo",
+      "played": false
+    },
+    {
+      "email": "Ryan_Gonzales@s5a.com",
+      "name": "Ryan Gonzales",
+      "played": false
+    },
+    {
+      "email": "ashley.saunders@hbc.com",
+      "name": "S997715",
+      "played": false
+    },
+    {
+      "email": "william.norris@hbc.com",
+      "name": "S999156",
+      "played": false
+    },
+    {
+      "email": "Sailaja_Vutukuri@s5a.com",
+      "name": "Sailaja Vutukuri",
+      "played": false
+    },
+    {
+      "email": "Sameer_Varpe@saksinc.com",
+      "name": "Sameer Varpe",
+      "played": false
+    },
+    {
+      "email": "Samuel_Irmes@s5a.com",
+      "name": "Samuel Irmes",
+      "played": false
+    },
+    {
+      "email": "Sandy_Hu@s5a.com",
+      "name": "Sandy Hu",
+      "played": false
+    },
+    {
+      "email": "Sanjay_Malaviya@s5a.com",
+      "name": "Sanjay Malaviya",
+      "played": false
+    },
+    {
+      "email": "Sean_Forte@s5a.com",
+      "name": "Sean Forte",
+      "played": false
+    },
+    {
+      "email": "Seema_Pillay@s5a.com",
+      "name": "Seema Pillay",
+      "played": false
+    },
+    {
+      "email": "Sera_Chen@s5a.com",
+      "name": "Sera Chen",
+      "played": false
+    },
+    {
+      "email": "Shanequa_Collins@s5a.com",
+      "name": "Shanequa Collins",
+      "played": false
+    },
+    {
+      "email": "Shani_Giersbach@s5a.com",
+      "name": "Shani Giersbach",
+      "played": false
+    },
+    {
+      "email": "Shannon_Kennedy-Vendor@saksinc.com",
+      "name": "Shannon Kennedy",
+      "played": false
+    },
+    {
+      "email": "Shradha_Vaghela@s5a.com",
+      "name": "Shradha Vaghela",
+      "played": false
+    },
+    {
+      "email": "Slava_Alayev@s5a.com",
+      "name": "Slava Alayev",
+      "played": false
+    },
+    {
+      "email": "Soyoun_Lim@s5a.com",
+      "name": "Soyoun Lim",
+      "played": false
+    },
+    {
+      "email": "Stacey_Chiu@s5a.com",
+      "name": "Stacey Chiu",
+      "played": false
+    },
+    {
+      "email": "Stacey_Levitt@s5a.com",
+      "name": "Stacey Levitt",
+      "played": false
+    },
+    {
+      "email": "Stacey_Newsome@s5a.com",
+      "name": "Stacey Newsome",
+      "played": false
+    },
+    {
+      "email": "Stefania_Gencarelli@s5a.com",
+      "name": "Stefania Gencarelli",
+      "played": false
+    },
+    {
+      "email": "Stephanie_Doiron@s5a.com",
+      "name": "Stephanie Doiron",
+      "played": false
+    },
+    {
+      "email": "Stephanie_Kosman@s5a.com",
+      "name": "Stephanie Kosman",
+      "played": false
+    },
+    {
+      "email": "sjacobs@gilt.com",
+      "name": "Steve Jacobs",
+      "played": false
+    },
+    {
+      "email": "Syed_Suhel@s5a.com",
+      "name": "Syed Suhel",
+      "played": false
+    },
+    {
+      "email": "Tae_Kim@s5a.com",
+      "name": "Tae Kim",
+      "played": false
+    },
+    {
+      "email": "TANZINA_SULTANA@s5a.com",
+      "name": "Tanzina Sultana",
+      "played": false
+    },
+    {
+      "email": "Ted_Gelpi@s5a.com",
+      "name": "Ted Gelpi",
+      "played": false
+    },
+    {
+      "email": "Thomas_Croft@s5a.com",
+      "name": "Thomas Croft",
+      "played": false
+    },
+    {
+      "email": "Tim_Decker@s5a.com",
+      "name": "Tim Decker",
+      "played": false
+    },
+    {
+      "email": "Tom_Beute@s5a.com",
+      "name": "Tom Beute",
+      "played": false
+    },
+    {
+      "email": "Tom_Casper@s5a.com",
+      "name": "Tom Casper",
+      "played": false
+    },
+    {
+      "email": "Uman_Chan@s5a.com",
+      "name": "Uman Chan",
+      "played": false
+    },
+    {
+      "email": "Venky_Jayapal@s5a.com",
+      "name": "Venky Jayapal",
+      "played": false
+    },
+    {
+      "email": "Vera_Smirnova@s5a.com",
+      "name": "Vera Smirnova",
+      "played": false
+    },
+    {
+      "email": "Veronica_Irmes@s5a.com",
+      "name": "Veronica Irmes",
+      "played": false
+    },
+    {
+      "email": "Vevin_Moza@s5a.com",
+      "name": "Vevin Moza",
+      "played": false
+    },
+    {
+      "email": "Vimal_Purohit@s5a.com",
+      "name": "Vimal Purohit",
+      "played": false
+    },
+    {
+      "email": "Wanda_Ng@s5a.com",
+      "name": "Wanda Ng",
+      "played": false
+    },
+    {
+      "email": "Waseem_Syed@s5a.com",
+      "name": "Waseem Syed",
+      "played": false
+    },
+    {
+      "email": "Willis_Kong@s5a.com",
+      "name": "Willis Kong",
+      "played": false
+    },
+    {
+      "email": "Yesmin_Begum@s5a.com",
+      "name": "Yesmin Begum",
+      "played": false
+    },
+    {
+      "email": "Yulia_Alipova@s5a.com",
+      "name": "Yulia Alipova",
+      "played": false
+    },
+    {
+      "email": "Zafrin_Zakir@s5a.com",
+      "name": "Zafrin Zakir",
+      "played": false
+    },
+    {
+      "email": "Zoran_Budzakoski@s5a.com",
+      "name": "Zoran Budzakoski",
+      "played": false
+    },
+    {
+      "email": "Zukhra_Murray@s5a.com",
+      "name": "Zukhra Murray",
+      "played": false
+    }
+  ]
+}
