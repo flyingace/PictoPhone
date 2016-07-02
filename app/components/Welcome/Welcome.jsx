@@ -1,5 +1,5 @@
 import React from 'react';
-import {map} from 'lodash';
+import {map, isEmpty} from 'lodash';
 import './Welcome.scss';
 import NameList from '../NameList/NameList';
 import Modal from '../Modal/Modal';
@@ -73,8 +73,10 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
     },
 
     onNameSelected(current_player_id) {
-        this.props.updateCurrentPlayer(current_player_id);
-        this.props.goToDescribePage();
+        if (!isEmpty(current_player_id)) {
+            this.props.updateCurrentPlayer(current_player_id);
+            this.props.goToDescribePage();
+        }
     },
 
     maybeRenderGameReadyModal() {
