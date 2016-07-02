@@ -28,6 +28,8 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
      */
     propTypes: {
         children: React.PropTypes.string,
+        currentDescription: React.PropTypes.string,
+        currentPlayerID: React.PropTypes.string,
         description: React.PropTypes.string,
         goToThankYouPage: React.PropTypes.func,
         saveRoundData: React.PropTypes.func
@@ -54,7 +56,7 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
     },
 
     onColorSelected(colorName) {
-        const colorCode = '#' + colorName;
+        const colorCode = `#${colorName}`;
         this.setState({'selectedColor': colorCode});
     },
 
@@ -109,18 +111,18 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
     //TODO: Move this to actions/draw.js
     saveDrawingToStorage(drawing) {
         //save drawing to db
-        let drawingAsBlob = this.dataURItoBlob(drawing.src);
-        let uploadTask = storageRef.child(drawing.name).put(drawingAsBlob);
+        const drawingAsBlob = this.dataURItoBlob(drawing.src);
+        const uploadTask = storageRef.child(drawing.name).put(drawingAsBlob);
         const that = this;
 
         //TODO: Is there a way to use arrow functions here so we don't have
         //to resort to using that = this?
-        uploadTask.on('state_changed', function (snapshot) {
+        uploadTask.on('state_changed', (snapshot) => {
             // Observe state change events such as progress, pause, and resume
-        }, function (error) {
+        }, (error) => {
             // Handle unsuccessful uploads
             console.log(error);
-        }, function () {
+        }, () => {
             // Handle successful uploads on complete
             that.saveDrawingURLToDB(uploadTask.snapshot.downloadURL);
         });
@@ -128,7 +130,7 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
 
     //TODO: Move this to actions/draw.js
     saveDrawingURLToDB(pathToDrawing) {
-        let newRoundData = {
+        const newRoundData = {
             playerID: this.props.currentPlayerID,
             description: this.props.currentDescription,
             drawing: pathToDrawing

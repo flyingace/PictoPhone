@@ -58,6 +58,18 @@ const NameList = React.createClass(/** @lends NameList.prototype */{
             nameList = 'Name not found';
         } else {
             const names = map(this.props.nameList, (playerData, playerID) => {
+
+                if (playerData.played) {
+                    return (
+                        <li
+                            key={playerID}
+                            data-uid={playerID}
+                            className="played">
+                            {playerData.name}
+                        </li>
+                    );
+                }
+
                 const nameSelectedClass = cx({
                     'selected': playerID === this.state.selectedKey
                 });
@@ -66,7 +78,9 @@ const NameList = React.createClass(/** @lends NameList.prototype */{
                     <li
                         key={playerID}
                         data-uid={playerID}
-                        onClick={() => {this.selectName(playerID)}}
+                        onClick={ () => {
+                            this.selectName(playerID)
+                        }}
                         className={nameSelectedClass}>
                         {playerData.name}
                         {this.renderCheckSVG()}

@@ -21,13 +21,13 @@ const Keyboard = React.createClass(/** @lends Keyboard.prototype */{
      * @property {Object} propTypes - An object used to validate props being passed into the components
      */
     propTypes: {
-        rowOne: React.PropTypes.array,
-        rowTwo: React.PropTypes.array,
-        rowThree: React.PropTypes.array,
-        rowFour: React.PropTypes.array,
-        rowFive: React.PropTypes.array,
+        isShifted: React.PropTypes.bool,
         keyPressHandler: React.PropTypes.func.isRequired,
-        isShifted: React.PropTypes.bool
+        rowFive: React.PropTypes.array,
+        rowFour: React.PropTypes.array,
+        rowOne: React.PropTypes.array,
+        rowThree: React.PropTypes.array,
+        rowTwo: React.PropTypes.array
     },
 
     getDefaultProps() {
