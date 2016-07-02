@@ -64,7 +64,7 @@ const NameList = React.createClass(/** @lends NameList.prototype */{
                         <li
                             key={playerID}
                             data-uid={playerID}
-                            className='played'>
+                            className="played">
                             {playerData.name}
                         </li>
                     );
@@ -78,7 +78,9 @@ const NameList = React.createClass(/** @lends NameList.prototype */{
                     <li
                         key={playerID}
                         data-uid={playerID}
-                        onClick={() => {this.selectName(playerID)}}
+                        onClick={ () => {
+                            this.selectName(playerID)
+                        }}
                         className={nameSelectedClass}>
                         {playerData.name}
                         {this.renderCheckSVG()}

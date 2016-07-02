@@ -21,13 +21,14 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
      */
     propTypes: {
         brushThickness: React.PropTypes.number,
+        brushWidth: React.PropTypes.number,
         canvasHeight: React.PropTypes.string,
         canvasWidth: React.PropTypes.string,
         clearNow: React.PropTypes.bool,
-        saveNow: React.PropTypes.bool,
-        selectedColor: React.PropTypes.string,
         onCleared: React.PropTypes.func,
-        onSaved: React.PropTypes.func
+        onSaved: React.PropTypes.func,
+        saveNow: React.PropTypes.bool,
+        selectedColor: React.PropTypes.string
     },
 
     getDefaultProps() {
@@ -110,7 +111,7 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
             return;
         }
 
-        let midPt = new EaselJS.Point(oldPt.x + stage.mouseX >> 1, oldPt.y + stage.mouseY >> 1);
+        const midPt = new EaselJS.Point(oldPt.x + stage.mouseX >> 1, oldPt.y + stage.mouseY >> 1);
 
         drawingCanvas.graphics.clear()
             .setStrokeStyle(stroke, 'round', 'round')
@@ -137,7 +138,7 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
     saveImageAsJPEG() {
         const img = new Image();
         img.src = stage.toDataURL('#FFFFFF', "image/jpeg");
-        img.name = Date.now() + '.jpg';
+        img.name = `${Date.now()}.jpg`;
         return img;
     },
 

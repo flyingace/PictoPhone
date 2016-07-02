@@ -17,11 +17,12 @@ const DescribeInput = React.createClass(/** @lends DescribeInput.prototype */{
      * @property {Object} propTypes - An object used to validate props being passed into the components
      */
     propTypes: {
-        maxCharacterCount: React.PropTypes.number,
-        prompt: React.PropTypes.string,
         characterCount: React.PropTypes.number,
+        descriptionString: React.PropTypes.string,
+        maxCharacterCount: React.PropTypes.number,
         onGainFocus: React.PropTypes.func,
-        onSubmit: React.PropTypes.func
+        onSubmit: React.PropTypes.func,
+        prompt: React.PropTypes.string
     },
 
     /**
@@ -47,7 +48,7 @@ const DescribeInput = React.createClass(/** @lends DescribeInput.prototype */{
                 <input className="descriptionInput" type="text" maxLength={this.props.maxCharacterCount}
                        placeholder={this.props.prompt} value={this.props.descriptionString}
                        onFocus={this.props.onGainFocus} spellCheck="true"
-                       readonly="true"/>
+                       readOnly="true"/>
                 <span className="character-count">{this.props.characterCount}/{this.props.maxCharacterCount}</span>
             </div>
         );

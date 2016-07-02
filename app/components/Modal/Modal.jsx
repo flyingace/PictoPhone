@@ -36,17 +36,17 @@ const Modal = React.createClass(/** @lends Modal.prototype */{
                     transitionName={this.props.transitionName}
                     transitionEnterTimeout={200}
                     transitionLeaveTimeout={200}>
-                    <div className='modal'>
+                    <div className="modal">
                         {this.props.children}
-                        <span onClick={this.props.onRequestClose} className='close' />
+                        <span onClick={this.props.onRequestClose} className="close" />
                     </div>
                 </ReactCSSTransitionGroup>
             );
         } else {
-            return <ReactCSSTransitionGroup
+            return (<ReactCSSTransitionGroup
                 transitionName={this.props.transitionName}
                 transitionEnterTimeout={200}
-                transitionLeaveTimeout={200} />;
+                transitionLeaveTimeout={200} />);
         }
     },
 

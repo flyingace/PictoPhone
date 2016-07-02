@@ -23,8 +23,9 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
      */
     propTypes: {
         children: React.PropTypes.string,
+        goToDrawingPage: React.PropTypes.func,
         pathToDrawing: React.PropTypes.string,
-        goToDrawingPage: React.PropTypes.func
+        updateCurrentDescription: React.PropTypes.func
     },
 
     getDefaultProps() {

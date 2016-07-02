@@ -47,7 +47,7 @@ const ToolButton = React.createClass(/** @lends ToolButton.prototype */{
      * @return {ReactElement}
      */
     render() {
-        const class_name = "tool-button icon-" + this.props.toolName;
+        const class_name = `tool-button icon-${this.props.toolName}`;
 
         return (
             <input type="radio" name={this.props.groupName} className={class_name} onClick={this.onToolSelected} />

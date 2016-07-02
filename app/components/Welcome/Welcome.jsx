@@ -60,16 +60,14 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
     },
 
     renderAlphabeticalTabs(tabsArr) {
-        return map(tabsArr, (tab, index) => {
-            return (
-                <div
-                    key={index}
-                    className="alphabetical-tab"
-                    onClick={this.filterNames}>
-                    {tab}
-                </div>
-            );
-        });
+        return map(tabsArr, (tab, index) =>
+            <div
+                key={index}
+                className="alphabetical-tab"
+                onClick={this.filterNames}>
+                {tab}
+            </div>
+        );
     },
 
     onNameSelected(current_player_id) {

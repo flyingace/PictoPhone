@@ -45,16 +45,16 @@ const Key = React.createClass(/** @lends Key.prototype */{
         let keyContents;
 
         if (this.props.keyValue.length === 1) {
-            keyContents =
-                <div className={"key " + additionalClass} onClick={this.handleKeyPressed}>
+            keyContents = (
+                <div className={`key ${additionalClass}`} onClick={this.handleKeyPressed}>
                     <span>{this.props.keyValue[0]}</span>
-                </div>
+                </div>)
         } else {
-            keyContents =
+            keyContents = (
                 <div className="key" onClick={this.handleKeyPressed}>
                     <span className="character-lc">{this.props.keyValue[0]}</span>
                     <span className="character-uc">{this.props.keyValue[1]}</span>
-                </div>
+                </div>)
         }
 
         return keyContents;

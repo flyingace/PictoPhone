@@ -41,7 +41,7 @@ const Toolbar = React.createClass(/** @lends Toolbar.prototype */{
      */
     render() {
         return (
-            <div className={this.props.toolType + "-toolbar"}>
+            <div className={`${this.props.toolType}-toolbar`}>
                 {this.renderToolButtons(this.props.toolButtons)}
             </div>
         );
