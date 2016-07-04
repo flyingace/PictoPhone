@@ -13,7 +13,13 @@ const storageRef = storage.ref();
 export function saveRoundData(roundData) {
     //TODO: find a way to get the date directory dynamically
     const recordsRef = database.ref('records/06242016');
+    const playersList = database.ref('players');
+    const playerID = roundData.playerID;
+
     recordsRef.push(roundData);
+    playersList.child(playerID).update({
+        'played': true
+    });
 }
 
 /**
