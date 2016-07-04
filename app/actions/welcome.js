@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import {push} from 'react-router-redux';
-
+import {getDateKey} from '../utils/appUtils';
 const database = firebase.database();
 
 export const REQUEST_WELCOME_DATA = 'FETCH_WELCOME_DATA';
@@ -52,9 +52,7 @@ export function fetchWelcomeData() {
 }
 
 export function fetchRoundData() {
-    //TODO: put this section into a dateNow util
-    const dateNow = new Date();
-    const dateKey = `records/${dateNow.getDate()}${dateNow.getMonth() + 1}${dateNow.getFullYear()}`;
+    const dateKey = getDateKey();
     const recordsRef = database.ref(dateKey);
 
     return (dispatch) => {

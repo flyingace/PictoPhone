@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import {push} from 'react-router-redux';
+import {getDateKey} from '../utils/appUtils';
 
 const database = firebase.database();
 
@@ -11,9 +12,7 @@ const storageRef = storage.ref();
  * @param roundData
  */
 export function saveRoundData(roundData) {
-    //TODO: put this section into a dateNow util
-    const dateNow = new Date();
-    const dataKey = `records/${dateNow.getDate()}${dateNow.getMonth() + 1}${dateNow.getFullYear()}`;
+    const dateKey = getDateKey();
     const recordsRef = database.ref(dataKey);
     const playersList = database.ref('players');
     const playerID = roundData.playerID;
