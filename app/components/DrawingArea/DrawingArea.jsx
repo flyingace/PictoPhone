@@ -134,6 +134,42 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
         stage.removeEventListener("stagemousemove", this.handleMouseMove);
     },
 
+    fill() {
+        //get copy of imageData for the canvas: _imageData
+        //convert imageData r, g, b, & alpha values into 8-character hexadecimal strings
+        //get the x & y coordinates for the area underneath the cursor
+        //translate those x/y coordinates to the pixel's index in _imageData: _seedIndex
+        //get the color data for that pixel from _imageData: _seedColor
+        //create two arrays: _parentArray and a child array with _seedIndex inside it
+        //Begin a recursive function
+        //The last array in _parentArray will be: _latestArray
+        // that first reads the last array in _parentArray
+        //if the length of _latestArray is 0 the recursive function ends
+        //otherwise
+        //create a new array: _currentArray
+        //loop through the values in _latestArray treating each as an index in _imageData
+        //referring to each value in turn as _currentIndex
+        //check the hex strings of the four adjacent pixels to _currentIndex to see if they match _seedColor
+        //(_currentIndex - canvas.width, _currentIndex - 1, _currentIndex + 1 and _currentIndex + canvas.width)
+        //if any match, push that index to _currentArray
+        //push _currentArray to _parentArray and start the recursive function over again
+
+        //if at any time, at the end of a loop, the new array is empty then stop
+        //then merge all arrays and remove any duplicate values
+        //convert the hex values of any of the indexes to match the desired color
+        //revert all hex values to comma separated rgba values
+        //overwrite the canvas' imageData with _imageData
+
+    },
+
+
+    saveImageAsJPEG() {
+        const img = new Image();
+        img.src = stage.toDataURL('#FFFFFF', "image/jpeg");
+        img.name = `${Date.now()}.jpg`;
+        return img;
+    },
+
     render () {
         return (
             <div className="drawing-area">
