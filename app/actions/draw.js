@@ -11,8 +11,10 @@ const storageRef = storage.ref();
  * @param roundData
  */
 export function saveRoundData(roundData) {
-    //TODO: find a way to get the date directory dynamically
-    const recordsRef = database.ref('records/06242016');
+    //TODO: put this section into a dateNow util
+    const dateNow = new Date();
+    const dataKey = `records/${dateNow.getDate()}${dateNow.getMonth() + 1}${dateNow.getFullYear()}`;
+    const recordsRef = database.ref(dataKey);
     const playersList = database.ref('players');
     const playerID = roundData.playerID;
 

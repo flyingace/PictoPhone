@@ -52,8 +52,10 @@ export function fetchWelcomeData() {
 }
 
 export function fetchRoundData() {
-    //TODO: Need to find a way to determine the date folder's name
-    const recordsRef = database.ref('records/06242016');
+    //TODO: put this section into a dateNow util
+    const dateNow = new Date();
+    const dateKey = `records/${dateNow.getDate()}${dateNow.getMonth() + 1}${dateNow.getFullYear()}`;
+    const recordsRef = database.ref(dateKey);
 
     return (dispatch) => {
         dispatch(requestRoundData());
