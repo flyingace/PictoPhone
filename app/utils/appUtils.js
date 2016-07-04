@@ -6,7 +6,7 @@ export function getDateKey() {
 	const date = getDate > 9 ? getDate : `0${getDate}`;
 	const month = getMonth > 9 ? getMonth : `0${getMonth}`;
 
-    const dateKey = `records/${date}${month}${dateNow.getFullYear()}`;
+    const dateKey = `${date}${month}${dateNow.getFullYear()}`;
 
     return dateKey;
 }

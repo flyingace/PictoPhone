@@ -13,7 +13,8 @@ const storageRef = storage.ref();
  */
 export function saveRoundData(roundData) {
     const dateKey = getDateKey();
-    const recordsRef = database.ref(dataKey);
+    const recordsKey = `records/${dateKey}`;
+    const recordsRef = database.ref(recordsKey);
     const playersList = database.ref('players');
     const playerID = roundData.playerID;
 

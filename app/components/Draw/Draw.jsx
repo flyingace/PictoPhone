@@ -143,10 +143,7 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
         //save drawing to db
         const drawingAsBlob = this.dataURItoBlob(drawing.src);
         const uploadTask = storageRef.child(drawing.name).put(drawingAsBlob);
-        const that = this;
 
-        //TODO: Is there a way to use arrow functions here so we don't have
-        //to resort to using that = this?
         uploadTask.on('state_changed', (snapshot) => {
             // Observe state change events such as progress, pause, and resume
         }, (error) => {
@@ -154,7 +151,7 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
             console.log(error);
         }, () => {
             // Handle successful uploads on complete
-            that.saveDrawingURLToDB(uploadTask.snapshot.downloadURL);
+            this.saveDrawingURLToDB(uploadTask.snapshot.downloadURL);
         });
     },
 

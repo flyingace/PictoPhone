@@ -38,6 +38,9 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
     },
 
     componentWillMount() {
+        if (this.props.welcome.newDate) {
+            this.props.resetData();
+        }
         this.props.fetchWelcomeData();
         this.props.fetchRoundData();
     },
