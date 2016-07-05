@@ -124,11 +124,17 @@ const Describe = React.createClass(/** @lends Describe.prototype */{
     },
 
     onSubmitDescription() {
-        //TODO: First, add validation if necessary
-        //Then add the description to this round's data object
-        this.props.updateCurrentDescription(this.state.descriptionString);
-        this.props.goToDrawingPage();
+        if (this.validateDescription()) {
+           this.props.updateCurrentDescription(this.state.descriptionString);
+            this.props.goToDrawingPage();
+        } else {
+            //TODO: Replace this alert with a custom modal.
+            window.alert("Please enter a description of the image.")
+        }
+    },
 
+    validateDescription() {
+        return (this.state.descriptionString.length >= 3);
     },
 
     /**
