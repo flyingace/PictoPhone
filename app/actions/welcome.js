@@ -1,6 +1,7 @@
 import firebase from 'firebase';
 import {push} from 'react-router-redux';
-
+import {getDateKey} from '../utils/appUtils';
+import {forEach} from 'lodash';
 const database = firebase.database();
 
 export const REQUEST_WELCOME_DATA = 'FETCH_WELCOME_DATA';
@@ -12,6 +13,12 @@ export const FAILURE_ROUND_DATA = 'FAILURE_ROUND_DATA';
 
 export const FILTER_NAME_LIST = 'FILTER_NAME_LIST';
 export const UPDATE_CURRENT_PLAYER = 'UPDATE_CURRENT_PLAYER';
+
+export const COMPLETE_RESET_DATA = 'COMPLETE_RESET_DATA';
+
+export function completeResetDate() {
+    return {type: COMPLETE_RESET_DATA}
+}
 
 export function requestWelcomeData() {
     return {type: REQUEST_WELCOME_DATA};
@@ -41,6 +48,43 @@ export function updateCurrentPlayer(data) {
     return {type: UPDATE_CURRENT_PLAYER, state: data}
 }
 
+export function resetData() {
+    return (dispatch) => {
+        const dateKey = getDateKey();
+        const recordsDateKey = `records/${dateKey}`;
+        const playersList = database.ref('players');
+        const recordsRef = database.ref('records');
+        const recordsRefWithKey = database.ref(recordsDateKey);
+
+        recordsRef.on('value', (snapShot) => {
+            const hasDateKey = snapShot.hasChild(dateKey);
+
+            if (!hasDateKey) {
+                recordsRefWithKey.push({
+                    'playerID': '',
+                    'description': '',
+                    'drawing': ''
+                }, (err) => {
+                    if (err) {
+                        // console.log("Data could not be saved.");
+                    } else {
+                        // console.log("Data saved successfully.");
+                        dispatch(completeResetDate());
+                    }
+                });
+
+                playersList.on('value', (players) => {
+                    forEach(players.val(), (player, key) => {
+                        playersList.child(key).update({
+                            'played': false
+                        });
+                    });
+                });
+            }
+        });
+    }
+}
+
 export function fetchWelcomeData() {
     return (dispatch) => {
         dispatch(requestWelcomeData());
@@ -52,8 +96,9 @@ export function fetchWelcomeData() {
 }
 
 export function fetchRoundData() {
-    //TODO: Need to find a way to determine the date folder's name
-    const recordsRef = database.ref('records/06242016');
+    const dateKey = getDateKey();
+    const recordsKey = `records/${dateKey}`;
+    const recordsRef = database.ref(recordsKey);
 
     return (dispatch) => {
         dispatch(requestRoundData());

@@ -4,7 +4,8 @@ import {
     FAILURE_WELCOME_DATA,
     FILTER_NAME_LIST,
     RECEIVE_ROUND_DATA,
-    UPDATE_CURRENT_PLAYER
+    UPDATE_CURRENT_PLAYER,
+    COMPLETE_RESET_DATA
 } from '../actions/welcome';
 import {assign, forEach, isUndefined, toLower } from 'lodash';
 
@@ -12,7 +13,8 @@ const initialState = {
     nameList: {},
     filteredNameList: {},
     currentPlayerID: '',
-    roundData: {}
+    roundData: {},
+    newDate: true
 };
 
 function filterByLetter(state, letter) {
@@ -58,6 +60,12 @@ export default function welcome(state = initialState, action) {
         case UPDATE_CURRENT_PLAYER:
             state = assign({}, state, {
                 currentPlayerID: action.state
+            });
+            break;
+
+        case COMPLETE_RESET_DATA:
+            state = assign({}, state, {
+                newDate: false
             });
             break;
 
