@@ -58,8 +58,7 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
         }
 
         if (this.props.saveNow) {
-            const drawing = this.saveImageAsJPEG();
-            this.props.onSaved(drawing);
+            this.props.onSaved(stage);
         }
     },
 
@@ -133,13 +132,6 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
             return;
         }
         stage.removeEventListener("stagemousemove", this.handleMouseMove);
-    },
-
-    saveImageAsJPEG() {
-        const img = new Image();
-        img.src = stage.toDataURL('#FFFFFF', "image/jpeg");
-        img.name = `${Date.now()}.jpg`;
-        return img;
     },
 
     render () {

@@ -4,6 +4,7 @@ import Toolbar from '../Toolbar/Toolbar';
 import firebase from 'firebase';
 import './Draw.scss';
 
+const EaselJS = window.createjs;
 const drawingTools = ["brush", "bucket", "eraser"];
 const brushThickness = ["thick", "medium", "thin"];
 const colors = ['FAFF00', 'F88E00', 'F75800', 'F62600', 'C00000', 'BC005B', '54005A', '0B005D', '0A2496',
@@ -101,11 +102,40 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
 
     //TODO: Sort out the ordering of methods so the user isn't taken to the Thank You page
     // before the image data has been successfully sent to storage and the round data to the db
-    onDrawingCompleted(drawing) {
+    onDrawingCompleted(stageArea) {
         this.setState({'needsToBeSaved': false});
-        this.saveDrawingToStorage(drawing);
-        //go to Thank You Step.
-        this.props.goToThankYouPage();
+
+        if (this.validateDrawing(stageArea)) {
+            const drawing = this.saveImageAsJPEG(stageArea);
+            this.saveDrawingToStorage(drawing);
+            //go to Thank You Step.
+            this.props.goToThankYouPage();
+        } else {
+            window.alert('Please draw a picture based on the description provided.');
+        }
+    },
+
+    /**
+     * Validates that 1) The prompt is not still present (it disappears when the player starts drawing)
+     * and 2) The sum of all values in the image data array is greater than 0 (it would be 0 if no drawing
+     * had been done on the canvas
+     * @param stageArea
+     * @returns {boolean}
+     */
+    validateDrawing(stageArea) {
+        const ppCanvas = stageArea.canvas;
+        const promptHasBeenRemoved = (stageArea.children.length === 1);
+        const imageDataArray = ppCanvas.getContext('2d').getImageData(0,0,ppCanvas.width,ppCanvas.height).data;
+        const canvasHasDrawing = imageDataArray.reduce((a, b) => a + b, 0) > 0;
+
+        return (promptHasBeenRemoved && canvasHasDrawing);
+    },
+
+    saveImageAsJPEG(stageArea) {
+        const img = new Image();
+        img.src = stageArea.toDataURL('#FFFFFF', "image/jpeg");
+        img.name = `${Date.now()}.jpg`;
+        return img;
     },
 
     //TODO: Move this to actions/draw.js
