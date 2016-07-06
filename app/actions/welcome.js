@@ -57,7 +57,7 @@ export function resetData() {
         const recordsRefWithKey = database.ref(recordsDateKey);
 
         recordsRef.on('value', (snapShot) => {
-            var hasDateKey = snapShot.hasChild(dateKey);
+            const hasDateKey = snapShot.hasChild(dateKey);
 
             if (!hasDateKey) {
                 recordsRefWithKey.push({
@@ -66,16 +66,15 @@ export function resetData() {
                     'drawing': ''
                 }, (err) => {
                     if (err) {
-                        console.log("Data could not be saved." + err);
+                        // console.log("Data could not be saved.");
                     } else {
-                        console.log("Data saved successfully.");
+                        // console.log("Data saved successfully.");
                         dispatch(completeResetDate());
                     }
                 });
 
                 playersList.on('value', (players) => {
                     forEach(players.val(), (player, key) => {
-                        console.log('player.key()', key);
                         playersList.child(key).update({
                             'played': false
                         });
