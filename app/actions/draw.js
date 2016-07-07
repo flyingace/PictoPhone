@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import {push} from 'react-router-redux';
+import {getDateKey} from '../utils/appUtils';
 
 const database = firebase.database();
 
@@ -11,9 +12,16 @@ const storageRef = storage.ref();
  * @param roundData
  */
 export function saveRoundData(roundData) {
-    //TODO: find a way to get the date directory dynamically
-    const recordsRef = database.ref('records/06242016');
+    const dateKey = getDateKey();
+    const recordsKey = `records/${dateKey}`;
+    const recordsRef = database.ref(recordsKey);
+    const playersList = database.ref('players');
+    const playerID = roundData.playerID;
+
     recordsRef.push(roundData);
+    playersList.child(playerID).update({
+        'played': true
+    });
 }
 
 /**

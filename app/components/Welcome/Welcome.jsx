@@ -27,6 +27,7 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
         fetchWelcomeData: React.PropTypes.func,
         filterNameList: React.PropTypes.func,
         goToDescribePage: React.PropTypes.func,
+        resetData: React.PropTypes.func,
         updateCurrentPlayer: React.PropTypes.func,
         welcome: React.PropTypes.object
     },
@@ -38,6 +39,9 @@ const Welcome = React.createClass(/** @lends Welcome.prototype */{
     },
 
     componentWillMount() {
+        if (this.props.welcome.newDate) {
+            this.props.resetData();
+        }
         this.props.fetchWelcomeData();
         this.props.fetchRoundData();
     },

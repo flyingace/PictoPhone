@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 
 import './DrawingArea.scss';
 
@@ -58,8 +59,7 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
         }
 
         if (this.props.saveNow) {
-            const drawing = this.saveImageAsJPEG();
-            this.props.onSaved(drawing);
+            this.props.onSaved(stage);
         }
     },
 
@@ -135,41 +135,100 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
         stage.removeEventListener("stagemousemove", this.handleMouseMove);
     },
 
-    fill() {
+    fill(evt) {
+        //TODO: check targetColor against selectedColor
+        const ppCanvas = stage.canvas;
+        const canvasWidth = ppCanvas.width;
+        const canvasHeight = ppCanvas.height;
         //get copy of imageData for the canvas: _imageData
+        const imageData = ppCanvas.getContext('2d').getImageData(0,0,canvasWidth,canvasHeight).data;
         //convert imageData r, g, b, & alpha values into 8-character hexadecimal strings
+        const hexColorArray = this.convertImageDataToHexArray(imageData);
         //get the x & y coordinates for the area underneath the cursor
         //translate those x/y coordinates to the pixel's index in _imageData: _seedIndex
+        const clickedPixelIndex = evt.stageX + (evt.stageY * ppCanvasWidth);
         //get the color data for that pixel from _imageData: _seedColor
-        //create two arrays: _parentArray and a child array with _seedIndex inside it
-        //Begin a recursive function
-        //The last array in _parentArray will be: _latestArray
-        // that first reads the last array in _parentArray
-        //if the length of _latestArray is 0 the recursive function ends
-        //otherwise
-        //create a new array: _currentArray
-        //loop through the values in _latestArray treating each as an index in _imageData
-        //referring to each value in turn as _currentIndex
-        //check the hex strings of the four adjacent pixels to _currentIndex to see if they match _seedColor
-        //(_currentIndex - canvas.width, _currentIndex - 1, _currentIndex + 1 and _currentIndex + canvas.width)
-        //if any match, push that index to _currentArray
-        //push _currentArray to _parentArray and start the recursive function over again
+        const seedColor = hexColorArray(clickedPixelIndex);
+        const newArray = this.fillInArray(clickedPixelIndex, seedColor, hexColorArray, canvasWidth);
+    },
 
-        //if at any time, at the end of a loop, the new array is empty then stop
-        //then merge all arrays and remove any duplicate values
-        //convert the hex values of any of the indexes to match the desired color
-        //revert all hex values to comma separated rgba values
-        //overwrite the canvas' imageData with _imageData
+    convertImageDataToHexArray(imageData) {
+        let i, hexValue;
+        const _imageHexData = [];
+        for (i = 0; i < imageData.length; i += 4) {
+            hexValue = (i).toString(16) + (i + 1).toString(16) + (i + 2).toString(16) + (i + 3).toString(16);
+            console.log(hexValue);
+            _imageHexData.push(hexValue);
+        }
 
+        return _imageHexData;
+    },
+
+    getClickedPixelIndex(xCoord, yCoord) {
+        const canvasWidth = stage.canvas.width;
+        return xCoord + (yCoord * canvasWidth);
     },
 
 
-    saveImageAsJPEG() {
-        const img = new Image();
-        img.src = stage.toDataURL('#FFFFFF', "image/jpeg");
-        img.name = `${Date.now()}.jpg`;
-        return img;
+    fillInArray(startingIndex, seedColor, hexColorArray, canvasWidth) {
+        const pA = [[startingIndex]];
+        const targetColor = this.props.selectedColor + 'FF';
+
+        //while the last array in pA isn't empty
+        while (pA.slice(-1)[0].length > 0) {
+            const currentArray = [];
+            const lastArray = pA.slice(-1);
+            //loop through all index values in the last array
+            for (let i = 0; i < lastArray.length; i++) {
+                //create variables whose values are the indexes of the adjacent pixels
+                const topIndex = i - canvasWidth,
+                    bottomIndex = i + canvasWidth,
+                    leftIndex = i - 1,
+                    rightIndex = i + 1;
+
+                //if any of the value of the hexColor in hexColorArray at these indexes matches the seed color
+                //add that index to the currentArray
+                if (hexColorArray[topIndex] === seedColor) {currentArray.push(topIndex) }
+                if (hexColorArray[bottomIndex] === seedColor) { currentArray.push(bottomIndex) }
+                if (hexColorArray[leftIndex] === seedColor) { currentArray.push(leftIndex) }
+                if (hexColorArray[rightIndex] === seedColor) { currentArray.push(rightIndex) }
+            }
+
+            //After looping through all the values in lastArray, push currentArray to pA
+            pA.push(currentArray);
+        }
+
+        //Merge all child arrays of pA, eliminating duplicate values
+        const affectedArray = _.uniq(_.flattenDeep(pA));
+
+        //change the values at those indexes in hexColorArray to match seedColor
+        for (let i = 0; i < affectedArray.length; i++) {
+            hexColorArray[i] = targetColor;
+        }
+
+        return hexColorArray;
+
+    //create two arrays: _parentArray and a child array with _seedIndex inside it
+    //The last array in _parentArray will be: _latestArray
+    //Begin a recursive function
+    //that first reads the last array in _parentArray
+    //if the length of _latestArray is 0 the recursive function ends
+    //otherwise
+    //create a new array: _currentArray
+    //loop through the values in _latestArray treating each as an index in _imageData
+    //referring to each value in turn as _currentIndex
+    //check the hex strings of the four adjacent pixels to _currentIndex to see if they match _seedColor
+    //(_currentIndex - canvas.width, _currentIndex - 1, _currentIndex + 1 and _currentIndex + canvas.width)
+    //if any match, push that index to _currentArray
+    //push _currentArray to _parentArray and start the recursive function over again
+
+    //if at any time, at the end of a loop, the new array is empty then stop
+    //then merge all arrays and remove any duplicate values
+    //convert the hex values of any of the indexes to match the desired color
+    //revert all hex values to comma separated rgba values
+    //overwrite the canvas' imageData with _imageData
     },
+
 
     render () {
         return (
