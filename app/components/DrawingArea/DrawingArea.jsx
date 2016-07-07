@@ -100,10 +100,16 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
             stage.clear();
             stage.removeChild(title);
         }
-        stroke = this.props.brushWidth;
+
         oldPt = new EaselJS.Point(stage.mouseX, stage.mouseY);
-        oldMidPt = oldPt.clone();
-        stage.addEventListener("stagemousemove", this.handleMouseMove);
+
+        if (this.props.selectedTool === 'brush') {
+            stroke = this.props.brushWidth;
+            oldMidPt = oldPt.clone();
+            stage.addEventListener("stagemousemove", this.handleMouseMove);
+        } else if (this.props.selectedTool === 'bucket') {
+            this.fill(oldPt);
+        }
     },
 
     handleMouseMove(event) {
@@ -135,7 +141,7 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
         stage.removeEventListener("stagemousemove", this.handleMouseMove);
     },
 
-    fill(evt) {
+    fill(seedPixel) {
         //TODO: check targetColor against selectedColor
         const ppCanvas = stage.canvas;
         const canvasWidth = ppCanvas.width;
@@ -143,20 +149,21 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
         //get copy of imageData for the canvas: _imageData
         const imageData = ppCanvas.getContext('2d').getImageData(0,0,canvasWidth,canvasHeight).data;
         //convert imageData r, g, b, & alpha values into 8-character hexadecimal strings
-        const hexColorArray = this.convertImageDataToHexArray(imageData);
+        /* const hexColorArray = this.convertImageDataToHexArray(imageData); */
         //get the x & y coordinates for the area underneath the cursor
         //translate those x/y coordinates to the pixel's index in _imageData: _seedIndex
-        const clickedPixelIndex = evt.stageX + (evt.stageY * ppCanvasWidth);
-        //get the color data for that pixel from _imageData: _seedColor
-        const seedColor = hexColorArray(clickedPixelIndex);
-        const newArray = this.fillInArray(clickedPixelIndex, seedColor, hexColorArray, canvasWidth);
+        const clickedPixelIndex = seedPixel.stageX + (seedPixel.stageY * canvasWidth);
+        const newArray = this.fillInArray(clickedPixelIndex, imageData, canvasWidth);
+        // for (let i = 0; i < imageData.length; i++) {
+        //     console.log(imageData.length === 6);
+        // }
     },
 
     convertImageDataToHexArray(imageData) {
         let i, hexValue;
         const _imageHexData = [];
         for (i = 0; i < imageData.length; i += 4) {
-            hexValue = (i).toString(16) + (i + 1).toString(16) + (i + 2).toString(16) + (i + 3).toString(16);
+            hexValue = this.createPaddedHexValue(imageData, i);
             console.log(hexValue);
             _imageHexData.push(hexValue);
         }
@@ -164,15 +171,42 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
         return _imageHexData;
     },
 
+    createPaddedHexValue(imgData, indx) {
+        let paddedHexValue = '';
+        for (var i = 0; i < 4; i++) {
+            let hx = imgData[indx + i].toString(16);
+            paddedHexValue += (hx.length === 2) ? hx : '0' + hx;
+        }
+
+        return paddedHexValue;
+    },
+
     getClickedPixelIndex(xCoord, yCoord) {
         const canvasWidth = stage.canvas.width;
         return xCoord + (yCoord * canvasWidth);
     },
 
+    checkPixelForMatch(hexColorArray, pixelIndex, seedColor, targetColor) {
+        let pxIndex;
+        if (hexColorArray[pixelIndex] === seedColor) {
+            hexColorArray[pixelIndex] = targetColor;
+            pxIndex = pixelIndex;
+        }
 
-    fillInArray(startingIndex, seedColor, hexColorArray, canvasWidth) {
+        return pxIndex;
+    },
+
+
+
+
+    fillInArray(startingIndex, imageData, canvasWidth) {
         const pA = [[startingIndex]];
+        //TODO: Convert targetColor to a 4 item array.
         const targetColor = this.props.selectedColor + 'FF';
+        //get the color data for that pixel from _imageData: _seedColor
+        const seedColor = hexColorArray(clickedPixelIndex);
+
+        if (seedColor === targetColor) { return false; }
 
         //while the last array in pA isn't empty
         while (pA.slice(-1)[0].length > 0) {
@@ -180,6 +214,7 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
             const lastArray = pA.slice(-1);
             //loop through all index values in the last array
             for (let i = 0; i < lastArray.length; i++) {
+                hexColorArray[i] = targetColor;
                 //create variables whose values are the indexes of the adjacent pixels
                 const topIndex = i - canvasWidth,
                     bottomIndex = i + canvasWidth,
@@ -201,10 +236,10 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
         //Merge all child arrays of pA, eliminating duplicate values
         const affectedArray = _.uniq(_.flattenDeep(pA));
 
-        //change the values at those indexes in hexColorArray to match seedColor
-        for (let i = 0; i < affectedArray.length; i++) {
-            hexColorArray[i] = targetColor;
-        }
+        // //change the values at those indexes in hexColorArray to match seedColor
+        // for (let i = 0; i < affectedArray.length; i++) {
+        //     hexColorArray[i] = targetColor;
+        // }
 
         return hexColorArray;
 
