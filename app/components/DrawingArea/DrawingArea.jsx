@@ -4,7 +4,8 @@ import _ from 'lodash';
 import './DrawingArea.scss';
 
 const EaselJS = window.createjs;
-let stage, canvas, drawingCanvas, stroke, title, oldPt, oldMidPt;
+let stage, canvas, drawingCanvas, stroke, title, oldPt, oldMidPt,
+    canvasWidth, canvasHeight, imgData, seedColor, fillColor;
 
 /**
  * DrawingArea class.
@@ -23,8 +24,8 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
     propTypes: {
         brushThickness: React.PropTypes.number,
         brushWidth: React.PropTypes.number,
-        canvasHeight: React.PropTypes.string,
-        canvasWidth: React.PropTypes.string,
+        canvasHeight: React.PropTypes.number,
+        canvasWidth: React.PropTypes.number,
         clearNow: React.PropTypes.bool,
         onCleared: React.PropTypes.func,
         onSaved: React.PropTypes.func,
@@ -34,8 +35,8 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
 
     getDefaultProps() {
         return {
-            canvasWidth: '900',
-            canvasHeight: '520',
+            canvasWidth: 900,
+            canvasHeight: 520,
             brushThickness: 30,
             selectedColor: '#000000'
         }
@@ -65,6 +66,8 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
 
     configureCanvasAndStage () {
         canvas = this.refs.drawingArea;
+        canvasWidth = this.props.canvasWidth;
+        canvasHeight = this.props.canvasHeight;
 
         //check to see if we are running in a browser with touch support
         stage = new EaselJS.Stage(canvas);
@@ -108,7 +111,9 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
             oldMidPt = oldPt.clone();
             stage.addEventListener("stagemousemove", this.handleMouseMove);
         } else if (this.props.selectedTool === 'bucket') {
+            console.time('fill');
             this.fill(oldPt);
+            console.timeEnd('fill');
         }
     },
 
@@ -142,126 +147,85 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
     },
 
     fill(seedPixel) {
-        //TODO: check targetColor against selectedColor
-        const ppCanvas = stage.canvas;
-        const canvasWidth = ppCanvas.width;
-        const canvasHeight = ppCanvas.height;
-        //get copy of imageData for the canvas: _imageData
-        const imageData = ppCanvas.getContext('2d').getImageData(0,0,canvasWidth,canvasHeight).data;
-        //convert imageData r, g, b, & alpha values into 8-character hexadecimal strings
-        /* const hexColorArray = this.convertImageDataToHexArray(imageData); */
-        //get the x & y coordinates for the area underneath the cursor
-        //translate those x/y coordinates to the pixel's index in _imageData: _seedIndex
-        const clickedPixelIndex = seedPixel.stageX + (seedPixel.stageY * canvasWidth);
-        const newArray = this.fillInArray(clickedPixelIndex, imageData, canvasWidth);
-        // for (let i = 0; i < imageData.length; i++) {
-        //     console.log(imageData.length === 6);
-        // }
-    },
+        //set imgData for the canvas (the resulting array should never be longer than 1,872,000);
+        const ctx =stage.canvas.getContext('2d');
+        imgData = Array.from(ctx.getImageData(0, 0, canvasWidth, canvasHeight).data);
+        console.log(_.sortedUniq(imgData));
+        // _.chunk(imgData, 4);
+        const seedPixelIndex = this.getClickedPixelIndex(seedPixel.x, seedPixel.y);
+        this.fillInArray(seedPixelIndex, imgData, canvasWidth);
+        window.setTimeout(function() {
 
-    convertImageDataToHexArray(imageData) {
-        let i, hexValue;
-        const _imageHexData = [];
-        for (i = 0; i < imageData.length; i += 4) {
-            hexValue = this.createPaddedHexValue(imageData, i);
-            console.log(hexValue);
-            _imageHexData.push(hexValue);
-        }
-
-        return _imageHexData;
-    },
-
-    createPaddedHexValue(imgData, indx) {
-        let paddedHexValue = '';
-        for (var i = 0; i < 4; i++) {
-            let hx = imgData[indx + i].toString(16);
-            paddedHexValue += (hx.length === 2) ? hx : '0' + hx;
-        }
-
-        return paddedHexValue;
+        const newImageData = new ImageData(Uint8ClampedArray.from(imgData), canvasWidth, canvasHeight);
+        ctx.putImageData(newImageData, 0, 0);
+        }, 4000)
     },
 
     getClickedPixelIndex(xCoord, yCoord) {
-        const canvasWidth = stage.canvas.width;
         return xCoord + (yCoord * canvasWidth);
     },
 
-    checkPixelForMatch(hexColorArray, pixelIndex, seedColor, targetColor) {
-        let pxIndex;
-        if (hexColorArray[pixelIndex] === seedColor) {
-            hexColorArray[pixelIndex] = targetColor;
-            pxIndex = pixelIndex;
-        }
-
-        return pxIndex;
+    convertToRGB(hexColorValue) {
+        //hexColorValue must be #rrggbb
+        var hex = parseInt(hexColorValue.substring(1), 16);
+        var r = (hex & 0xff0000) >> 16;
+        var g = (hex & 0x00ff00) >> 8;
+        var b = hex & 0x0000ff;
+        return [r, g, b];
     },
 
+    matchesSeedColor(pxIndex) {
+        if (pxIndex > canvasWidth * canvasHeight) {
+            debugger;
+        }
+        const imgDataIndex = pxIndex * 4;
+        if (_.isEqual(imgData.slice(imgDataIndex, imgDataIndex + 3), seedColor)) {
+            imgData.splice(imgDataIndex, 4, fillColor[0], fillColor[1], fillColor[2], 255);
+            return true;
+        }
+        return false;
+    },
 
-
-
-    fillInArray(startingIndex, imageData, canvasWidth) {
-        const pA = [[startingIndex]];
-        //TODO: Convert targetColor to a 4 item array.
-        const targetColor = this.props.selectedColor + 'FF';
-        //get the color data for that pixel from _imageData: _seedColor
-        const seedColor = hexColorArray(clickedPixelIndex);
-
-        if (seedColor === targetColor) { return false; }
+    fillInArray(seedPxIndex) {
+        const pA = [[seedPxIndex]];
+        //Convert the selected color to an array of [R, G, B].
+        fillColor = this.convertToRGB(this.props.selectedColor);
+        //get the color data for that pixel from imgData
+        seedColor = imgData.slice(seedPxIndex, seedPxIndex + 3);
+        //if the target pixel is already the target color, exit
+        if (_.isEqual(seedColor, fillColor)) {
+            return false;
+        }
 
         //while the last array in pA isn't empty
         while (pA.slice(-1)[0].length > 0) {
-            const currentArray = [];
-            const lastArray = pA.slice(-1);
+            const currentArrayOfIndexes = [];
+            const lastArrayOfIndexes = pA.slice(-1)[0];
             //loop through all index values in the last array
-            for (let i = 0; i < lastArray.length; i++) {
-                hexColorArray[i] = targetColor;
+            for (let i = 0; i < lastArrayOfIndexes.length; i++) {
                 //create variables whose values are the indexes of the adjacent pixels
-                const topIndex = i - canvasWidth,
-                    bottomIndex = i + canvasWidth,
-                    leftIndex = i - 1,
-                    rightIndex = i + 1;
+                const topPxIndex = lastArrayOfIndexes[i] - canvasWidth,
+                    bottomPxIndex = lastArrayOfIndexes[i] + canvasWidth,
+                    leftPxIndex = lastArrayOfIndexes[i] - 1,
+                    rightPxIndex = lastArrayOfIndexes[i] + 1;
 
-                //if any of the value of the hexColor in hexColorArray at these indexes matches the seed color
-                //add that index to the currentArray
-                if (hexColorArray[topIndex] === seedColor) {currentArray.push(topIndex) }
-                if (hexColorArray[bottomIndex] === seedColor) { currentArray.push(bottomIndex) }
-                if (hexColorArray[leftIndex] === seedColor) { currentArray.push(leftIndex) }
-                if (hexColorArray[rightIndex] === seedColor) { currentArray.push(rightIndex) }
+                if (this.matchesSeedColor(topPxIndex)) {
+                    currentArrayOfIndexes.push(topPxIndex)
+                }
+                if (this.matchesSeedColor(bottomPxIndex)) {
+                    currentArrayOfIndexes.push(bottomPxIndex)
+                }
+                if (this.matchesSeedColor(leftPxIndex)) {
+                    currentArrayOfIndexes.push(leftPxIndex)
+                }
+                if (this.matchesSeedColor(rightPxIndex)) {
+                    currentArrayOfIndexes.push(rightPxIndex)
+                }
             }
 
-            //After looping through all the values in lastArray, push currentArray to pA
-            pA.push(currentArray);
+            //After looping through all the values in lastArrayOfIndexes, push currentArray to pA
+            pA.push(currentArrayOfIndexes);
         }
-
-        //Merge all child arrays of pA, eliminating duplicate values
-        const affectedArray = _.uniq(_.flattenDeep(pA));
-
-        // //change the values at those indexes in hexColorArray to match seedColor
-        // for (let i = 0; i < affectedArray.length; i++) {
-        //     hexColorArray[i] = targetColor;
-        // }
-
-        return hexColorArray;
-
-    //create two arrays: _parentArray and a child array with _seedIndex inside it
-    //The last array in _parentArray will be: _latestArray
-    //Begin a recursive function
-    //that first reads the last array in _parentArray
-    //if the length of _latestArray is 0 the recursive function ends
-    //otherwise
-    //create a new array: _currentArray
-    //loop through the values in _latestArray treating each as an index in _imageData
-    //referring to each value in turn as _currentIndex
-    //check the hex strings of the four adjacent pixels to _currentIndex to see if they match _seedColor
-    //(_currentIndex - canvas.width, _currentIndex - 1, _currentIndex + 1 and _currentIndex + canvas.width)
-    //if any match, push that index to _currentArray
-    //push _currentArray to _parentArray and start the recursive function over again
-
-    //if at any time, at the end of a loop, the new array is empty then stop
-    //then merge all arrays and remove any duplicate values
-    //convert the hex values of any of the indexes to match the desired color
-    //revert all hex values to comma separated rgba values
-    //overwrite the canvas' imageData with _imageData
     },
 
 
