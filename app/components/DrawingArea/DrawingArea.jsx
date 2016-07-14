@@ -31,7 +31,8 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
         onCleared: React.PropTypes.func,
         onSaved: React.PropTypes.func,
         saveNow: React.PropTypes.bool,
-        selectedColor: React.PropTypes.string
+        selectedColor: React.PropTypes.string,
+        selectedTool: React.PropTypes.string
     },
 
     getDefaultProps() {
@@ -49,7 +50,6 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
      * @method render
      * @return {ReactElement}
      */
-
     componentDidMount () {
         this.configureCanvasAndStage();
     },
@@ -112,9 +112,9 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
             oldMidPt = oldPt.clone();
             stage.addEventListener("stagemousemove", this.handleMouseMove);
         } else if (this.props.selectedTool === 'bucket') {
-            console.time('fill');
+            console.time('replacePixelData');
             this.floodFill(oldPt);
-            console.timeEnd('fill');
+            console.timeEnd('replacePixelData');
         }
     },
 
@@ -147,82 +147,51 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
         stage.removeEventListener("stagemousemove", this.handleMouseMove);
     },
 
-    /*
-     fill(seedPixel) {
-     let pixelStack = [[seedPixel.x, seedPixel.y]];
-     const ctx = stage.canvas.getContext('2d');
-     imgData = ctx.getImageData(0, 0, canvasWidth, canvasHeight).data;
-
-     while (pixelStack.length) {
-     var newPos, x, y, pixelPos, reachLeft, reachRight;
-     newPos = pixelStack.pop();
-     x = newPos[0];
-     y = newPos[1];
-
-     pixelPos = (y * canvasWidth + x) * 4;
-     while (y-- >= drawingBoundTop && this.matchStartColor(pixelPos)) {
-     pixelPos -= canvasWidth * 4;
-     }
-     pixelPos += canvasWidth * 4;
-     ++y;
-     reachLeft = false;
-     reachRight = false;
-     while (y++ < canvasHeight - 1 && this.matchStartColor(pixelPos)) {
-     this.colorPixel(pixelPos);
-
-     if (x > 0) {
-     if (this.matchStartColor(pixelPos - 4)) {
-     if (!reachLeft) {
-     pixelStack.push([x - 1, y]);
-     reachLeft = true;
-     }
-     }
-     else if (reachLeft) {
-     reachLeft = false;
-     }
-     }
-
-     if (x < canvasWidth - 1) {
-     if (this.matchStartColor(pixelPos + 4)) {
-     if (!reachRight) {
-     pixelStack.push([x + 1, y]);
-     reachRight = true;
-     }
-     }
-     else if (reachRight) {
-     reachRight = false;
-     }
-     }
-
-     pixelPos += canvasWidth * 4;
-     }
-     }
-
-     ctx.putImageData(colorLayer, 0, 0);
-     },
+    /**
+     * After the canvas has been clicked on with the Fill/Bucket tool take several steps
+     * 1. Extract the ImageData from the canvas (imgData)
+     * 2. Determine the color of the pixel clicked on (startColor)
+     * 3. Get the color of the color currently selected in the color palette (fillColor)
+     * 4. Verify that the startColor and fillColor don't match -- exit the method if they do
+     * 5. Call a method that will
+     *  a. Fill the pixel initially clicked on (startPixel) with the fillColor
+     *  b. Add horizontally and vertically adjacent pixels that match the startColor to an array (stack)
+     * 6. Loop through stack so long as it has children and pass each child to the method in 5
+     * 7. When there are no more children in stack replace the canvas' imageData with the updated imgData
+     * @param startPixel
+     * @returns {boolean}
      */
-
     floodFill(startPixel) {
         const ctx = stage.canvas.getContext('2d');
         imgData = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
         startColor = this.getPixelColor(startPixel.x, startPixel.y);
         fillColor = this.convertHexToRGB(this.props.selectedColor);
 
+        if (_.isEqual(startColor, fillColor)) {
+            return false;
+        }
+
         this.fillPixel(startPixel.x, startPixel.y);
 
-        if (stack.length === 0) { debugger }
         while (stack.length > 0) {
             const toFill = stack.pop();
             this.fillPixel(toFill[0], toFill[1]);
         }
 
         ctx.putImageData(imgData, 0, 0);
-        stage.updateContext(ctx);
     },
 
+    /**
+     * 1. Check if the color of the pixel at the passed coordinates matches the color of the starting pixel
+     * 2. If so, fill it in with the color currently selected in the color palette
+     * 3. Check if each vertically and horizontally adjacent pixel's color matches the starting pixel's color
+     * 4. For each that matches, push an array with that pixel's x & y coords into the stack array
+     * @param x
+     * @param y
+     */
     fillPixel(x, y) {
         if (this.matchesStartPixelColor(x, y)) {
-            this.fill(x, y)
+            this.replacePixelData(x, y)
         }
 
         if (this.matchesStartPixelColor(x, y - 1)) {
@@ -242,8 +211,12 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
         }
     },
 
-        // this function will actually change the color of our box
-    fill (x, y) {
+    /**
+     * Updates data for re-colored pixel in imgData
+     * @param x
+     * @param y
+     */
+    replacePixelData (x, y) {
         const pxIndex = this.getPixelIndex(x, y);
         imgData.data[pxIndex] = fillColor[0];
         imgData.data[pxIndex + 1] = fillColor[1];
@@ -259,56 +232,51 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
      */
     matchesStartPixelColor (x, y) {
         const pxIndex = this.getPixelIndex(x, y);
-        var r = imgData.data[pxIndex];
-        var g = imgData.data[pxIndex + 1];
-        var b = imgData.data[pxIndex + 2];
+        const r = imgData.data[pxIndex];
+        const g = imgData.data[pxIndex + 1];
+        const b = imgData.data[pxIndex + 2];
 
         return (r === startColor[0] && g === startColor[1] && b === startColor[2]);
     },
 
+    /**
+     * Locates the starting index of the data for the target pixel in the imgData array
+     * This index is found by treating the image as though each row of pixels was arranged end-to-end
+     * and then multiplying that number by 4. The multiplier of 4 is used because for each pixel in the image
+     * there are four corresponding entries in the imgData array: one each for red, green, blue & alpha.
+     * @param pixelX
+     * @param pixelY
+     * @returns {number}
+     */
     getPixelIndex (pixelX, pixelY) {
-        return pixelX + (pixelY * canvasWidth) * 4;
+        return (pixelX + (pixelY * canvasWidth)) * 4;
     },
 
+    /**
+     * Returns an array with a length of 4 containing a value for each
+     * of red, blue, green & alpha, represented as a range between 0-255.
+     * @param pixelX
+     * @param pixelY
+     * @returns {*[]}
+     */
     getPixelColor (pixelX, pixelY) {
         const pxIndex = this.getPixelIndex(pixelX, pixelY);
         return [imgData.data[pxIndex], imgData.data[pxIndex + 1], imgData.data[pxIndex + 2]];
     },
 
+    /**
+     * Converts a hexadecimal color value to rgb values.
+     * The hex color value must be in the form #rrggbb.
+     * @param hexColorValue
+     * @returns {*[]}
+     */
     convertHexToRGB(hexColorValue) {
-        //hexColorValue must be #rrggbb
-        var hex = parseInt(hexColorValue.substring(1), 16);
-        var r = (hex & 0xff0000) >> 16;
-        var g = (hex & 0x00ff00) >> 8;
-        var b = hex & 0x0000ff;
+        const hex = parseInt(hexColorValue.substring(1), 16);
+        const r = (hex & 0xff0000) >> 16;
+        const g = (hex & 0x00ff00) >> 8;
+        const b = hex & 0x0000ff;
         return [r, g, b];
     },
-
-/*    colorPixel(pixelPos) {
-        imgData[pixelPos] = fillColor[0];
-        imgData[pixelPos + 1] = fillColor[1];
-        imgData[pixelPos + 2] = fillColor[2];
-        imgData[pixelPos + 3] = 255;
-    },
-
-    //set imgData for the canvas (the resulting array should never be longer than 1,872,000);
-
-    getClickedPixelIndex(xCoord, yCoord) {
-        return xCoord + (yCoord * canvasWidth);
-    },
-
-    matchesSeedColor(pxIndex) {
-        if (pxIndex > canvasWidth * canvasHeight) {
-            debugger;
-        }
-        const imgDataIndex = pxIndex * 4;
-        if (_.isEqual(imgData.slice(imgDataIndex, imgDataIndex + 3), seedColor)) {
-            imgData.splice(imgDataIndex, 4, fillColor[0], fillColor[1], fillColor[2], 255);
-            return true;
-        }
-        return false;
-    },
-    */
 
     render() {
         return (
