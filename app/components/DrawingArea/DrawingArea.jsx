@@ -6,7 +6,7 @@ import './DrawingArea.scss';
 const EaselJS = window.createjs;
 const stack = [];
 let stage, canvas, drawingCanvas, stroke, title, oldPt, oldMidPt,
-    canvasWidth, canvasHeight, imgData, startColor, newColor;
+    canvasWidth, canvasHeight, imgData, startColor, fillColor;
 
 /**
  * DrawingArea class.
@@ -204,75 +204,97 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
 
     floodFill(startPixel) {
         const ctx = stage.canvas.getContext('2d');
-        imgData = ctx.getImageData(0, 0, canvasWidth, canvasHeight).data;
-        startColor =
+        imgData = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
+        startColor = this.getPixelColor(startPixel.x, startPixel.y);
+        fillColor = this.convertHexToRGB(this.props.selectedColor);
 
         this.fillPixel(startPixel.x, startPixel.y);
 
+        if (stack.length === 0) { debugger }
         while (stack.length > 0) {
             const toFill = stack.pop();
             this.fillPixel(toFill[0], toFill[1]);
         }
+
+        ctx.putImageData(imgData, 0, 0);
+        stage.updateContext(ctx);
     },
 
     fillPixel(x, y) {
-        if (!this.alreadyFilled(x, y)) {
+        if (this.matchesStartPixelColor(x, y)) {
             this.fill(x, y)
         }
 
-        if (!this.alreadyFilled(x, y - 1)) {
+        if (this.matchesStartPixelColor(x, y - 1)) {
             stack.push([x, y - 1])
         }
 
-        if (!this.alreadyFilled(x + 1, y)) {
+        if (this.matchesStartPixelColor(x + 1, y)) {
             stack.push([x + 1, y])
         }
 
-        if (!this.alreadyFilled(x, y + 1)) {
+        if (this.matchesStartPixelColor(x, y + 1)) {
             stack.push([x, y + 1])
         }
 
-        if (!this.alreadyFilled(x - 1, y)) {
+        if (this.matchesStartPixelColor(x - 1, y)) {
             stack.push([x - 1, y])
         }
     },
 
-    fill (x, y){
         // this function will actually change the color of our box
+    fill (x, y) {
+        const pxIndex = this.getPixelIndex(x, y);
+        imgData.data[pxIndex] = fillColor[0];
+        imgData.data[pxIndex + 1] = fillColor[1];
+        imgData.data[pxIndex + 2] = fillColor[2];
+        imgData.data[pxIndex + 3] = 255;
     },
 
-    alreadyFilled (x, y){
-        // this function checks to see if our square has been filled already
+    /**
+     * Checks to see if the target pixel matches the start color
+     * @param x
+     * @param y
+     * @returns {boolean}
+     */
+    matchesStartPixelColor (x, y) {
+        const pxIndex = this.getPixelIndex(x, y);
+        var r = imgData.data[pxIndex];
+        var g = imgData.data[pxIndex + 1];
+        var b = imgData.data[pxIndex + 2];
+
+        return (r === startColor[0] && g === startColor[1] && b === startColor[2]);
     },
 
-    matchStartColor(pixelPos) {
-        var r = colorLayer.data[pixelPos];
-        var g = colorLayer.data[pixelPos + 1];
-        var b = colorLayer.data[pixelPos + 2];
-
-        return (r == startR && g == startG && b == startB);
+    getPixelIndex (pixelX, pixelY) {
+        return pixelX + (pixelY * canvasWidth) * 4;
     },
 
-    colorPixel(pixelPos) {
-        colorLayer.data[pixelPos] = fillColorR;
-        colorLayer.data[pixelPos + 1] = fillColorG;
-        colorLayer.data[pixelPos + 2] = fillColorB;
-        colorLayer.data[pixelPos + 3] = 255;
+    getPixelColor (pixelX, pixelY) {
+        const pxIndex = this.getPixelIndex(pixelX, pixelY);
+        return [imgData.data[pxIndex], imgData.data[pxIndex + 1], imgData.data[pxIndex + 2]];
     },
 
-    //set imgData for the canvas (the resulting array should never be longer than 1,872,000);
-
-    getClickedPixelIndex(xCoord, yCoord) {
-        return xCoord + (yCoord * canvasWidth);
-    },
-
-    convertToRGB(hexColorValue) {
+    convertHexToRGB(hexColorValue) {
         //hexColorValue must be #rrggbb
         var hex = parseInt(hexColorValue.substring(1), 16);
         var r = (hex & 0xff0000) >> 16;
         var g = (hex & 0x00ff00) >> 8;
         var b = hex & 0x0000ff;
         return [r, g, b];
+    },
+
+/*    colorPixel(pixelPos) {
+        imgData[pixelPos] = fillColor[0];
+        imgData[pixelPos + 1] = fillColor[1];
+        imgData[pixelPos + 2] = fillColor[2];
+        imgData[pixelPos + 3] = 255;
+    },
+
+    //set imgData for the canvas (the resulting array should never be longer than 1,872,000);
+
+    getClickedPixelIndex(xCoord, yCoord) {
+        return xCoord + (yCoord * canvasWidth);
     },
 
     matchesSeedColor(pxIndex) {
@@ -286,6 +308,7 @@ const DrawingArea = React.createClass(/** @lends DrawingArea.prototype */{
         }
         return false;
     },
+    */
 
     render() {
         return (
