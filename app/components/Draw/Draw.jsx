@@ -125,7 +125,7 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
     validateDrawing(stageArea) {
         const ppCanvas = stageArea.canvas;
         const promptHasBeenRemoved = (stageArea.children.length === 1);
-        const imageDataArray = ppCanvas.getContext('2d').getImageData(0,0,ppCanvas.width,ppCanvas.height).data;
+        const imageDataArray = ppCanvas.getContext('2d').getImageData(0, 0, ppCanvas.width, ppCanvas.height).data;
         const canvasHasDrawing = imageDataArray.reduce((a, b) => a + b, 0) > 0;
 
         return (promptHasBeenRemoved && canvasHasDrawing);
@@ -200,7 +200,8 @@ const Draw = React.createClass(/** @lends Draw.prototype */{
                          toolSelectionHandler={this.onThicknessSelected} toolButtons={brushThickness}/>
                 <DrawingArea clearNow={this.state.needsToBeCleared} onCleared={this.onCanvasCleared}
                              saveNow={this.state.needsToBeSaved} onSaved={this.onDrawingCompleted}
-                             brushWidth={this.state.selectedThickness} selectedColor={this.state.selectedColor}/>
+                             brushWidth={this.state.selectedThickness} selectedTool={this.state.selectedTool}
+                             selectedColor={this.state.selectedColor}/>
                 <Toolbar toolType="colorPalette" toolbarName="color_palette" toolSelectionHandler={this.onColorSelected}
                          toolButtons={colors}/>
                 <div className="description-container">
